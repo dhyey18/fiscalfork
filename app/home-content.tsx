@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { Fragment, useState, type CSSProperties } from "react";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import HeroVideo from "./components/HeroVideo";
@@ -309,126 +309,174 @@ export default function Content() {
       <main id="top">
         {/* HERO */}
         <section
+          className="ff-hero"
           data-screen-label="Hero"
           aria-labelledby="hero-h"
-          style={{
-            position: "relative",
-            overflow: "hidden",
-            // Fallback behind the video, and what reduced-motion users see
-            // framing the poster.
-            background: "#0D1726",
-          }}
         >
           <style>{`
-            @keyframes ffHeroPulse { 0%,100% { opacity:1; transform:scale(1) } 50% { opacity:.55; transform:scale(1.35) } }
-            .ff-hero-dot::after { content:""; position:absolute; inset:-5px; border-radius:50%; background:inherit; animation:ffHeroPulse 2.4s ease-in-out infinite; }
-            @media (prefers-reduced-motion: reduce) { .ff-hero-dot::after { animation:none; display:none } }
-
-            /* Scrim over the footage. Video frames are unknowable, so the
-               opacity is set for the worst case — a pure white frame — and
-               checked to clear AA for every text colour used on top. It is
-               heaviest on the left, where the copy sits, and lifts towards the
-               right so the footage stays visible behind the card. */
-            .ff-hero-scrim {
-              position:absolute; inset:0; pointer-events:none;
-              background:linear-gradient(100deg,
-                rgba(13,23,38,0.93) 0%, rgba(13,23,38,0.90) 38%,
-                rgba(13,23,38,0.64) 68%, rgba(13,23,38,0.45) 100%);
+            /* The hero is one of two layouts.
+               Below 960px the footage sits behind the copy and a vertical scrim
+               does the work of keeping text readable.
+               From 960px it splits: the copy moves onto a solid ink panel, so
+               the footage no longer has to be dimmed to ~90% to stay legible
+               behind text — it plays at close to full strength in its own half,
+               and the panel gives every text colour a fixed, known background. */
+            .ff-hero {
+              position: relative; overflow: hidden; background: #0D1726;
+              display: grid; grid-template-columns: 1fr;
+              min-height: clamp(620px,90vh,980px);
             }
-            /* One column below 960px: the copy spans the full width, so the
-               gradient turns vertical and stays heavy throughout. */
-            @media (max-width: 960px) {
-              .ff-hero-scrim {
-                background:linear-gradient(180deg,
-                  rgba(13,23,38,0.88) 0%, rgba(13,23,38,0.92) 55%,
-                  rgba(13,23,38,0.95) 100%);
+            .ff-hero-media { position: absolute; inset: 0; }
+            .ff-hero-scrim {
+              position: absolute; inset: 0; pointer-events: none;
+              background: linear-gradient(180deg,
+                rgba(13,23,38,0.88) 0%, rgba(13,23,38,0.92) 55%,
+                rgba(13,23,38,0.95) 100%);
+            }
+            .ff-hero-blend { display: none; }
+            .ff-hero-panel {
+              position: relative; z-index: 2;
+              display: flex; flex-direction: column; justify-content: center;
+              padding: clamp(84px,11vw,120px) clamp(20px,5vw,48px) clamp(40px,5vw,56px);
+            }
+            .ff-hero-card {
+              position: relative; z-index: 3;
+              padding: 0 clamp(20px,5vw,48px) clamp(72px,9vw,96px);
+            }
+
+            @media (min-width: 960px) {
+              .ff-hero { grid-template-columns: 58% 42%; }
+              .ff-hero-media { position: relative; inset: auto; grid-column: 2; grid-row: 1; }
+              .ff-hero-scrim { display: none; }
+              /* Softens the cut where footage meets panel and keeps a light tint
+                 across it, so the two halves read as one composition. */
+              .ff-hero-blend {
+                display: block; position: absolute; inset: 0; pointer-events: none;
+                background: linear-gradient(90deg,
+                  rgba(13,23,38,0.96) 0%, rgba(13,23,38,0.45) 14%,
+                  rgba(13,23,38,0.10) 38%, rgba(13,23,38,0.24) 100%);
+              }
+              .ff-hero-panel {
+                grid-column: 1; grid-row: 1;
+                border-right: 1px solid rgba(201,163,92,0.35);
+                /* Right padding has to clear the card, which hangs ~16% of its
+                   own width back over the seam; at 960-1024px a smaller gutter
+                   let the headline collide with it. */
+                padding: clamp(96px,10vw,140px) clamp(88px,10vw,120px) clamp(96px,10vw,140px) 0;
+                /* Lines the copy up with the 1280 container the rest of the page
+                   uses, instead of drifting to the edge on wide monitors. */
+                margin-left: max(clamp(20px,5vw,48px), calc((100vw - 1280px) / 2 + 48px));
+              }
+              .ff-hero-card {
+                position: absolute; z-index: 3; padding: 0;
+                left: 58%; top: 50%; transform: translate(-16%,-50%);
+                width: min(372px,36vw);
               }
             }
           `}</style>
 
-          <HeroVideo
-            src="/7735854-hd_1920_1080_25fps.mp4"
-            posterName="hero"
-            sizes="100vw"
-          />
+          <div className="ff-hero-media">
+            <HeroVideo
+              src="/7735854-hd_1920_1080_25fps.mp4"
+              posterName="hero"
+              sizes="(max-width: 960px) 100vw, 46vw"
+            />
+            <div className="ff-hero-blend" aria-hidden="true" />
+          </div>
           <div className="ff-hero-scrim" aria-hidden="true" />
 
-          <div
-            style={{
-              position: "relative",
-              zIndex: 1,
-              maxWidth: 1280,
-              margin: "0 auto",
-              minHeight: "clamp(620px,88vh,960px)",
-              padding:
-                "clamp(72px,10vw,120px) clamp(20px,4vw,48px) clamp(72px,10vw,120px)",
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,460px),1fr))",
-              gap: "clamp(48px,6vw,80px)",
-              alignItems: "center",
-            }}
-          >
-          <div>
+          <div className="ff-hero-panel">
+            <div style={{ maxWidth: "min(620px,100%)" }}>
             <div
               style={{
-                display: "inline-flex",
+                display: "flex",
                 alignItems: "center",
-                gap: 10,
-                padding: "7px 14px 7px 8px",
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.12)",
-                border: "1px solid rgba(255,255,255,0.28)",
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
-                fontSize: 13,
-                color: "#F7F5F1",
-                marginBottom: 28,
+                gap: 14,
+                marginBottom: "clamp(26px,3vw,36px)",
               }}
             >
               <span
-                className="ff-hero-dot"
+                aria-hidden="true"
                 style={{
-                  position: "relative",
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  background: "#4FB183",
-                  marginLeft: 4,
+                  width: 46,
+                  height: 1,
+                  flex: "none",
+                  background: "rgba(201,163,92,0.85)",
                 }}
               />
-              Chartered Accountants · Audit, Tax &amp; Advisory
+              <span
+                style={{
+                  fontFamily: "'JetBrains Mono',monospace",
+                  fontSize: 11,
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "#C9A35C",
+                }}
+              >
+                Chartered Accountants
+              </span>
             </div>
+
             <h1
               id="hero-h"
               style={{
                 margin: 0,
                 fontWeight: 500,
-                fontSize: "clamp(44px,6.4vw,84px)",
-                lineHeight: 0.98,
-                letterSpacing: "-0.045em",
-                textWrap: "balance",
+                fontSize: "clamp(38px,4.2vw,60px)",
+                lineHeight: 1.04,
+                letterSpacing: "-0.035em",
                 color: "#FFFFFF",
               }}
             >
-              {"Rigorous Audit. Assured Compliance. "}
-              <span style={{ ...serif, color: "#C9A35C" }}>Trusted Counsel.</span>
+              Rigorous audit.
+              <br />
+              Assured compliance.
+              <br />
+              <span
+                style={{
+                  fontFamily: "'Newsreader',serif",
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                  letterSpacing: "-0.02em",
+                  color: "#C9A35C",
+                }}
+              >
+                Trusted counsel.
+              </span>
             </h1>
+
+            <div
+              aria-hidden="true"
+              style={{
+                width: 76,
+                height: 1,
+                background: "rgba(201,163,92,0.5)",
+                margin: "clamp(30px,3.4vw,40px) 0",
+              }}
+            />
+
             <p
               style={{
-                margin: "28px 0 0",
-                fontSize: "clamp(17px,1.5vw,20px)",
-                lineHeight: 1.55,
+                margin: 0,
+                fontSize: "clamp(16px,1.2vw,18px)",
+                lineHeight: 1.65,
                 color: "#C8CFD9",
-                maxWidth: 520,
+                maxWidth: 470,
                 textWrap: "pretty",
               }}
             >
-              Fiscal Fork is a firm of Chartered Accountants providing statutory
-              audit and assurance, taxation, regulatory compliance and business
-              advisory to companies, promoters and growing enterprises.
+              A firm of Chartered Accountants providing statutory audit and
+              assurance, taxation, regulatory compliance and business advisory to
+              companies, promoters and growing enterprises.
             </p>
+
             <div
-              style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 40 }}
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 12,
+                marginTop: "clamp(34px,4vw,44px)",
+              }}
             >
               <Hover
                 href="#consult"
@@ -438,7 +486,7 @@ export default function Content() {
                   gap: 10,
                   background: "#C9A35C",
                   color: "#0D1726",
-                  padding: "17px 26px",
+                  padding: "17px 28px",
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 600,
@@ -461,206 +509,207 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "rgba(255,255,255,0.08)",
+                  background: "transparent",
                   color: "#FFFFFF",
-                  padding: "17px 26px",
+                  padding: "17px 28px",
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 500,
                   border: "1px solid rgba(255,255,255,0.4)",
-                  backdropFilter: "blur(8px)",
-                  WebkitBackdropFilter: "blur(8px)",
                   transition: "background 200ms,transform 200ms,border-color 200ms",
                 }}
                 hoverStyle={{
-                  background: "rgba(255,255,255,0.18)",
+                  background: "rgba(255,255,255,0.12)",
                   color: "#FFFFFF",
-                  borderColor: "rgba(255,255,255,0.65)",
+                  borderColor: "rgba(255,255,255,0.7)",
                   transform: "translateY(-2px)",
                 }}
               >
                 Explore Services
               </Hover>
             </div>
+
+            {/* Practice areas, set like a letterhead rule rather than as feature
+                bullets — the credibility numbers live in the stats band below. */}
             <div
               style={{
                 display: "flex",
                 flexWrap: "wrap",
-                gap: "12px 28px",
-                marginTop: 44,
-                fontSize: 14,
-                color: "#C8CFD9",
+                alignItems: "center",
+                gap: "10px 16px",
+                marginTop: "clamp(44px,5vw,64px)",
+                paddingTop: "clamp(24px,3vw,32px)",
+                borderTop: "1px solid rgba(255,255,255,0.14)",
+                fontFamily: "'JetBrains Mono',monospace",
+                fontSize: 11,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: "#A8B2BF",
               }}
             >
-              {[
-                "Qualified Chartered Accountants",
-                "Statutory audit & assurance",
-                "Filed within statutory deadlines",
-              ].map((t) => (
-                <span
-                  key={t}
-                  style={{ display: "flex", alignItems: "center", gap: 10 }}
-                >
-                  <span
-                    aria-hidden="true"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flex: "none",
-                      width: 20,
-                      height: 20,
-                      borderRadius: "50%",
-                      background: "rgba(255,255,255,0.16)",
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    <Icon name="icon-check" style={{ fontSize: 12 }} />
-                  </span>
-                  {t}
-                </span>
-              ))}
+              {["Audit & Assurance", "Taxation", "Compliance", "Advisory"].map(
+                (t, i) => (
+                  <Fragment key={t}>
+                    {i > 0 ? (
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          width: 3,
+                          height: 3,
+                          borderRadius: "50%",
+                          background: "#C9A35C",
+                        }}
+                      />
+                    ) : null}
+                    <span>{t}</span>
+                  </Fragment>
+                ),
+              )}
+            </div>
             </div>
           </div>
 
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <div style={{ width: "min(400px,100%)" }}>
+          <div className="ff-hero-card">
+            <div
+              style={{
+                position: "relative",
+                overflow: "hidden",
+                background: "#FFFFFF",
+                borderRadius: 20,
+                border: "1px solid rgba(13,23,38,0.08)",
+                boxShadow:
+                  "0 40px 80px -28px rgba(0,0,0,0.55),0 10px 24px -8px rgba(0,0,0,0.3)",
+                padding: 24,
+              }}
+            >
+              <div
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 3,
+                  background: "linear-gradient(90deg,#17304A,#C9A35C)",
+                }}
+              />
               <div
                 style={{
-                  position: "relative",
-                  overflow: "hidden",
-                  background: "#FFFFFF",
-                  borderRadius: 22,
-                  border: "1px solid rgba(13,23,38,0.08)",
-                  boxShadow:
-                    "0 32px 70px -24px rgba(13,23,38,0.3),0 8px 20px -6px rgba(13,23,38,0.12)",
-                  padding: 24,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  gap: 16,
                 }}
               >
-                <div
-                  aria-hidden="true"
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: 3,
-                    background: "linear-gradient(90deg,#17304A,#C9A35C)",
-                  }}
-                />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    gap: 16,
-                  }}
-                >
-                  <div>
-                    <div style={{ fontSize: 13, color: "#676E78" }}>
-                      Compliance calendar · Q3
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 34,
-                        fontWeight: 500,
-                        letterSpacing: "-0.03em",
-                        marginTop: 6,
-                      }}
-                    >
-                      18 / 18
-                    </div>
-                  </div>
-                  <span
+                <div>
+                  <div
                     style={{
-                      fontSize: 13,
-                      fontWeight: 500,
-                      color: "#1F5C41",
-                      background: "#E4EDE7",
-                      padding: "6px 10px",
-                      borderRadius: 999,
-                      whiteSpace: "nowrap",
+                      fontFamily: "'JetBrains Mono',monospace",
+                      fontSize: 11,
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                      color: "#676E78",
                     }}
                   >
-                    All on time
-                  </span>
+                    Compliance calendar · Q3
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 34,
+                      fontWeight: 500,
+                      letterSpacing: "-0.03em",
+                      marginTop: 8,
+                    }}
+                  >
+                    18 / 18
+                  </div>
                 </div>
-                <div
-                  aria-hidden="true"
+                <span
                   style={{
-                    display: "flex",
-                    alignItems: "flex-end",
-                    gap: 8,
-                    height: 96,
-                    marginTop: 22,
-                    paddingBottom: 10,
-                    borderBottom: "1px solid rgba(13,23,38,0.08)",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: "#1F5C41",
+                    background: "#E4EDE7",
+                    padding: "6px 10px",
+                    borderRadius: 999,
+                    whiteSpace: "nowrap",
                   }}
                 >
-                  {bars.map((b, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        flex: 1,
-                        borderRadius: "6px 6px 2px 2px",
-                        height: b.h,
-                        background: b.c,
-                      }}
-                    />
-                  ))}
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 12,
-                    marginTop: 18,
-                    fontSize: 14,
-                  }}
-                >
-                  {(
+                  All on time
+                </span>
+              </div>
+              <div
+                aria-hidden="true"
+                style={{
+                  display: "flex",
+                  alignItems: "flex-end",
+                  gap: 8,
+                  height: 92,
+                  marginTop: 22,
+                  paddingBottom: 10,
+                  borderBottom: "1px solid rgba(13,23,38,0.08)",
+                }}
+              >
+                {bars.map((b, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      flex: 1,
+                      borderRadius: "6px 6px 2px 2px",
+                      height: b.h,
+                      background: b.c,
+                    }}
+                  />
+                ))}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 12,
+                  marginTop: 18,
+                  fontSize: 14,
+                }}
+              >
+                {(
+                  [
                     [
-                      [
-                        "icon-circle-check",
-                        "#276B4C",
-                        "Statutory audit signed off",
-                        "Sep 30",
-                      ],
-                      [
-                        "icon-circle-check",
-                        "#276B4C",
-                        "Quarterly return filed",
-                        "Oct 1",
-                      ],
-                      [
-                        "icon-clock",
-                        "#676E78",
-                        "Next statutory deadline",
-                        "Oct 15",
-                      ],
-                    ] as const
-                  ).map(([icon, color, label, date]) => (
-                    <div
-                      key={label}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        gap: 12,
-                      }}
-                    >
-                      <span
-                        style={{ display: "flex", alignItems: "center", gap: 10 }}
-                      >
-                        <Icon name={icon} style={{ color, fontSize: 17 }} />
-                        {label}
-                      </span>
-                      <span style={{ color: "#676E78" }}>{date}</span>
-                    </div>
-                  ))}
-                </div>
+                      "icon-circle-check",
+                      "#276B4C",
+                      "Statutory audit signed off",
+                      "Sep 30",
+                    ],
+                    [
+                      "icon-circle-check",
+                      "#276B4C",
+                      "Quarterly return filed",
+                      "Oct 1",
+                    ],
+                    [
+                      "icon-clock",
+                      "#676E78",
+                      "Next statutory deadline",
+                      "Oct 15",
+                    ],
+                  ] as const
+                ).map(([icon, color, label, date]) => (
+                  <div
+                    key={label}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      gap: 12,
+                    }}
+                  >
+                    <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <Icon name={icon} style={{ color, fontSize: 17 }} />
+                      {label}
+                    </span>
+                    <span style={{ color: "#676E78" }}>{date}</span>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
           </div>
         </section>
 
