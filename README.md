@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# fiscalfork
 
-## Getting Started
+The Fiscal Fork marketing site — a Next.js (App Router) port of the original
+static build, matched to it pixel for pixel.
 
-First, run the development server:
+## Running it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run build && npm start` for a production build. All six routes prerender as
+static pages.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Layout
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  page.tsx + home-content.tsx     /
+  about|services|industries|resources|contact/
+      page.tsx                    route metadata (server component)
+      content.tsx                 the page itself (client component)
+  components/SiteHeader.tsx       sticky nav, 960px mobile breakpoint
+  components/SiteFooter.tsx
+  lib/ui.tsx                      shared primitives (see below)
+  globals.css                     fonts + Lucide icon font, no utility framework
+public/fonts/                     Hanken Grotesk, Newsreader, JetBrains Mono, Lucide
+```
 
-## Learn More
+Each route is split into a server `page.tsx` that only exports `metadata` and a
+client `content.tsx` holding the markup and state.
 
-To learn more about Next.js, take a look at the following resources:
+## Conventions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+These are deliberate and load-bearing — the port was verified against the original
+by screenshot diffing at 390/768/1024/1280/1440px, so changing them will show up as
+visual drift.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Styling is inline `style={{}}`.** There is no Tailwind. `globals.css` is the
+  original stylesheet (25 `@font-face` rules, ~1540 icon glyph rules) with font URLs
+  rewritten to `/fonts/`.
+- **`Hover` and `useFocusStyle`** (in `lib/ui.tsx`) generate real
+  `.scp-*:hover { … !important }` stylesheet rules rather than swapping inline
+  styles from JS. `!important` is what lets them beat an element's own inline style.
+- **`ImageSlot`** stays in normal flow with `aspect-ratio: 3/2` and may stretch a
+  parent whose own aspect ratio is flatter. Do not make it `position: absolute`.
+- **`useReveal`** drives the home page's scroll fade-in. It re-observes every
+  still-pending element on each effect run (React StrictMode runs effects twice in
+  dev), and commits the hidden state with `transition: none` plus a forced reflow
+  before arming the transition, so elements already on screen start hidden instead
+  of fading out first.
+- **Text before an inline `<span>`** is written as one string literal
+  (`{"Some text "}`), never `Some text{" "}` — the latter splits the text node and
+  shifts the span by a subpixel.
+- **Internal links are plain `<a>`**, so navigation is a full page load as on the
+  original site. `@next/next/no-html-link-for-pages` is off in `eslint.config.mjs`
+  for that reason; switch to `next/link` if you want client-side routing.
 
-## Deploy on Vercel
+## Known issue
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Inside the contact form's two native `<select>` elements the button text sits 1px
+higher than the original at some viewport widths. Computed styles, fonts and box
+geometry are identical; it is a Chrome rendering artifact in the native widget.
