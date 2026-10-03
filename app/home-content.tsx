@@ -299,7 +299,7 @@ export default function Content() {
   void w;
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F6F5F0", overflowX: "hidden" }}>
+    <div style={{ minHeight: "100vh", background: "#F6F5F0", overflowX: "clip" }}>
       <SiteHeader current="Home" homeHref="#top" />
 
       <main id="top">

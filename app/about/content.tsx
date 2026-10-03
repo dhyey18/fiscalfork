@@ -77,7 +77,7 @@ export default function Content() {
   }));
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F6F5F0", overflowX: "hidden" }}>
+    <div style={{ minHeight: "100vh", background: "#F6F5F0", overflowX: "clip" }}>
       <SiteHeader current="About" />
 
       <main>
@@ -153,7 +153,7 @@ export default function Content() {
             gap: "clamp(20px,3vw,32px)",
           }}
         >
-          {founders.map((f) => (
+          {founders.map((f, i) => (
             <article
               key={f.hid}
               aria-labelledby={f.hid}
@@ -179,6 +179,7 @@ export default function Content() {
                 <Photo
                   name={f.photo}
                   sizes="(max-width: 860px) 100vw, 50vw"
+                  priority={i === 0}
                 />
                 <span
                   style={{

@@ -164,7 +164,7 @@ export default function Content() {
   );
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F6F5F0", overflowX: "hidden" }}>
+    <div style={{ minHeight: "100vh", background: "#F6F5F0", overflowX: "clip" }}>
       <SiteHeader current="Industries" />
 
       <main>
@@ -271,7 +271,7 @@ export default function Content() {
             gap: 20,
           }}
         >
-          {industries.map((d) => (
+          {industries.map((d, i) => (
             <article
               key={d.slug}
               id={d.slug}
@@ -298,6 +298,7 @@ export default function Content() {
                 <Photo
                   name={d.slug}
                   sizes="(max-width: 860px) 100vw, 50vw"
+                  priority={i === 0}
                 />
               </div>
               <div

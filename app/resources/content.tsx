@@ -115,7 +115,7 @@ export default function Content() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F6F5F0", overflowX: "hidden" }}>
+    <div style={{ minHeight: "100vh", background: "#F6F5F0", overflowX: "clip" }}>
       <SiteHeader current="Resources" />
 
       <main>
