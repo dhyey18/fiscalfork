@@ -288,10 +288,18 @@ export default function Content() {
   const card = showPhoto
     ? { left: "0", top: "100%", tf: "translateY(-100%)", w: "min(360px,88%)" }
     : { left: "50%", top: "50%", tf: "translate(-50%,-50%)", w: "min(440px,100%)" };
-  const bars = BAR_HEIGHTS.map((h, i) => ({
-    h: h + "%",
-    c: i === BAR_HEIGHTS.length - 1 ? "#1B2A4A" : i >= 6 ? "#278058" : "#D7DCE6",
-  }));
+  const bars = BAR_HEIGHTS.map((h, i) => {
+    const isFinal = i === BAR_HEIGHTS.length - 1;
+    const isRecent = i >= 6;
+    return {
+      h: h + "%",
+      c: isFinal
+        ? "linear-gradient(180deg,#24355C 0%,#1B2A4A 100%)"
+        : isRecent
+          ? "linear-gradient(180deg,#2FA36C 0%,#278058 100%)"
+          : "#D7DCE6",
+    };
+  });
   const current = PROBLEMS[active];
 
   // `w` drives the nav breakpoint inside SiteHeader; referenced here so the
@@ -308,6 +316,7 @@ export default function Content() {
           data-screen-label="Hero"
           aria-labelledby="hero-h"
           style={{
+            position: "relative",
             maxWidth: 1280,
             margin: "0 auto",
             padding:
@@ -318,7 +327,54 @@ export default function Content() {
             alignItems: "center",
           }}
         >
-          <div>
+          {/* Pulsing status dot — purely decorative, so motion is dropped
+              entirely under prefers-reduced-motion rather than just slowed. */}
+          <style>{`
+            @keyframes ffHeroPulse { 0%,100% { opacity:1; transform:scale(1) } 50% { opacity:.55; transform:scale(1.35) } }
+            .ff-hero-dot::after { content:""; position:absolute; inset:-5px; border-radius:50%; background:inherit; animation:ffHeroPulse 2.4s ease-in-out infinite; }
+            @media (prefers-reduced-motion: reduce) { .ff-hero-dot::after { animation:none; display:none } }
+          `}</style>
+
+          {/* Decorative backdrop: two soft out-of-focus glows, brand-colored but
+              low-opacity, sitting behind the content. position:absolute removes
+              these from the grid's auto-placement, so the two real columns
+              below are unaffected. */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              inset: 0,
+              overflow: "hidden",
+              pointerEvents: "none",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: "-12%",
+                right: "-10%",
+                width: "46%",
+                aspectRatio: "1",
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle,rgba(27,42,74,0.08) 0%,rgba(27,42,74,0) 72%)",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                bottom: "-18%",
+                left: "-8%",
+                width: "32%",
+                aspectRatio: "1",
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle,rgba(232,183,75,0.12) 0%,rgba(232,183,75,0) 72%)",
+              }}
+            />
+          </div>
+
+          <div style={{ position: "relative", zIndex: 1 }}>
             <div
               style={{
                 display: "inline-flex",
@@ -328,13 +384,16 @@ export default function Content() {
                 borderRadius: 999,
                 background: "#FBFCFE",
                 border: "1px solid rgba(11,21,38,0.1)",
+                boxShadow: "0 1px 2px rgba(11,21,38,0.04)",
                 fontSize: 13,
                 color: "#5B6472",
                 marginBottom: 28,
               }}
             >
               <span
+                className="ff-hero-dot"
                 style={{
+                  position: "relative",
                   width: 8,
                   height: 8,
                   borderRadius: "50%",
@@ -356,7 +415,25 @@ export default function Content() {
               }}
             >
               {"Clear Numbers. Smarter Decisions. "}
-              <span style={{ ...serif, color: "#1B2A4A" }}>Stronger Business.</span>
+              <span style={{ position: "relative", display: "inline-block" }}>
+                <span
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    zIndex: -1,
+                    left: "-3%",
+                    right: "-3%",
+                    bottom: "6%",
+                    height: "30%",
+                    borderRadius: 999,
+                    background:
+                      "linear-gradient(90deg,rgba(232,183,75,0.4),rgba(232,183,75,0.16))",
+                  }}
+                />
+                <span style={{ ...serif, color: "#1B2A4A" }}>
+                  Stronger Business.
+                </span>
+              </span>
             </h1>
             <p
               style={{
@@ -386,9 +463,15 @@ export default function Content() {
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 500,
-                  transition: "background 200ms",
+                  boxShadow: "0 10px 24px -8px rgba(27,42,74,0.4)",
+                  transition: "background 200ms,transform 200ms,box-shadow 200ms",
                 }}
-                hoverStyle={{ background: "#0B1526", color: "#F5F6F8" }}
+                hoverStyle={{
+                  background: "#0B1526",
+                  color: "#F5F6F8",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 16px 32px -8px rgba(11,21,38,0.45)",
+                }}
               >
                 {"Book a Consultation "}
                 <Icon name="icon-arrow-right" style={{ fontSize: 18 }} />
@@ -406,9 +489,14 @@ export default function Content() {
                   fontSize: 16,
                   fontWeight: 500,
                   border: "1px solid rgba(11,21,38,0.18)",
-                  transition: "background 200ms",
+                  transition: "background 200ms,transform 200ms,border-color 200ms",
                 }}
-                hoverStyle={{ background: "#FBFCFE", color: "#0B1526" }}
+                hoverStyle={{
+                  background: "#FBFCFE",
+                  color: "#0B1526",
+                  borderColor: "rgba(11,21,38,0.3)",
+                  transform: "translateY(-2px)",
+                }}
               >
                 Explore Services
               </Hover>
@@ -430,16 +518,37 @@ export default function Content() {
               ].map((t) => (
                 <span
                   key={t}
-                  style={{ display: "flex", alignItems: "center", gap: 8 }}
+                  style={{ display: "flex", alignItems: "center", gap: 10 }}
                 >
-                  <Icon name="icon-check" style={{ color: "#1B2A4A" }} />
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flex: "none",
+                      width: 20,
+                      height: 20,
+                      borderRadius: "50%",
+                      background: "#E7EAF2",
+                      color: "#1B2A4A",
+                    }}
+                  >
+                    <Icon name="icon-check" style={{ fontSize: 12 }} />
+                  </span>
                   {t}
                 </span>
               ))}
             </div>
           </div>
 
-          <div style={{ position: "relative", minHeight: "clamp(440px,48vw,600px)" }}>
+          <div
+            style={{
+              position: "relative",
+              zIndex: 1,
+              minHeight: "clamp(440px,48vw,600px)",
+            }}
+          >
             {showPhoto ? (
               <div
                 style={{
@@ -450,6 +559,9 @@ export default function Content() {
                   left: "clamp(0px,8%,64px)",
                   borderRadius: 28,
                   overflow: "hidden",
+                  border: "1px solid rgba(11,21,38,0.06)",
+                  boxShadow:
+                    "0 40px 70px -28px rgba(11,21,38,0.35),0 10px 24px -10px rgba(11,21,38,0.18)",
                   background:
                     "repeating-linear-gradient(135deg,#ECEEF3 0 12px,#E6E9EF 12px 24px)",
                 }}
@@ -473,14 +585,27 @@ export default function Content() {
             >
               <div
                 style={{
+                  position: "relative",
+                  overflow: "hidden",
                   background: "#FBFCFE",
                   borderRadius: 22,
                   border: "1px solid rgba(11,21,38,0.08)",
                   boxShadow:
-                    "0 24px 60px -20px rgba(11,21,38,0.25),0 2px 6px rgba(11,21,38,0.05)",
+                    "0 32px 70px -24px rgba(11,21,38,0.3),0 8px 20px -6px rgba(11,21,38,0.12)",
                   padding: 24,
                 }}
               >
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: 3,
+                    background: "linear-gradient(90deg,#1B2A4A,#E8B74B)",
+                  }}
+                />
                 <div
                   style={{
                     display: "flex",
