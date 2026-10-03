@@ -564,6 +564,10 @@ export default function Content() {
               <form
                 onSubmit={subscribe}
                 style={{ display: "flex", flexWrap: "wrap", gap: 10 }}
+                // See the longer note on the contact form: a password-manager /
+                // form-filler extension can stamp an attribute onto any <form>
+                // before hydration, which is real but inert markup.
+                suppressHydrationWarning
               >
                 <label
                   htmlFor="nl-email"

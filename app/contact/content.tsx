@@ -228,6 +228,13 @@ export default function Content() {
                 onSubmit={submit}
                 aria-labelledby="form-h"
                 style={{ display: "flex", flexDirection: "column", gap: 22 }}
+                // Form-filler / password-manager extensions (e.g. a "dv"-prefixed
+                // one) stamp attributes like data-dv-attached onto <form> before
+                // React hydrates. That's a real DOM difference, so React warns —
+                // but it's inert, extension-added markup, not app state, so we
+                // tell React not to flag it rather than silence hydration errors
+                // generally.
+                suppressHydrationWarning
               >
                 <h2
                   id="form-h"
