@@ -24,7 +24,7 @@ const colHead: React.CSSProperties = {
   fontWeight: 600,
   letterSpacing: "0.12em",
   textTransform: "uppercase",
-  color: "#0F1E1A",
+  color: "#0B1526",
   marginBottom: 6,
 };
 
@@ -55,7 +55,7 @@ export default function SiteFooter() {
         <div style={{ maxWidth: 300 }}>
           <a
             href="/"
-            style={{ display: "flex", alignItems: "center", gap: 10, color: "#0F1E1A" }}
+            style={{ display: "flex", alignItems: "center", gap: 10, color: "#0B1526" }}
           >
             <Logo />
           </a>
@@ -64,7 +64,7 @@ export default function SiteFooter() {
               margin: "18px 0 0",
               fontSize: 15,
               lineHeight: 1.6,
-              color: "#55625D",
+              color: "#5B6472",
             }}
           >
             Modern accounting, tax and financial advisory for businesses that want
@@ -78,8 +78,8 @@ export default function SiteFooter() {
             <Hover
               key={label}
               href={href}
-              style={{ color: "#55625D" }}
-              hoverStyle={{ color: "#0F1E1A" }}
+              style={{ color: "#5B6472" }}
+              hoverStyle={{ color: "#0B1526" }}
             >
               {label}
             </Hover>
@@ -92,8 +92,8 @@ export default function SiteFooter() {
             <Hover
               key={label}
               href={href}
-              style={{ color: "#55625D" }}
-              hoverStyle={{ color: "#0F1E1A" }}
+              style={{ color: "#5B6472" }}
+              hoverStyle={{ color: "#0B1526" }}
             >
               {label}
             </Hover>
@@ -104,22 +104,22 @@ export default function SiteFooter() {
           <div style={colHead}>Contact</div>
           <Hover
             href="mailto:hello@fiscalfork.com"
-            style={{ color: "#55625D", display: "flex", alignItems: "center", gap: 10 }}
-            hoverStyle={{ color: "#0F1E1A" }}
+            style={{ color: "#5B6472", display: "flex", alignItems: "center", gap: 10 }}
+            hoverStyle={{ color: "#0B1526" }}
           >
             <Icon name="icon-mail" />
             hello@fiscalfork.com
           </Hover>
           <Hover
             href="tel:+10000000000"
-            style={{ color: "#55625D", display: "flex", alignItems: "center", gap: 10 }}
-            hoverStyle={{ color: "#0F1E1A" }}
+            style={{ color: "#5B6472", display: "flex", alignItems: "center", gap: 10 }}
+            hoverStyle={{ color: "#0B1526" }}
           >
             <Icon name="icon-phone" />
             +1 (000) 000-0000
           </Hover>
           <span
-            style={{ color: "#55625D", display: "flex", alignItems: "center", gap: 10 }}
+            style={{ color: "#5B6472", display: "flex", alignItems: "center", gap: 10 }}
           >
             <Icon name="icon-map-pin" />
             City, Country
@@ -131,21 +131,21 @@ export default function SiteFooter() {
         style={{
           marginTop: 64,
           paddingTop: 24,
-          borderTop: "1px solid rgba(15,30,26,0.12)",
+          borderTop: "1px solid rgba(11,21,38,0.12)",
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-between",
           gap: "12px 24px",
           fontSize: 14,
-          color: "#55625D",
+          color: "#5B6472",
         }}
       >
         <span>© 2026 Fiscal Fork. All rights reserved.</span>
         <div style={{ display: "flex", gap: 24 }}>
-          <Hover href="#" style={{ color: "#55625D" }} hoverStyle={{ color: "#0F1E1A" }}>
+          <Hover href="#" style={{ color: "#5B6472" }} hoverStyle={{ color: "#0B1526" }}>
             Privacy Policy
           </Hover>
-          <Hover href="#" style={{ color: "#55625D" }} hoverStyle={{ color: "#0F1E1A" }}>
+          <Hover href="#" style={{ color: "#5B6472" }} hoverStyle={{ color: "#0B1526" }}>
             Terms of Service
           </Hover>
         </div>

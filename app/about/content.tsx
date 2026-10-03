@@ -54,10 +54,10 @@ const pillLink: CSSProperties = {
   minHeight: 44,
   padding: "0 18px",
   borderRadius: 999,
-  border: "1px solid rgba(15,30,26,0.16)",
+  border: "1px solid rgba(11,21,38,0.16)",
   fontSize: 14,
   fontWeight: 500,
-  color: "#0F1E1A",
+  color: "#0B1526",
 };
 
 export default function Content() {
@@ -77,7 +77,7 @@ export default function Content() {
   }));
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F6F5F0", overflowX: "clip" }}>
+    <div style={{ minHeight: "100vh", background: "#F5F6F8", overflowX: "clip" }}>
       <SiteHeader current="About" />
 
       <main>
@@ -103,7 +103,7 @@ export default function Content() {
                 fontWeight: 600,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "#16382F",
+                color: "#1B2A4A",
                 marginBottom: 24,
               }}
             >
@@ -121,7 +121,7 @@ export default function Content() {
               }}
             >
               {"The people behind "}
-              <span style={{ ...serif, color: "#16382F" }}>your numbers.</span>
+              <span style={{ ...serif, color: "#1B2A4A" }}>your numbers.</span>
             </h1>
           </div>
           <p
@@ -129,7 +129,7 @@ export default function Content() {
               margin: 0,
               fontSize: "clamp(17px,1.5vw,20px)",
               lineHeight: 1.55,
-              color: "#55625D",
+              color: "#5B6472",
               maxWidth: 480,
               textWrap: "pretty",
             }}
@@ -158,13 +158,13 @@ export default function Content() {
               key={f.hid}
               aria-labelledby={f.hid}
               style={{
-                background: "#FDFCF9",
-                border: "1px solid rgba(15,30,26,0.08)",
+                background: "#FBFCFE",
+                border: "1px solid rgba(11,21,38,0.08)",
                 borderRadius: "clamp(24px,3vw,32px)",
                 overflow: "hidden",
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,380px),1fr))",
-                boxShadow: "0 1px 2px rgba(15,30,26,0.03)",
+                boxShadow: "0 1px 2px rgba(11,21,38,0.03)",
               }}
             >
               <div
@@ -172,7 +172,7 @@ export default function Content() {
                   position: "relative",
                   minHeight: "clamp(380px,40vw,520px)",
                   background:
-                    "repeating-linear-gradient(135deg,#E7E6DF 0 12px,#EEEDE7 12px 24px)",
+                    "repeating-linear-gradient(135deg,#ECEEF3 0 12px,#E6E9EF 12px 24px)",
                   order: f.photoOrder,
                 }}
               >
@@ -188,8 +188,8 @@ export default function Content() {
                     left: 20,
                     fontFamily: "'JetBrains Mono',monospace",
                     fontSize: 12,
-                    color: "#0F1E1A",
-                    background: "rgba(253,252,249,0.92)",
+                    color: "#0B1526",
+                    background: "rgba(251,252,254,0.92)",
                     padding: "6px 10px",
                     borderRadius: 999,
                     pointerEvents: "none",
@@ -212,7 +212,7 @@ export default function Content() {
                     fontWeight: 600,
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
-                    color: "#16382F",
+                    color: "#1B2A4A",
                   }}
                 >
                   {f.role}
@@ -229,7 +229,7 @@ export default function Content() {
                 >
                   {f.name}
                 </h2>
-                <div style={{ marginTop: 12, fontSize: 15, color: "#55625D" }}>
+                <div style={{ marginTop: 12, fontSize: 15, color: "#5B6472" }}>
                   {f.creds}
                 </div>
                 <p
@@ -239,7 +239,7 @@ export default function Content() {
                     fontStyle: "italic",
                     fontSize: "clamp(21px,2vw,25px)",
                     lineHeight: 1.35,
-                    color: "#16382F",
+                    color: "#1B2A4A",
                     textWrap: "pretty",
                   }}
                 >
@@ -250,7 +250,7 @@ export default function Content() {
                     margin: "24px 0 0",
                     fontSize: 16,
                     lineHeight: 1.65,
-                    color: "#55625D",
+                    color: "#5B6472",
                     maxWidth: 520,
                     textWrap: "pretty",
                   }}
@@ -271,8 +271,8 @@ export default function Content() {
                       style={{
                         fontSize: 13,
                         fontWeight: 500,
-                        background: "#EEF1E6",
-                        color: "#16382F",
+                        background: "#E7EAF2",
+                        color: "#1B2A4A",
                         padding: "7px 12px",
                         borderRadius: 999,
                       }}
@@ -285,7 +285,7 @@ export default function Content() {
                   style={{
                     marginTop: 32,
                     paddingTop: 24,
-                    borderTop: "1px solid rgba(15,30,26,0.08)",
+                    borderTop: "1px solid rgba(11,21,38,0.08)",
                     display: "flex",
                     flexWrap: "wrap",
                     gap: 12,
@@ -294,7 +294,7 @@ export default function Content() {
                   <Hover
                     href={f.mail}
                     style={pillLink}
-                    hoverStyle={{ background: "#F6F5F0", color: "#0F1E1A" }}
+                    hoverStyle={{ background: "#F5F6F8", color: "#0B1526" }}
                   >
                     <Icon name="icon-mail" />
                     Email
@@ -302,7 +302,7 @@ export default function Content() {
                   <Hover
                     href="#"
                     style={pillLink}
-                    hoverStyle={{ background: "#F6F5F0", color: "#0F1E1A" }}
+                    hoverStyle={{ background: "#F5F6F8", color: "#0B1526" }}
                   >
                     <Icon name="icon-linkedin" />
                     LinkedIn
@@ -326,8 +326,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#16382F",
-              color: "#F6F5F0",
+              background: "#1B2A4A",
+              color: "#F5F6F8",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(56px,8vw,104px) clamp(24px,5vw,72px)",
               display: "grid",
@@ -348,7 +348,7 @@ export default function Content() {
               }}
             >
               {"Talk to a founder, "}
-              <span style={{ ...serif, color: "#D2E67C" }}>not a call centre.</span>
+              <span style={{ ...serif, color: "#E8B74B" }}>not a call centre.</span>
             </h2>
             <div
               style={{
@@ -363,7 +363,7 @@ export default function Content() {
                   margin: 0,
                   fontSize: 18,
                   lineHeight: 1.55,
-                  color: "#C9D3CE",
+                  color: "#C3CBDA",
                   maxWidth: 420,
                 }}
               >
@@ -376,14 +376,14 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "#D2E67C",
-                  color: "#0F1E1A",
+                  background: "#E8B74B",
+                  color: "#0B1526",
                   padding: "18px 28px",
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 600,
                 }}
-                hoverStyle={{ background: "#E1EF9E", color: "#0F1E1A" }}
+                hoverStyle={{ background: "#F0C96E", color: "#0B1526" }}
               >
                 Book a Consultation <Icon name="icon-arrow-right" />
               </Hover>

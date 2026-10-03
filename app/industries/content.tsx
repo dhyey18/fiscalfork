@@ -130,7 +130,7 @@ const listItem: CSSProperties = {
   gap: 10,
   fontSize: 15,
   lineHeight: 1.45,
-  color: "#0F1E1A",
+  color: "#0B1526",
 };
 
 const bareList: CSSProperties = {
@@ -164,7 +164,7 @@ export default function Content() {
   );
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F6F5F0", overflowX: "clip" }}>
+    <div style={{ minHeight: "100vh", background: "#F5F6F8", overflowX: "clip" }}>
       <SiteHeader current="Industries" />
 
       <main>
@@ -194,7 +194,7 @@ export default function Content() {
                   fontWeight: 600,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "#16382F",
+                  color: "#1B2A4A",
                   marginBottom: 24,
                 }}
               >
@@ -212,7 +212,7 @@ export default function Content() {
                 }}
               >
                 {"Accounting that speaks "}
-                <span style={{ ...serif, color: "#16382F" }}>your industry.</span>
+                <span style={{ ...serif, color: "#1B2A4A" }}>your industry.</span>
               </h1>
             </div>
             <p
@@ -220,7 +220,7 @@ export default function Content() {
                 margin: 0,
                 fontSize: "clamp(17px,1.5vw,20px)",
                 lineHeight: 1.55,
-                color: "#55625D",
+                color: "#5B6472",
                 maxWidth: 480,
                 textWrap: "pretty",
               }}
@@ -244,13 +244,13 @@ export default function Content() {
                   minHeight: 44,
                   padding: "0 16px",
                   borderRadius: 999,
-                  border: "1px solid rgba(15,30,26,0.14)",
-                  background: "#FDFCF9",
+                  border: "1px solid rgba(11,21,38,0.14)",
+                  background: "#FBFCFE",
                   fontSize: 14,
                   fontWeight: 500,
-                  color: "#0F1E1A",
+                  color: "#0B1526",
                 }}
-                hoverStyle={{ borderColor: "#16382F", color: "#0F1E1A" }}
+                hoverStyle={{ borderColor: "#1B2A4A", color: "#0B1526" }}
               >
                 {d.name}
               </Hover>
@@ -278,8 +278,8 @@ export default function Content() {
               aria-labelledby={d.hid}
               style={{
                 scrollMarginTop: 96,
-                background: "#FDFCF9",
-                border: "1px solid rgba(15,30,26,0.08)",
+                background: "#FBFCFE",
+                border: "1px solid rgba(11,21,38,0.08)",
                 borderRadius: "clamp(22px,3vw,28px)",
                 overflow: "hidden",
                 display: "grid",
@@ -291,7 +291,7 @@ export default function Content() {
                   position: "relative",
                   minHeight: "clamp(260px,30vw,420px)",
                   background:
-                    "repeating-linear-gradient(135deg,#E7E6DF 0 12px,#EEEDE7 12px 24px)",
+                    "repeating-linear-gradient(135deg,#ECEEF3 0 12px,#E6E9EF 12px 24px)",
                   order: d.order,
                 }}
               >
@@ -312,7 +312,7 @@ export default function Content() {
                   style={{
                     fontFamily: "'JetBrains Mono',monospace",
                     fontSize: 13,
-                    color: "#55625D",
+                    color: "#5B6472",
                   }}
                 >
                   {d.n}
@@ -334,7 +334,7 @@ export default function Content() {
                     margin: "14px 0 0",
                     fontSize: 17,
                     lineHeight: 1.6,
-                    color: "#55625D",
+                    color: "#5B6472",
                     textWrap: "pretty",
                   }}
                 >
@@ -350,7 +350,7 @@ export default function Content() {
                   }}
                 >
                   <div>
-                    <div style={{ ...listHead, color: "#55625D" }}>
+                    <div style={{ ...listHead, color: "#5B6472" }}>
                       Common challenges
                     </div>
                     <ul style={bareList}>
@@ -358,7 +358,7 @@ export default function Content() {
                         <li key={p} style={listItem}>
                           <Icon
                             name="icon-minus"
-                            style={{ color: "#9AA8A2", marginTop: 3 }}
+                            style={{ color: "#8C96A8", marginTop: 3 }}
                           />
                           {p}
                         </li>
@@ -366,13 +366,13 @@ export default function Content() {
                     </ul>
                   </div>
                   <div>
-                    <div style={{ ...listHead, color: "#16382F" }}>How we help</div>
+                    <div style={{ ...listHead, color: "#1B2A4A" }}>How we help</div>
                     <ul style={bareList}>
                       {d.helps.map((h) => (
                         <li key={h} style={listItem}>
                           <Icon
                             name="icon-check"
-                            style={{ color: "#7FA33A", marginTop: 3 }}
+                            style={{ color: "#278058", marginTop: 3 }}
                           />
                           {h}
                         </li>
@@ -398,8 +398,8 @@ export default function Content() {
                         style={{
                           fontSize: 13,
                           fontWeight: 500,
-                          background: "#EEF1E6",
-                          color: "#16382F",
+                          background: "#E7EAF2",
+                          color: "#1B2A4A",
                           padding: "6px 12px",
                           borderRadius: 999,
                         }}
@@ -436,8 +436,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#16382F",
-              color: "#F6F5F0",
+              background: "#1B2A4A",
+              color: "#F5F6F8",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(56px,8vw,104px) clamp(24px,5vw,72px)",
               display: "grid",
@@ -458,7 +458,7 @@ export default function Content() {
               }}
             >
               {"Don't see your industry? "}
-              <span style={{ ...serif, color: "#D2E67C" }}>
+              <span style={{ ...serif, color: "#E8B74B" }}>
                 Let&apos;s talk anyway.
               </span>
             </h2>
@@ -475,7 +475,7 @@ export default function Content() {
                   margin: 0,
                   fontSize: 18,
                   lineHeight: 1.55,
-                  color: "#C9D3CE",
+                  color: "#C3CBDA",
                   maxWidth: 420,
                 }}
               >
@@ -488,14 +488,14 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "#D2E67C",
-                  color: "#0F1E1A",
+                  background: "#E8B74B",
+                  color: "#0B1526",
                   padding: "18px 28px",
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 600,
                 }}
-                hoverStyle={{ background: "#E1EF9E", color: "#0F1E1A" }}
+                hoverStyle={{ background: "#F0C96E", color: "#0B1526" }}
               >
                 Book a Consultation <Icon name="icon-arrow-right" />
               </Hover>

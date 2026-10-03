@@ -37,9 +37,17 @@ These are deliberate and load-bearing — the port was verified against the orig
 by screenshot diffing at 390/768/1024/1280/1440px, so changing them will show up as
 visual drift.
 
-- **Styling is inline `style={{}}`.** There is no Tailwind. `globals.css` is the
+- **Styling is inline `style={{}}`.** There is no Tailwind, and no color tokens —
+  every hex/rgba literal is repeated at each call site. `globals.css` is the
   original stylesheet (25 `@font-face` rules, ~1540 icon glyph rules) with font URLs
   rewritten to `/fonts/`.
+- **Color palette** (navy / warm amber, replacing the original forest-green /
+  lime): every occurrence of a brand color is a literal hex or `rgba(r,g,b,a)` with
+  one of three specific RGB triples, spread across six files with no shared
+  constant. To re-theme, build an old-hex → new-hex map (every distinct hex in
+  `app/**/*.tsx` + `globals.css`) and an old-rgb-triple → new-rgb-triple map (the
+  `rgba(...)` families built on `#0F1E1A`-class colors), then do a single
+  find-and-replace pass — don't hand-edit colors one call site at a time.
 - **`Hover` and `useFocusStyle`** (in `lib/ui.tsx`) generate real
   `.scp-*:hover { … !important }` stylesheet rules rather than swapping inline
   styles from JS. `!important` is what lets them beat an element's own inline style.

@@ -224,8 +224,8 @@ const STEPS = (
   n,
   title,
   desc,
-  bg: i === 0 ? "#16382F" : "#FDFCF9",
-  fg: i === 0 ? "#D2E67C" : "#16382F",
+  bg: i === 0 ? "#1B2A4A" : "#FBFCFE",
+  fg: i === 0 ? "#E8B74B" : "#1B2A4A",
 }));
 
 const TESTIMONIALS = [
@@ -266,7 +266,7 @@ const eyebrow: CSSProperties = {
   fontWeight: 600,
   letterSpacing: "0.12em",
   textTransform: "uppercase",
-  color: "#16382F",
+  color: "#1B2A4A",
   marginBottom: 20,
 };
 
@@ -290,7 +290,7 @@ export default function Content() {
     : { left: "50%", top: "50%", tf: "translate(-50%,-50%)", w: "min(440px,100%)" };
   const bars = BAR_HEIGHTS.map((h, i) => ({
     h: h + "%",
-    c: i === BAR_HEIGHTS.length - 1 ? "#16382F" : i >= 6 ? "#7FA33A" : "#DCE3CF",
+    c: i === BAR_HEIGHTS.length - 1 ? "#1B2A4A" : i >= 6 ? "#278058" : "#D7DCE6",
   }));
   const current = PROBLEMS[active];
 
@@ -299,7 +299,7 @@ export default function Content() {
   void w;
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F6F5F0", overflowX: "clip" }}>
+    <div style={{ minHeight: "100vh", background: "#F5F6F8", overflowX: "clip" }}>
       <SiteHeader current="Home" homeHref="#top" />
 
       <main id="top">
@@ -326,10 +326,10 @@ export default function Content() {
                 gap: 10,
                 padding: "7px 14px 7px 8px",
                 borderRadius: 999,
-                background: "#FDFCF9",
-                border: "1px solid rgba(15,30,26,0.1)",
+                background: "#FBFCFE",
+                border: "1px solid rgba(11,21,38,0.1)",
                 fontSize: 13,
-                color: "#55625D",
+                color: "#5B6472",
                 marginBottom: 28,
               }}
             >
@@ -338,7 +338,7 @@ export default function Content() {
                   width: 8,
                   height: 8,
                   borderRadius: "50%",
-                  background: "#7FA33A",
+                  background: "#278058",
                   marginLeft: 4,
                 }}
               />
@@ -356,14 +356,14 @@ export default function Content() {
               }}
             >
               {"Clear Numbers. Smarter Decisions. "}
-              <span style={{ ...serif, color: "#16382F" }}>Stronger Business.</span>
+              <span style={{ ...serif, color: "#1B2A4A" }}>Stronger Business.</span>
             </h1>
             <p
               style={{
                 margin: "28px 0 0",
                 fontSize: "clamp(17px,1.5vw,20px)",
                 lineHeight: 1.55,
-                color: "#55625D",
+                color: "#5B6472",
                 maxWidth: 520,
                 textWrap: "pretty",
               }}
@@ -380,15 +380,15 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "#16382F",
-                  color: "#F6F5F0",
+                  background: "#1B2A4A",
+                  color: "#F5F6F8",
                   padding: "17px 26px",
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 500,
                   transition: "background 200ms",
                 }}
-                hoverStyle={{ background: "#0F1E1A", color: "#F6F5F0" }}
+                hoverStyle={{ background: "#0B1526", color: "#F5F6F8" }}
               >
                 {"Book a Consultation "}
                 <Icon name="icon-arrow-right" style={{ fontSize: 18 }} />
@@ -400,15 +400,15 @@ export default function Content() {
                   alignItems: "center",
                   gap: 10,
                   background: "transparent",
-                  color: "#0F1E1A",
+                  color: "#0B1526",
                   padding: "17px 26px",
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 500,
-                  border: "1px solid rgba(15,30,26,0.18)",
+                  border: "1px solid rgba(11,21,38,0.18)",
                   transition: "background 200ms",
                 }}
-                hoverStyle={{ background: "#FDFCF9", color: "#0F1E1A" }}
+                hoverStyle={{ background: "#FBFCFE", color: "#0B1526" }}
               >
                 Explore Services
               </Hover>
@@ -420,7 +420,7 @@ export default function Content() {
                 gap: "12px 28px",
                 marginTop: 44,
                 fontSize: 14,
-                color: "#55625D",
+                color: "#5B6472",
               }}
             >
               {[
@@ -432,7 +432,7 @@ export default function Content() {
                   key={t}
                   style={{ display: "flex", alignItems: "center", gap: 8 }}
                 >
-                  <Icon name="icon-check" style={{ color: "#16382F" }} />
+                  <Icon name="icon-check" style={{ color: "#1B2A4A" }} />
                   {t}
                 </span>
               ))}
@@ -451,7 +451,7 @@ export default function Content() {
                   borderRadius: 28,
                   overflow: "hidden",
                   background:
-                    "repeating-linear-gradient(135deg,#E7E6DF 0 12px,#EEEDE7 12px 24px)",
+                    "repeating-linear-gradient(135deg,#ECEEF3 0 12px,#E6E9EF 12px 24px)",
                 }}
               >
                 <Photo
@@ -473,11 +473,11 @@ export default function Content() {
             >
               <div
                 style={{
-                  background: "#FDFCF9",
+                  background: "#FBFCFE",
                   borderRadius: 22,
-                  border: "1px solid rgba(15,30,26,0.08)",
+                  border: "1px solid rgba(11,21,38,0.08)",
                   boxShadow:
-                    "0 24px 60px -20px rgba(15,30,26,0.25),0 2px 6px rgba(15,30,26,0.05)",
+                    "0 24px 60px -20px rgba(11,21,38,0.25),0 2px 6px rgba(11,21,38,0.05)",
                   padding: 24,
                 }}
               >
@@ -490,7 +490,7 @@ export default function Content() {
                   }}
                 >
                   <div>
-                    <div style={{ fontSize: 13, color: "#55625D" }}>
+                    <div style={{ fontSize: 13, color: "#5B6472" }}>
                       Cash position · September
                     </div>
                     <div
@@ -508,8 +508,8 @@ export default function Content() {
                     style={{
                       fontSize: 13,
                       fontWeight: 500,
-                      color: "#2E5A12",
-                      background: "#E8F0C8",
+                      color: "#166A48",
+                      background: "#D7F3E3",
                       padding: "6px 10px",
                       borderRadius: 999,
                       whiteSpace: "nowrap",
@@ -527,7 +527,7 @@ export default function Content() {
                     height: 96,
                     marginTop: 22,
                     paddingBottom: 10,
-                    borderBottom: "1px solid rgba(15,30,26,0.08)",
+                    borderBottom: "1px solid rgba(11,21,38,0.08)",
                   }}
                 >
                   {bars.map((b, i) => (
@@ -553,14 +553,14 @@ export default function Content() {
                 >
                   {(
                     [
-                      ["icon-circle-check", "#7FA33A", "Books reconciled", "Sep 30"],
+                      ["icon-circle-check", "#278058", "Books reconciled", "Sep 30"],
                       [
                         "icon-circle-check",
-                        "#7FA33A",
+                        "#278058",
                         "Q3 tax estimate filed",
                         "Oct 1",
                       ],
-                      ["icon-clock", "#55625D", "Next payroll run", "Oct 15"],
+                      ["icon-clock", "#5B6472", "Next payroll run", "Oct 15"],
                     ] as const
                   ).map(([icon, color, label, date]) => (
                     <div
@@ -577,7 +577,7 @@ export default function Content() {
                         <Icon name={icon} style={{ color, fontSize: 17 }} />
                         {label}
                       </span>
-                      <span style={{ color: "#55625D" }}>{date}</span>
+                      <span style={{ color: "#5B6472" }}>{date}</span>
                     </div>
                   ))}
                 </div>
@@ -601,8 +601,8 @@ export default function Content() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,220px),1fr))",
-              borderTop: "1px solid rgba(15,30,26,0.12)",
-              borderBottom: "1px solid rgba(15,30,26,0.12)",
+              borderTop: "1px solid rgba(11,21,38,0.12)",
+              borderBottom: "1px solid rgba(11,21,38,0.12)",
             }}
           >
             {STATS.map((s) => (
@@ -620,7 +620,7 @@ export default function Content() {
                 >
                   {s.n}
                 </div>
-                <div style={{ fontSize: 15, color: "#55625D", marginTop: 12 }}>
+                <div style={{ fontSize: 15, color: "#5B6472", marginTop: 12 }}>
                   {s.label}
                 </div>
               </div>
@@ -664,7 +664,7 @@ export default function Content() {
                 maxWidth: 380,
                 fontSize: 17,
                 lineHeight: 1.6,
-                color: "#55625D",
+                color: "#5B6472",
               }}
             >
               Pick a single service or combine them into one managed finance function.
@@ -686,20 +686,20 @@ export default function Content() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  background: "#FDFCF9",
-                  border: "1px solid rgba(15,30,26,0.08)",
+                  background: "#FBFCFE",
+                  border: "1px solid rgba(11,21,38,0.08)",
                   borderRadius: 22,
                   padding: 28,
                   minHeight: 280,
-                  color: "#0F1E1A",
-                  boxShadow: "0 1px 2px rgba(15,30,26,0.03)",
+                  color: "#0B1526",
+                  boxShadow: "0 1px 2px rgba(11,21,38,0.03)",
                   transition: "box-shadow 260ms,border-color 260ms,transform 260ms",
                 }}
                 hoverStyle={{
-                  boxShadow: "0 18px 40px -18px rgba(15,30,26,0.22)",
-                  borderColor: "rgba(15,30,26,0.16)",
+                  boxShadow: "0 18px 40px -18px rgba(11,21,38,0.22)",
+                  borderColor: "rgba(11,21,38,0.16)",
                   transform: "translateY(-2px)",
-                  color: "#0F1E1A",
+                  color: "#0B1526",
                 }}
               >
                 <span
@@ -708,8 +708,8 @@ export default function Content() {
                     width: 48,
                     height: 48,
                     borderRadius: 14,
-                    background: "#EEF1E6",
-                    color: "#16382F",
+                    background: "#E7EAF2",
+                    color: "#1B2A4A",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -732,7 +732,7 @@ export default function Content() {
                     margin: "10px 0 0",
                     fontSize: 15,
                     lineHeight: 1.55,
-                    color: "#55625D",
+                    color: "#5B6472",
                     flex: 1,
                   }}
                 >
@@ -743,7 +743,7 @@ export default function Content() {
                     marginTop: 24,
                     fontSize: 15,
                     fontWeight: 500,
-                    color: "#16382F",
+                    color: "#1B2A4A",
                     display: "flex",
                     alignItems: "center",
                     gap: 6,
@@ -770,8 +770,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#16382F",
-              color: "#F6F5F0",
+              background: "#1B2A4A",
+              color: "#F5F6F8",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(48px,7vw,96px) clamp(24px,5vw,72px)",
             }}
@@ -787,7 +787,7 @@ export default function Content() {
               }}
             >
               <div>
-                <div style={{ ...eyebrow, color: "#D2E67C" }}>Why Fiscal Fork</div>
+                <div style={{ ...eyebrow, color: "#E8B74B" }}>Why Fiscal Fork</div>
                 <h2
                   id="why-h"
                   style={{
@@ -800,7 +800,7 @@ export default function Content() {
                   }}
                 >
                   {"More than accounting. "}
-                  <span style={{ ...serif, color: "#D2E67C" }}>
+                  <span style={{ ...serif, color: "#E8B74B" }}>
                     A financial partner.
                   </span>
                 </h2>
@@ -810,7 +810,7 @@ export default function Content() {
                   margin: 0,
                   fontSize: 18,
                   lineHeight: 1.6,
-                  color: "#C9D3CE",
+                  color: "#C3CBDA",
                   maxWidth: 460,
                 }}
               >
@@ -831,14 +831,14 @@ export default function Content() {
                   data-reveal=""
                   style={{
                     padding: "32px 28px 8px 0",
-                    borderTop: "1px solid rgba(246,245,240,0.18)",
+                    borderTop: "1px solid rgba(245,246,248,0.18)",
                   }}
                 >
                   <div
                     style={{
                       fontFamily: "'JetBrains Mono',monospace",
                       fontSize: 13,
-                      color: "#D2E67C",
+                      color: "#E8B74B",
                     }}
                   >
                     {b.n}
@@ -859,7 +859,7 @@ export default function Content() {
                       margin: "12px 0 0",
                       fontSize: 15,
                       lineHeight: 1.6,
-                      color: "#C9D3CE",
+                      color: "#C3CBDA",
                       maxWidth: 280,
                     }}
                   >
@@ -921,9 +921,9 @@ export default function Content() {
                         textAlign: "left",
                         padding: "18px 20px",
                         borderRadius: 16,
-                        border: `1px solid ${on ? "rgba(15,30,26,0.14)" : "transparent"}`,
-                        background: on ? "#FDFCF9" : "transparent",
-                        color: "#0F1E1A",
+                        border: `1px solid ${on ? "rgba(11,21,38,0.14)" : "transparent"}`,
+                        background: on ? "#FBFCFE" : "transparent",
+                        color: "#0B1526",
                         fontSize: 17,
                         fontWeight: 500,
                         letterSpacing: "-0.01em",
@@ -936,7 +936,7 @@ export default function Content() {
                         style={{
                           fontFamily: "'JetBrains Mono',monospace",
                           fontSize: 12,
-                          color: "#55625D",
+                          color: "#5B6472",
                           width: 22,
                         }}
                       >
@@ -946,7 +946,7 @@ export default function Content() {
                       <Icon
                         name="icon-arrow-right"
                         style={{
-                          color: on ? "#16382F" : "rgba(15,30,26,0.25)",
+                          color: on ? "#1B2A4A" : "rgba(11,21,38,0.25)",
                           fontSize: 18,
                         }}
                       />
@@ -960,14 +960,14 @@ export default function Content() {
                 style={{
                   position: "sticky",
                   top: 96,
-                  background: "#FDFCF9",
-                  border: "1px solid rgba(15,30,26,0.08)",
+                  background: "#FBFCFE",
+                  border: "1px solid rgba(11,21,38,0.08)",
                   borderRadius: 28,
                   padding: "clamp(28px,4vw,48px)",
-                  boxShadow: "0 24px 60px -32px rgba(15,30,26,0.25)",
+                  boxShadow: "0 24px 60px -32px rgba(11,21,38,0.25)",
                 }}
               >
-                <div style={{ fontSize: 14, color: "#55625D" }}>The problem</div>
+                <div style={{ fontSize: 14, color: "#5B6472" }}>The problem</div>
                 <div
                   style={{
                     fontFamily: "'Newsreader',serif",
@@ -975,7 +975,7 @@ export default function Content() {
                     fontSize: "clamp(26px,2.6vw,34px)",
                     lineHeight: 1.2,
                     marginTop: 8,
-                    color: "#0F1E1A",
+                    color: "#0B1526",
                   }}
                 >
                   “{current.problem}”
@@ -983,7 +983,7 @@ export default function Content() {
                 <div
                   style={{
                     height: 1,
-                    background: "rgba(15,30,26,0.1)",
+                    background: "rgba(11,21,38,0.1)",
                     margin: "32px 0",
                   }}
                 />
@@ -993,7 +993,7 @@ export default function Content() {
                     alignItems: "center",
                     gap: 10,
                     fontSize: 14,
-                    color: "#16382F",
+                    color: "#1B2A4A",
                     fontWeight: 600,
                   }}
                 >
@@ -1005,7 +1005,7 @@ export default function Content() {
                     margin: "12px 0 0",
                     fontSize: "clamp(18px,1.6vw,21px)",
                     lineHeight: 1.5,
-                    color: "#0F1E1A",
+                    color: "#0B1526",
                     textWrap: "pretty",
                   }}
                 >
@@ -1028,8 +1028,8 @@ export default function Content() {
                       gap: 8,
                       fontSize: 14,
                       fontWeight: 500,
-                      background: "#EEF1E6",
-                      color: "#16382F",
+                      background: "#E7EAF2",
+                      color: "#1B2A4A",
                       padding: "8px 14px",
                       borderRadius: 999,
                     }}
@@ -1064,8 +1064,8 @@ export default function Content() {
                 <div
                   key={p.n}
                   style={{
-                    background: "#FDFCF9",
-                    border: "1px solid rgba(15,30,26,0.08)",
+                    background: "#FBFCFE",
+                    border: "1px solid rgba(11,21,38,0.08)",
                     borderRadius: 22,
                     padding: 28,
                     display: "flex",
@@ -1083,13 +1083,13 @@ export default function Content() {
                   >
                     “{p.problem}”
                   </div>
-                  <div style={{ height: 1, background: "rgba(15,30,26,0.1)" }} />
+                  <div style={{ height: 1, background: "rgba(11,21,38,0.1)" }} />
                   <p
                     style={{
                       margin: 0,
                       fontSize: 15,
                       lineHeight: 1.6,
-                      color: "#55625D",
+                      color: "#5B6472",
                       flex: 1,
                     }}
                   >
@@ -1103,8 +1103,8 @@ export default function Content() {
                       gap: 8,
                       fontSize: 13,
                       fontWeight: 500,
-                      background: "#EEF1E6",
-                      color: "#16382F",
+                      background: "#E7EAF2",
+                      color: "#1B2A4A",
                       padding: "7px 12px",
                       borderRadius: 999,
                     }}
@@ -1153,7 +1153,7 @@ export default function Content() {
                 maxWidth: 380,
                 fontSize: 17,
                 lineHeight: 1.6,
-                color: "#55625D",
+                color: "#5B6472",
               }}
             >
               Each sector has its own margins, tax rules and reporting needs. We set up
@@ -1175,17 +1175,17 @@ export default function Content() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  color: "#0F1E1A",
-                  background: "#FDFCF9",
-                  border: "1px solid rgba(15,30,26,0.08)",
+                  color: "#0B1526",
+                  background: "#FBFCFE",
+                  border: "1px solid rgba(11,21,38,0.08)",
                   borderRadius: 24,
                   overflow: "hidden",
                   transition: "box-shadow 260ms,transform 260ms",
                 }}
                 hoverStyle={{
-                  boxShadow: "0 18px 40px -18px rgba(15,30,26,0.22)",
+                  boxShadow: "0 18px 40px -18px rgba(11,21,38,0.22)",
                   transform: "translateY(-2px)",
-                  color: "#0F1E1A",
+                  color: "#0B1526",
                 }}
               >
                 <div
@@ -1193,7 +1193,7 @@ export default function Content() {
                     position: "relative",
                     aspectRatio: "4/3",
                     background:
-                      "repeating-linear-gradient(135deg,#E7E6DF 0 12px,#EEEDE7 12px 24px)",
+                      "repeating-linear-gradient(135deg,#ECEEF3 0 12px,#E6E9EF 12px 24px)",
                   }}
                 >
                   <Photo
@@ -1225,7 +1225,7 @@ export default function Content() {
                         margin: "8px 0 0",
                         fontSize: 15,
                         lineHeight: 1.55,
-                        color: "#55625D",
+                        color: "#5B6472",
                       }}
                     >
                       {ind.desc}
@@ -1238,11 +1238,11 @@ export default function Content() {
                       width: 44,
                       height: 44,
                       borderRadius: "50%",
-                      border: "1px solid rgba(15,30,26,0.14)",
+                      border: "1px solid rgba(11,21,38,0.14)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#16382F",
+                      color: "#1B2A4A",
                     }}
                   >
                     <i className="icon-arrow-up-right" style={{ fontSize: 18 }} />
@@ -1296,7 +1296,7 @@ export default function Content() {
                       borderRadius: "50%",
                       background: s.bg,
                       color: s.fg,
-                      border: "1px solid rgba(15,30,26,0.14)",
+                      border: "1px solid rgba(11,21,38,0.14)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1312,7 +1312,7 @@ export default function Content() {
                     style={{
                       flex: 1,
                       height: 1,
-                      background: "rgba(15,30,26,0.14)",
+                      background: "rgba(11,21,38,0.14)",
                     }}
                   />
                 </div>
@@ -1331,7 +1331,7 @@ export default function Content() {
                     margin: "10px 0 0",
                     fontSize: 16,
                     lineHeight: 1.55,
-                    color: "#55625D",
+                    color: "#5B6472",
                     maxWidth: 260,
                   }}
                 >
@@ -1373,8 +1373,8 @@ export default function Content() {
                 data-reveal=""
                 style={{
                   margin: 0,
-                  background: "#FDFCF9",
-                  border: "1px solid rgba(15,30,26,0.08)",
+                  background: "#FBFCFE",
+                  border: "1px solid rgba(11,21,38,0.08)",
                   borderRadius: 24,
                   padding: 32,
                   display: "flex",
@@ -1389,7 +1389,7 @@ export default function Content() {
                     fontSize: 64,
                     lineHeight: 0.5,
                     height: 24,
-                    color: "#16382F",
+                    color: "#1B2A4A",
                   }}
                 >
                   “
@@ -1412,7 +1412,7 @@ export default function Content() {
                     alignItems: "center",
                     gap: 14,
                     paddingTop: 24,
-                    borderTop: "1px solid rgba(15,30,26,0.08)",
+                    borderTop: "1px solid rgba(11,21,38,0.08)",
                   }}
                 >
                   <span
@@ -1421,8 +1421,8 @@ export default function Content() {
                       width: 44,
                       height: 44,
                       borderRadius: "50%",
-                      background: "#EEF1E6",
-                      color: "#16382F",
+                      background: "#E7EAF2",
+                      color: "#1B2A4A",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1436,7 +1436,7 @@ export default function Content() {
                     style={{ display: "flex", flexDirection: "column", gap: 2 }}
                   >
                     <span style={{ fontWeight: 600, fontSize: 15 }}>{t.name}</span>
-                    <span style={{ fontSize: 14, color: "#55625D" }}>{t.role}</span>
+                    <span style={{ fontSize: 14, color: "#5B6472" }}>{t.role}</span>
                   </span>
                 </figcaption>
               </figure>
@@ -1460,8 +1460,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#0F1E1A",
-              color: "#F6F5F0",
+              background: "#0B1526",
+              color: "#F5F6F8",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(64px,9vw,128px) clamp(24px,5vw,72px)",
               display: "grid",
@@ -1483,7 +1483,7 @@ export default function Content() {
                 }}
               >
                 {"Ready to get your finances "}
-                <span style={{ ...serif, color: "#D2E67C" }}>
+                <span style={{ ...serif, color: "#E8B74B" }}>
                   working for your business?
                 </span>
               </h2>
@@ -1501,7 +1501,7 @@ export default function Content() {
                   margin: 0,
                   fontSize: "clamp(17px,1.5vw,20px)",
                   lineHeight: 1.55,
-                  color: "#C9D3CE",
+                  color: "#C3CBDA",
                   maxWidth: 420,
                 }}
               >
@@ -1514,20 +1514,20 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "#D2E67C",
-                  color: "#0F1E1A",
+                  background: "#E8B74B",
+                  color: "#0B1526",
                   padding: "19px 30px",
                   borderRadius: 999,
                   fontSize: 17,
                   fontWeight: 600,
                   transition: "background 200ms",
                 }}
-                hoverStyle={{ background: "#E1EF9E", color: "#0F1E1A" }}
+                hoverStyle={{ background: "#F0C96E", color: "#0B1526" }}
               >
                 {"Book a Consultation "}
                 <Icon name="icon-arrow-right" style={{ fontSize: 18 }} />
               </Hover>
-              <span style={{ fontSize: 14, color: "#9AA8A2" }}>
+              <span style={{ fontSize: 14, color: "#8C96A8" }}>
                 30-minute call · No obligation
               </span>
             </div>
