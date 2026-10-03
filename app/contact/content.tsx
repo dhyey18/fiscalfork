@@ -57,15 +57,15 @@ const inputBase: CSSProperties = {
   height: 52,
   padding: "0 16px",
   borderRadius: 14,
-  border: "1px solid rgba(11,21,38,0.16)",
-  background: "#F5F6F8",
+  border: "1px solid rgba(13,23,38,0.16)",
+  background: "#F7F5F1",
   fontSize: 16,
-  color: "#0B1526",
+  color: "#0D1726",
 };
 
 const inputFocus: CSSProperties = {
-  borderColor: "#1B2A4A",
-  background: "#FBFCFE",
+  borderColor: "#17304A",
+  background: "#FFFFFF",
   outline: "none",
 };
 
@@ -73,10 +73,10 @@ const selectStyle: CSSProperties = {
   height: 52,
   padding: "0 14px",
   borderRadius: 14,
-  border: "1px solid rgba(11,21,38,0.16)",
-  background: "#F5F6F8",
+  border: "1px solid rgba(13,23,38,0.16)",
+  background: "#F7F5F1",
   fontSize: 16,
-  color: "#0B1526",
+  color: "#0D1726",
 };
 
 /** A text input carrying the template's `style-focus` behaviour. */
@@ -103,11 +103,11 @@ export default function Content() {
     {
       padding: "14px 16px",
       borderRadius: 14,
-      border: "1px solid rgba(11,21,38,0.16)",
-      background: "#F5F6F8",
+      border: "1px solid rgba(13,23,38,0.16)",
+      background: "#F7F5F1",
       fontSize: 16,
       lineHeight: 1.5,
-      color: "#0B1526",
+      color: "#0D1726",
       resize: "vertical",
     },
     inputFocus,
@@ -127,7 +127,7 @@ export default function Content() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F5F6F8", overflowX: "clip" }}>
+    <div style={{ minHeight: "100vh", background: "#F7F5F1", overflowX: "clip" }}>
       <SiteHeader
         current="Contact"
         ctaHref="#form"
@@ -153,7 +153,7 @@ export default function Content() {
               fontWeight: 600,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "#1B2A4A",
+              color: "#17304A",
               marginBottom: 24,
             }}
           >
@@ -178,7 +178,7 @@ export default function Content() {
                 fontStyle: "italic",
                 fontWeight: 400,
                 letterSpacing: "-0.02em",
-                color: "#1B2A4A",
+                color: "#17304A",
               }}
             >
               your finances.
@@ -189,7 +189,7 @@ export default function Content() {
               margin: "28px 0 0",
               fontSize: "clamp(17px,1.5vw,20px)",
               lineHeight: 1.55,
-              color: "#5B6472",
+              color: "#676E78",
               maxWidth: 560,
               textWrap: "pretty",
             }}
@@ -216,11 +216,11 @@ export default function Content() {
         >
           <div
             style={{
-              background: "#FBFCFE",
-              border: "1px solid rgba(11,21,38,0.08)",
+              background: "#FFFFFF",
+              border: "1px solid rgba(13,23,38,0.08)",
               borderRadius: "clamp(24px,3vw,32px)",
               padding: "clamp(28px,4vw,48px)",
-              boxShadow: "0 24px 60px -36px rgba(11,21,38,0.25)",
+              boxShadow: "0 24px 60px -36px rgba(13,23,38,0.25)",
             }}
           >
             {!sent ? (
@@ -327,9 +327,9 @@ export default function Content() {
                             minHeight: 44,
                             padding: "0 16px",
                             borderRadius: 999,
-                            border: `1px solid ${on ? "#1B2A4A" : "rgba(11,21,38,0.14)"}`,
-                            background: on ? "#1B2A4A" : "#F5F6F8",
-                            color: on ? "#F5F6F8" : "#0B1526",
+                            border: `1px solid ${on ? "#17304A" : "rgba(13,23,38,0.14)"}`,
+                            background: on ? "#17304A" : "#F7F5F1",
+                            color: on ? "#F7F5F1" : "#0D1726",
                             fontSize: 14,
                             fontWeight: 500,
                             cursor: "pointer",
@@ -365,7 +365,7 @@ export default function Content() {
                   }}
                 >
                   <span
-                    style={{ fontSize: 13, color: "#5B6472", maxWidth: 320 }}
+                    style={{ fontSize: 13, color: "#676E78", maxWidth: 320 }}
                   >
                     {"We only use your details to respond to this enquiry. See our "}
                     <a href="#" style={{ textDecoration: "underline" }}>
@@ -380,8 +380,8 @@ export default function Content() {
                       display: "inline-flex",
                       alignItems: "center",
                       gap: 10,
-                      background: "#1B2A4A",
-                      color: "#F5F6F8",
+                      background: "#17304A",
+                      color: "#F7F5F1",
                       border: 0,
                       padding: "17px 28px",
                       borderRadius: 999,
@@ -390,7 +390,7 @@ export default function Content() {
                       cursor: "pointer",
                       transition: "background 200ms",
                     }}
-                    hoverStyle={{ background: "#0B1526" }}
+                    hoverStyle={{ background: "#0D1726" }}
                   >
                     Send request <Icon name="icon-arrow-right" />
                   </Hover>
@@ -413,8 +413,8 @@ export default function Content() {
                     width: 56,
                     height: 56,
                     borderRadius: "50%",
-                    background: "#D7F3E3",
-                    color: "#1B2A4A",
+                    background: "#E4EDE7",
+                    color: "#17304A",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -437,7 +437,7 @@ export default function Content() {
                     margin: 0,
                     fontSize: 17,
                     lineHeight: 1.6,
-                    color: "#5B6472",
+                    color: "#676E78",
                     maxWidth: 460,
                   }}
                 >
@@ -452,11 +452,11 @@ export default function Content() {
                     minHeight: 44,
                     padding: "0 18px",
                     borderRadius: 999,
-                    border: "1px solid rgba(11,21,38,0.16)",
+                    border: "1px solid rgba(13,23,38,0.16)",
                     background: "transparent",
                     fontSize: 14,
                     fontWeight: 500,
-                    color: "#0B1526",
+                    color: "#0D1726",
                     cursor: "pointer",
                   }}
                 >
@@ -472,8 +472,8 @@ export default function Content() {
           >
             <div
               style={{
-                background: "#1B2A4A",
-                color: "#F5F6F8",
+                background: "#17304A",
+                color: "#F7F5F1",
                 borderRadius: "clamp(24px,3vw,32px)",
                 padding: "clamp(28px,4vw,40px)",
                 display: "flex",
@@ -497,16 +497,16 @@ export default function Content() {
                   display: "flex",
                   gap: 14,
                   alignItems: "flex-start",
-                  color: "#F5F6F8",
+                  color: "#F7F5F1",
                 }}
-                hoverStyle={{ color: "#E8B74B" }}
+                hoverStyle={{ color: "#C9A35C" }}
               >
                 <Icon
                   name="icon-mail"
-                  style={{ fontSize: 20, color: "#E8B74B", marginTop: 2 }}
+                  style={{ fontSize: 20, color: "#C9A35C", marginTop: 2 }}
                 />
                 <span style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <span style={{ fontSize: 13, color: "#C3CBDA" }}>Email</span>
+                  <span style={{ fontSize: 13, color: "#C8CFD9" }}>Email</span>
                   <span style={{ fontSize: 17 }}>hello@fiscalfork.com</span>
                 </span>
               </Hover>
@@ -516,26 +516,26 @@ export default function Content() {
                   display: "flex",
                   gap: 14,
                   alignItems: "flex-start",
-                  color: "#F5F6F8",
+                  color: "#F7F5F1",
                 }}
-                hoverStyle={{ color: "#E8B74B" }}
+                hoverStyle={{ color: "#C9A35C" }}
               >
                 <Icon
                   name="icon-phone"
-                  style={{ fontSize: 20, color: "#E8B74B", marginTop: 2 }}
+                  style={{ fontSize: 20, color: "#C9A35C", marginTop: 2 }}
                 />
                 <span style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <span style={{ fontSize: 13, color: "#C3CBDA" }}>Phone</span>
+                  <span style={{ fontSize: 13, color: "#C8CFD9" }}>Phone</span>
                   <span style={{ fontSize: 17 }}>+1 (000) 000-0000</span>
                 </span>
               </Hover>
               <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
                 <Icon
                   name="icon-map-pin"
-                  style={{ fontSize: 20, color: "#E8B74B", marginTop: 2 }}
+                  style={{ fontSize: 20, color: "#C9A35C", marginTop: 2 }}
                 />
                 <span style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <span style={{ fontSize: 13, color: "#C3CBDA" }}>Office</span>
+                  <span style={{ fontSize: 13, color: "#C8CFD9" }}>Office</span>
                   <span style={{ fontSize: 17, lineHeight: 1.45 }}>
                     Street address
                     <br />
@@ -546,10 +546,10 @@ export default function Content() {
               <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
                 <Icon
                   name="icon-clock"
-                  style={{ fontSize: 20, color: "#E8B74B", marginTop: 2 }}
+                  style={{ fontSize: 20, color: "#C9A35C", marginTop: 2 }}
                 />
                 <span style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <span style={{ fontSize: 13, color: "#C3CBDA" }}>Hours</span>
+                  <span style={{ fontSize: 13, color: "#C8CFD9" }}>Hours</span>
                   <span style={{ fontSize: 17 }}>Mon – Fri, 9:00 – 18:00</span>
                 </span>
               </div>
@@ -557,8 +557,8 @@ export default function Content() {
 
             <div
               style={{
-                background: "#FBFCFE",
-                border: "1px solid rgba(11,21,38,0.08)",
+                background: "#FFFFFF",
+                border: "1px solid rgba(13,23,38,0.08)",
                 borderRadius: "clamp(24px,3vw,32px)",
                 padding: "clamp(28px,4vw,40px)",
               }}
@@ -589,16 +589,16 @@ export default function Content() {
                       style={{
                         fontFamily: "'JetBrains Mono',monospace",
                         fontSize: 13,
-                        color: "#1B2A4A",
+                        color: "#17304A",
                         paddingTop: 3,
                       }}
                     >
                       {n}
                     </span>
                     <span
-                      style={{ fontSize: 16, lineHeight: 1.5, color: "#5B6472" }}
+                      style={{ fontSize: 16, lineHeight: 1.5, color: "#676E78" }}
                     >
-                      <strong style={{ color: "#0B1526", fontWeight: 600 }}>
+                      <strong style={{ color: "#0D1726", fontWeight: 600 }}>
                         {strong}
                       </strong>
                       {rest}
@@ -627,7 +627,7 @@ export default function Content() {
               borderRadius: "clamp(24px,3vw,32px)",
               overflow: "hidden",
               background:
-                "repeating-linear-gradient(135deg,#ECEEF3 0 12px,#E6E9EF 12px 24px)",
+                "repeating-linear-gradient(135deg,#EFEBE4 0 12px,#E8E4DC 12px 24px)",
             }}
           >
             <Photo

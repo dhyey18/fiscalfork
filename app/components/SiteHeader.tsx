@@ -20,7 +20,7 @@ export function Logo({ fontSize = 19 }: { fontSize?: number }) {
           width: 32,
           height: 32,
           borderRadius: 9,
-          background: "#1B2A4A",
+          background: "#17304A",
           display: "flex",
           alignItems: "flex-end",
           justifyContent: "center",
@@ -28,9 +28,9 @@ export function Logo({ fontSize = 19 }: { fontSize?: number }) {
           padding: "0 0 7px",
         }}
       >
-        <span style={{ width: 4, height: 9, background: "#E8B74B", borderRadius: 2 }} />
-        <span style={{ width: 4, height: 13, background: "#E8B74B", borderRadius: 2 }} />
-        <span style={{ width: 4, height: 17, background: "#E8B74B", borderRadius: 2 }} />
+        <span style={{ width: 4, height: 9, background: "#C9A35C", borderRadius: 2 }} />
+        <span style={{ width: 4, height: 13, background: "#C9A35C", borderRadius: 2 }} />
+        <span style={{ width: 4, height: 17, background: "#C9A35C", borderRadius: 2 }} />
       </span>
       <span style={{ fontSize, fontWeight: 600, letterSpacing: "-0.02em" }}>
         Fiscal Fork
@@ -72,10 +72,10 @@ export default function SiteHeader({
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: "rgba(245,246,248,0.86)",
+        background: "rgba(247,245,241,0.86)",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
-        borderBottom: "1px solid rgba(11,21,38,0.08)",
+        borderBottom: "1px solid rgba(13,23,38,0.08)",
       }}
     >
       <nav
@@ -93,7 +93,7 @@ export default function SiteHeader({
         <a
           href={homeHref}
           aria-label="Fiscal Fork home"
-          style={{ display: "flex", alignItems: "center", gap: 10, color: "#0B1526" }}
+          style={{ display: "flex", alignItems: "center", gap: 10, color: "#0D1726" }}
         >
           <Logo />
         </a>
@@ -110,7 +110,7 @@ export default function SiteHeader({
                     {...(current === "Home" && homeHref === "#top"
                       ? {}
                       : { "aria-current": "page" as const })}
-                    style={{ color: "#0B1526", fontWeight: 500 }}
+                    style={{ color: "#0D1726", fontWeight: 500 }}
                   >
                     {l.label}
                   </a>
@@ -118,8 +118,8 @@ export default function SiteHeader({
                   <Hover
                     key={l.label}
                     href={href}
-                    style={{ color: "#5B6472" }}
-                    hoverStyle={{ color: "#0B1526" }}
+                    style={{ color: "#676E78" }}
+                    hoverStyle={{ color: "#0D1726" }}
                   >
                     {l.label}
                   </Hover>
@@ -132,15 +132,15 @@ export default function SiteHeader({
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                background: "#1B2A4A",
-                color: "#F5F6F8",
+                background: "#17304A",
+                color: "#F7F5F1",
                 padding: "12px 20px",
                 borderRadius: 999,
                 fontSize: 15,
                 fontWeight: 500,
                 transition: "background 200ms",
               }}
-              hoverStyle={{ background: "#0B1526", color: "#F5F6F8" }}
+              hoverStyle={{ background: "#0D1726", color: "#F7F5F1" }}
             >
               Book a Consultation
             </Hover>
@@ -156,9 +156,9 @@ export default function SiteHeader({
               width: 44,
               height: 44,
               borderRadius: 12,
-              border: "1px solid rgba(11,21,38,0.14)",
-              background: "#FBFCFE",
-              color: "#0B1526",
+              border: "1px solid rgba(13,23,38,0.14)",
+              background: "#FFFFFF",
+              color: "#0D1726",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -173,11 +173,11 @@ export default function SiteHeader({
       {isMobile && menuOpen ? (
         <div
           style={{
-            borderTop: "1px solid rgba(11,21,38,0.08)",
+            borderTop: "1px solid rgba(13,23,38,0.08)",
             padding: "12px 20px 24px",
             display: "flex",
             flexDirection: "column",
-            background: "#F5F6F8",
+            background: "#F7F5F1",
           }}
         >
           {NAV_LINKS.map((l) => (
@@ -188,8 +188,8 @@ export default function SiteHeader({
               style={{
                 padding: "14px 4px",
                 fontSize: 18,
-                color: "#0B1526",
-                borderBottom: "1px solid rgba(11,21,38,0.08)",
+                color: "#0D1726",
+                borderBottom: "1px solid rgba(13,23,38,0.08)",
               }}
             >
               {l.label}
@@ -202,8 +202,8 @@ export default function SiteHeader({
               style={{
                 marginTop: 20,
                 textAlign: "center",
-                background: "#1B2A4A",
-                color: "#F5F6F8",
+                background: "#17304A",
+                color: "#F7F5F1",
                 padding: "16px 20px",
                 borderRadius: 999,
                 fontSize: 16,

@@ -99,7 +99,7 @@ const eyebrow: CSSProperties = {
   fontWeight: 600,
   letterSpacing: "0.12em",
   textTransform: "uppercase",
-  color: "#1B2A4A",
+  color: "#17304A",
 };
 
 export default function Content() {
@@ -115,7 +115,7 @@ export default function Content() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F5F6F8", overflowX: "clip" }}>
+    <div style={{ minHeight: "100vh", background: "#F7F5F1", overflowX: "clip" }}>
       <SiteHeader current="Resources" />
 
       <main>
@@ -146,7 +146,7 @@ export default function Content() {
             {/* One text node, as in the original: a JSX `{" "}` would split the
                 run and shift the following span by a subpixel. */}
             {"Practical finance guides for "}
-            <span style={{ ...serif, letterSpacing: "-0.02em", color: "#1B2A4A" }}>
+            <span style={{ ...serif, letterSpacing: "-0.02em", color: "#17304A" }}>
               business owners.
             </span>
           </h1>
@@ -155,7 +155,7 @@ export default function Content() {
               margin: "28px 0 0",
               fontSize: "clamp(17px,1.5vw,20px)",
               lineHeight: 1.55,
-              color: "#5B6472",
+              color: "#676E78",
               maxWidth: 560,
             }}
           >
@@ -179,19 +179,19 @@ export default function Content() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,420px),1fr))",
-              background: "#1B2A4A",
-              color: "#F5F6F8",
+              background: "#17304A",
+              color: "#F7F5F1",
               borderRadius: "clamp(24px,3vw,32px)",
               overflow: "hidden",
             }}
-            hoverStyle={{ color: "#F5F6F8" }}
+            hoverStyle={{ color: "#F7F5F1" }}
           >
             <div
               style={{
                 position: "relative",
                 minHeight: "clamp(260px,30vw,400px)",
                 background:
-                  "repeating-linear-gradient(135deg,#16233D 0 12px,#182742 12px 24px)",
+                  "repeating-linear-gradient(135deg,#132840 0 12px,#152C47 12px 24px)",
               }}
             >
               <Photo
@@ -210,7 +210,7 @@ export default function Content() {
                 gap: 18,
               }}
             >
-              <span style={{ ...eyebrow, color: "#E8B74B" }}>
+              <span style={{ ...eyebrow, color: "#C9A35C" }}>
                 Featured guide · Cash flow
               </span>
               <h2
@@ -230,7 +230,7 @@ export default function Content() {
                   margin: 0,
                   fontSize: 17,
                   lineHeight: 1.6,
-                  color: "#C3CBDA",
+                  color: "#C8CFD9",
                   maxWidth: 460,
                 }}
               >
@@ -244,7 +244,7 @@ export default function Content() {
                   gap: 8,
                   fontSize: 15,
                   fontWeight: 500,
-                  color: "#E8B74B",
+                  color: "#C9A35C",
                   marginTop: 8,
                 }}
               >
@@ -302,9 +302,9 @@ export default function Content() {
                       minHeight: 44,
                       padding: "0 16px",
                       borderRadius: 999,
-                      border: `1px solid ${on ? "#1B2A4A" : "rgba(11,21,38,0.14)"}`,
-                      background: on ? "#1B2A4A" : "#FBFCFE",
-                      color: on ? "#F5F6F8" : "#0B1526",
+                      border: `1px solid ${on ? "#17304A" : "rgba(13,23,38,0.14)"}`,
+                      background: on ? "#17304A" : "#FFFFFF",
+                      color: on ? "#F7F5F1" : "#0D1726",
                       fontSize: 14,
                       fontWeight: 500,
                       cursor: "pointer",
@@ -330,17 +330,17 @@ export default function Content() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  background: "#FBFCFE",
-                  border: "1px solid rgba(11,21,38,0.08)",
+                  background: "#FFFFFF",
+                  border: "1px solid rgba(13,23,38,0.08)",
                   borderRadius: 22,
                   overflow: "hidden",
-                  color: "#0B1526",
+                  color: "#0D1726",
                   transition: "box-shadow 260ms,transform 260ms",
                 }}
                 hoverStyle={{
-                  boxShadow: "0 18px 40px -18px rgba(11,21,38,0.22)",
+                  boxShadow: "0 18px 40px -18px rgba(13,23,38,0.22)",
                   transform: "translateY(-2px)",
-                  color: "#0B1526",
+                  color: "#0D1726",
                 }}
               >
                 <div
@@ -348,7 +348,7 @@ export default function Content() {
                     position: "relative",
                     aspectRatio: "16/10",
                     background:
-                      "repeating-linear-gradient(135deg,#ECEEF3 0 12px,#E6E9EF 12px 24px)",
+                      "repeating-linear-gradient(135deg,#EFEBE4 0 12px,#E8E4DC 12px 24px)",
                   }}
                 >
                   <Photo
@@ -371,10 +371,10 @@ export default function Content() {
                       justifyContent: "space-between",
                       gap: 12,
                       fontSize: 13,
-                      color: "#5B6472",
+                      color: "#676E78",
                     }}
                   >
-                    <span style={{ fontWeight: 600, color: "#1B2A4A" }}>{a.cat}</span>
+                    <span style={{ fontWeight: 600, color: "#17304A" }}>{a.cat}</span>
                     <span>{a.time}</span>
                   </div>
                   <h3
@@ -394,7 +394,7 @@ export default function Content() {
                       margin: 0,
                       fontSize: 15,
                       lineHeight: 1.55,
-                      color: "#5B6472",
+                      color: "#676E78",
                       flex: 1,
                     }}
                   >
@@ -405,7 +405,7 @@ export default function Content() {
                       marginTop: 10,
                       fontSize: 15,
                       fontWeight: 500,
-                      color: "#1B2A4A",
+                      color: "#17304A",
                       display: "flex",
                       alignItems: "center",
                       gap: 6,
@@ -452,7 +452,7 @@ export default function Content() {
                 margin: "20px 0 0",
                 fontSize: 17,
                 lineHeight: 1.6,
-                color: "#5B6472",
+                color: "#676E78",
                 maxWidth: 360,
               }}
             >
@@ -467,7 +467,7 @@ export default function Content() {
             {FAQS.map(([q, a], i) => {
               const isOpen = open === i;
               return (
-                <div key={q} style={{ borderTop: "1px solid rgba(11,21,38,0.12)" }}>
+                <div key={q} style={{ borderTop: "1px solid rgba(13,23,38,0.12)" }}>
                   <button
                     type="button"
                     aria-expanded={isOpen}
@@ -485,7 +485,7 @@ export default function Content() {
                       fontSize: 18,
                       fontWeight: 500,
                       letterSpacing: "-0.01em",
-                      color: "#0B1526",
+                      color: "#0D1726",
                       cursor: "pointer",
                       minHeight: 44,
                     }}
@@ -493,7 +493,7 @@ export default function Content() {
                     {q}
                     <Icon
                       name={isOpen ? "icon-minus" : "icon-plus"}
-                      style={{ fontSize: 20, color: "#1B2A4A", flex: "none" }}
+                      style={{ fontSize: 20, color: "#17304A", flex: "none" }}
                     />
                   </button>
                   {isOpen ? (
@@ -502,7 +502,7 @@ export default function Content() {
                         margin: "0 0 24px",
                         fontSize: 16,
                         lineHeight: 1.65,
-                        color: "#5B6472",
+                        color: "#676E78",
                         maxWidth: 620,
                       }}
                     >
@@ -525,8 +525,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#0B1526",
-              color: "#F5F6F8",
+              background: "#0D1726",
+              color: "#F7F5F1",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(48px,7vw,88px) clamp(24px,5vw,72px)",
               display: "grid",
@@ -547,14 +547,14 @@ export default function Content() {
                 }}
               >
                 {"One useful finance note, "}
-                <span style={{ ...serif, color: "#E8B74B" }}>once a month.</span>
+                <span style={{ ...serif, color: "#C9A35C" }}>once a month.</span>
               </h2>
               <p
                 style={{
                   margin: "16px 0 0",
                   fontSize: 17,
                   lineHeight: 1.55,
-                  color: "#C3CBDA",
+                  color: "#C8CFD9",
                 }}
               >
                 Tax deadlines, cash flow tips and new guides. No spam.
@@ -591,9 +591,9 @@ export default function Content() {
                     height: 56,
                     padding: "0 20px",
                     borderRadius: 999,
-                    border: "1px solid rgba(245,246,248,0.2)",
-                    background: "rgba(245,246,248,0.06)",
-                    color: "#F5F6F8",
+                    border: "1px solid rgba(247,245,241,0.2)",
+                    background: "rgba(247,245,241,0.06)",
+                    color: "#F7F5F1",
                     fontSize: 16,
                   }}
                 />
@@ -605,13 +605,13 @@ export default function Content() {
                     padding: "0 26px",
                     borderRadius: 999,
                     border: 0,
-                    background: "#E8B74B",
-                    color: "#0B1526",
+                    background: "#C9A35C",
+                    color: "#0D1726",
                     fontSize: 16,
                     fontWeight: 600,
                     cursor: "pointer",
                   }}
-                  hoverStyle={{ background: "#F0C96E" }}
+                  hoverStyle={{ background: "#DBB87A" }}
                 >
                   Subscribe
                 </Hover>
@@ -628,7 +628,7 @@ export default function Content() {
               >
                 <Icon
                   name="icon-circle-check"
-                  style={{ color: "#E8B74B", fontSize: 22 }}
+                  style={{ color: "#C9A35C", fontSize: 22 }}
                 />
                 You&apos;re subscribed. The next note arrives early next month.
               </div>

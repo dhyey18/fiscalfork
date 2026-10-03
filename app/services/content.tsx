@@ -170,12 +170,12 @@ const eyebrow: CSSProperties = {
   fontWeight: 600,
   letterSpacing: "0.12em",
   textTransform: "uppercase",
-  color: "#1B2A4A",
+  color: "#17304A",
 };
 
 export default function Content() {
   return (
-    <div style={{ minHeight: "100vh", background: "#F5F6F8", overflowX: "clip" }}>
+    <div style={{ minHeight: "100vh", background: "#F7F5F1", overflowX: "clip" }}>
       <SiteHeader current="Services" />
 
       <main>
@@ -212,7 +212,7 @@ export default function Content() {
                 }}
               >
                 {"One team for your "}
-                <span style={{ ...serif, color: "#1B2A4A" }}>
+                <span style={{ ...serif, color: "#17304A" }}>
                   entire finance function.
                 </span>
               </h1>
@@ -222,7 +222,7 @@ export default function Content() {
                 margin: 0,
                 fontSize: "clamp(17px,1.5vw,20px)",
                 lineHeight: 1.55,
-                color: "#5B6472",
+                color: "#676E78",
                 maxWidth: 480,
                 textWrap: "pretty",
               }}
@@ -251,15 +251,15 @@ export default function Content() {
                   minHeight: 44,
                   padding: "0 16px",
                   borderRadius: 999,
-                  border: "1px solid rgba(11,21,38,0.14)",
-                  background: "#FBFCFE",
+                  border: "1px solid rgba(13,23,38,0.14)",
+                  background: "#FFFFFF",
                   fontSize: 14,
                   fontWeight: 500,
-                  color: "#0B1526",
+                  color: "#0D1726",
                 }}
-                hoverStyle={{ borderColor: "#1B2A4A", color: "#0B1526" }}
+                hoverStyle={{ borderColor: "#17304A", color: "#0D1726" }}
               >
-                <Icon name={s.icon} style={{ color: "#1B2A4A" }} />
+                <Icon name={s.icon} style={{ color: "#17304A" }} />
                 {s.name}
               </Hover>
             ))}
@@ -286,8 +286,8 @@ export default function Content() {
               aria-labelledby={s.hid}
               style={{
                 scrollMarginTop: 96,
-                background: "#FBFCFE",
-                border: "1px solid rgba(11,21,38,0.08)",
+                background: "#FFFFFF",
+                border: "1px solid rgba(13,23,38,0.08)",
                 borderRadius: "clamp(22px,3vw,28px)",
                 padding: "clamp(28px,4vw,48px)",
                 display: "grid",
@@ -309,8 +309,8 @@ export default function Content() {
                       width: 52,
                       height: 52,
                       borderRadius: 15,
-                      background: "#E7EAF2",
-                      color: "#1B2A4A",
+                      background: "#EDE9E2",
+                      color: "#17304A",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -322,7 +322,7 @@ export default function Content() {
                     style={{
                       fontFamily: "'JetBrains Mono',monospace",
                       fontSize: 13,
-                      color: "#5B6472",
+                      color: "#676E78",
                     }}
                   >
                     {s.n}
@@ -345,7 +345,7 @@ export default function Content() {
                     margin: "16px 0 0",
                     fontSize: 17,
                     lineHeight: 1.6,
-                    color: "#5B6472",
+                    color: "#676E78",
                     maxWidth: 460,
                     textWrap: "pretty",
                   }}
@@ -389,14 +389,14 @@ export default function Content() {
                           gap: 12,
                           alignItems: "flex-start",
                           padding: "13px 0",
-                          borderTop: "1px solid rgba(11,21,38,0.08)",
+                          borderTop: "1px solid rgba(13,23,38,0.08)",
                           fontSize: 16,
                           lineHeight: 1.45,
                         }}
                       >
                         <Icon
                           name="icon-check"
-                          style={{ color: "#278058", marginTop: 3 }}
+                          style={{ color: "#276B4C", marginTop: 3 }}
                         />
                         {it}
                       </li>
@@ -405,15 +405,15 @@ export default function Content() {
                 </div>
                 <div
                   style={{
-                    background: "#F5F6F8",
+                    background: "#F7F5F1",
                     borderRadius: 16,
                     padding: "16px 18px",
                     fontSize: 15,
                     lineHeight: 1.5,
-                    color: "#5B6472",
+                    color: "#676E78",
                   }}
                 >
-                  <strong style={{ color: "#0B1526", fontWeight: 600 }}>
+                  <strong style={{ color: "#0D1726", fontWeight: 600 }}>
                     Best for:
                   </strong>{" "}
                   {s.bestFor}
@@ -461,10 +461,10 @@ export default function Content() {
                 key={t.title}
                 style={{
                   padding: "28px 28px 8px 0",
-                  borderTop: "1px solid rgba(11,21,38,0.14)",
+                  borderTop: "1px solid rgba(13,23,38,0.14)",
                 }}
               >
-                <Icon name={t.icon} style={{ fontSize: 22, color: "#1B2A4A" }} />
+                <Icon name={t.icon} style={{ fontSize: 22, color: "#17304A" }} />
                 <h3
                   style={{
                     margin: "18px 0 0",
@@ -480,7 +480,7 @@ export default function Content() {
                     margin: "8px 0 0",
                     fontSize: 15,
                     lineHeight: 1.55,
-                    color: "#5B6472",
+                    color: "#676E78",
                   }}
                 >
                   {t.desc}
@@ -500,8 +500,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#0B1526",
-              color: "#F5F6F8",
+              background: "#0D1726",
+              color: "#F7F5F1",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(56px,8vw,104px) clamp(24px,5vw,72px)",
               display: "grid",
@@ -522,7 +522,7 @@ export default function Content() {
               }}
             >
               {"Not sure where to start? "}
-              <span style={{ ...serif, color: "#E8B74B" }}>
+              <span style={{ ...serif, color: "#C9A35C" }}>
                 We&apos;ll help you decide.
               </span>
             </h2>
@@ -539,7 +539,7 @@ export default function Content() {
                   margin: 0,
                   fontSize: 18,
                   lineHeight: 1.55,
-                  color: "#C3CBDA",
+                  color: "#C8CFD9",
                   maxWidth: 420,
                 }}
               >
@@ -552,14 +552,14 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "#E8B74B",
-                  color: "#0B1526",
+                  background: "#C9A35C",
+                  color: "#0D1726",
                   padding: "18px 28px",
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 600,
                 }}
-                hoverStyle={{ background: "#F0C96E", color: "#0B1526" }}
+                hoverStyle={{ background: "#DBB87A", color: "#0D1726" }}
               >
                 Book a Consultation <Icon name="icon-arrow-right" />
               </Hover>

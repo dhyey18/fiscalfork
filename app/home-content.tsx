@@ -3,10 +3,10 @@
 import { useState, type CSSProperties } from "react";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
+import HeroVideo from "./components/HeroVideo";
 import { Hover, Icon, Photo, useReveal, useViewportWidth } from "./lib/ui";
 
 /* ── Page options, exposed as editable props on the original page ────────── */
-const heroVisual: "Photo + dashboard" | "Dashboard only" = "Photo + dashboard";
 const problemsLayout: "Interactive list" | "Grid" = "Interactive list";
 const animations = true;
 
@@ -224,8 +224,8 @@ const STEPS = (
   n,
   title,
   desc,
-  bg: i === 0 ? "#1B2A4A" : "#FBFCFE",
-  fg: i === 0 ? "#E8B74B" : "#1B2A4A",
+  bg: i === 0 ? "#17304A" : "#FFFFFF",
+  fg: i === 0 ? "#C9A35C" : "#17304A",
 }));
 
 const TESTIMONIALS = [
@@ -266,7 +266,7 @@ const eyebrow: CSSProperties = {
   fontWeight: 600,
   letterSpacing: "0.12em",
   textTransform: "uppercase",
-  color: "#1B2A4A",
+  color: "#17304A",
   marginBottom: 20,
 };
 
@@ -283,21 +283,17 @@ export default function Content() {
   const [active, setActive] = useState(0);
   useReveal(animations);
 
-  const showPhoto = heroVisual === "Photo + dashboard";
   const interactive = problemsLayout === "Interactive list";
-  const card = showPhoto
-    ? { left: "0", top: "100%", tf: "translateY(-100%)", w: "min(360px,88%)" }
-    : { left: "50%", top: "50%", tf: "translate(-50%,-50%)", w: "min(440px,100%)" };
   const bars = BAR_HEIGHTS.map((h, i) => {
     const isFinal = i === BAR_HEIGHTS.length - 1;
     const isRecent = i >= 6;
     return {
       h: h + "%",
       c: isFinal
-        ? "linear-gradient(180deg,#24355C 0%,#1B2A4A 100%)"
+        ? "linear-gradient(180deg,#1F3C5C 0%,#17304A 100%)"
         : isRecent
-          ? "linear-gradient(180deg,#2FA36C 0%,#278058 100%)"
-          : "#D7DCE6",
+          ? "linear-gradient(180deg,#318A63 0%,#276B4C 100%)"
+          : "#DCD7CE",
     };
   });
   const current = PROBLEMS[active];
@@ -307,7 +303,7 @@ export default function Content() {
   void w;
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F5F6F8", overflowX: "clip" }}>
+    <div style={{ minHeight: "100vh", background: "#F7F5F1", overflowX: "clip" }}>
       <SiteHeader current="Home" homeHref="#top" />
 
       <main id="top">
@@ -317,64 +313,62 @@ export default function Content() {
           aria-labelledby="hero-h"
           style={{
             position: "relative",
-            maxWidth: 1280,
-            margin: "0 auto",
-            padding:
-              "clamp(48px,8vw,104px) clamp(20px,4vw,48px) clamp(56px,8vw,96px)",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,460px),1fr))",
-            gap: "clamp(48px,6vw,80px)",
-            alignItems: "center",
+            overflow: "hidden",
+            // Fallback behind the video, and what reduced-motion users see
+            // framing the poster.
+            background: "#0D1726",
           }}
         >
-          {/* Pulsing status dot — purely decorative, so motion is dropped
-              entirely under prefers-reduced-motion rather than just slowed. */}
           <style>{`
             @keyframes ffHeroPulse { 0%,100% { opacity:1; transform:scale(1) } 50% { opacity:.55; transform:scale(1.35) } }
             .ff-hero-dot::after { content:""; position:absolute; inset:-5px; border-radius:50%; background:inherit; animation:ffHeroPulse 2.4s ease-in-out infinite; }
             @media (prefers-reduced-motion: reduce) { .ff-hero-dot::after { animation:none; display:none } }
+
+            /* Scrim over the footage. Video frames are unknowable, so the
+               opacity is set for the worst case — a pure white frame — and
+               checked to clear AA for every text colour used on top. It is
+               heaviest on the left, where the copy sits, and lifts towards the
+               right so the footage stays visible behind the card. */
+            .ff-hero-scrim {
+              position:absolute; inset:0; pointer-events:none;
+              background:linear-gradient(100deg,
+                rgba(13,23,38,0.93) 0%, rgba(13,23,38,0.90) 38%,
+                rgba(13,23,38,0.64) 68%, rgba(13,23,38,0.45) 100%);
+            }
+            /* One column below 960px: the copy spans the full width, so the
+               gradient turns vertical and stays heavy throughout. */
+            @media (max-width: 960px) {
+              .ff-hero-scrim {
+                background:linear-gradient(180deg,
+                  rgba(13,23,38,0.88) 0%, rgba(13,23,38,0.92) 55%,
+                  rgba(13,23,38,0.95) 100%);
+              }
+            }
           `}</style>
 
-          {/* Decorative backdrop: two soft out-of-focus glows, brand-colored but
-              low-opacity, sitting behind the content. position:absolute removes
-              these from the grid's auto-placement, so the two real columns
-              below are unaffected. */}
+          <HeroVideo
+            src="/7735854-hd_1920_1080_25fps.mp4"
+            posterName="hero"
+            sizes="100vw"
+          />
+          <div className="ff-hero-scrim" aria-hidden="true" />
+
           <div
-            aria-hidden="true"
             style={{
-              position: "absolute",
-              inset: 0,
-              overflow: "hidden",
-              pointerEvents: "none",
+              position: "relative",
+              zIndex: 1,
+              maxWidth: 1280,
+              margin: "0 auto",
+              minHeight: "clamp(620px,88vh,960px)",
+              padding:
+                "clamp(72px,10vw,120px) clamp(20px,4vw,48px) clamp(72px,10vw,120px)",
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,460px),1fr))",
+              gap: "clamp(48px,6vw,80px)",
+              alignItems: "center",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                top: "-12%",
-                right: "-10%",
-                width: "46%",
-                aspectRatio: "1",
-                borderRadius: "50%",
-                background:
-                  "radial-gradient(circle,rgba(27,42,74,0.08) 0%,rgba(27,42,74,0) 72%)",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                bottom: "-18%",
-                left: "-8%",
-                width: "32%",
-                aspectRatio: "1",
-                borderRadius: "50%",
-                background:
-                  "radial-gradient(circle,rgba(232,183,75,0.12) 0%,rgba(232,183,75,0) 72%)",
-              }}
-            />
-          </div>
-
-          <div style={{ position: "relative", zIndex: 1 }}>
+          <div>
             <div
               style={{
                 display: "inline-flex",
@@ -382,11 +376,12 @@ export default function Content() {
                 gap: 10,
                 padding: "7px 14px 7px 8px",
                 borderRadius: 999,
-                background: "#FBFCFE",
-                border: "1px solid rgba(11,21,38,0.1)",
-                boxShadow: "0 1px 2px rgba(11,21,38,0.04)",
+                background: "rgba(255,255,255,0.12)",
+                border: "1px solid rgba(255,255,255,0.28)",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
                 fontSize: 13,
-                color: "#5B6472",
+                color: "#F7F5F1",
                 marginBottom: 28,
               }}
             >
@@ -397,11 +392,11 @@ export default function Content() {
                   width: 8,
                   height: 8,
                   borderRadius: "50%",
-                  background: "#278058",
+                  background: "#4FB183",
                   marginLeft: 4,
                 }}
               />
-              Accounting, tax &amp; advisory for growing businesses
+              Chartered Accountants · Audit, Tax &amp; Advisory
             </div>
             <h1
               id="hero-h"
@@ -412,41 +407,25 @@ export default function Content() {
                 lineHeight: 0.98,
                 letterSpacing: "-0.045em",
                 textWrap: "balance",
+                color: "#FFFFFF",
               }}
             >
-              {"Clear Numbers. Smarter Decisions. "}
-              <span style={{ position: "relative", display: "inline-block" }}>
-                <span
-                  aria-hidden="true"
-                  style={{
-                    position: "absolute",
-                    zIndex: -1,
-                    left: "-3%",
-                    right: "-3%",
-                    bottom: "6%",
-                    height: "30%",
-                    borderRadius: 999,
-                    background:
-                      "linear-gradient(90deg,rgba(232,183,75,0.4),rgba(232,183,75,0.16))",
-                  }}
-                />
-                <span style={{ ...serif, color: "#1B2A4A" }}>
-                  Stronger Business.
-                </span>
-              </span>
+              {"Rigorous Audit. Assured Compliance. "}
+              <span style={{ ...serif, color: "#C9A35C" }}>Trusted Counsel.</span>
             </h1>
             <p
               style={{
                 margin: "28px 0 0",
                 fontSize: "clamp(17px,1.5vw,20px)",
                 lineHeight: 1.55,
-                color: "#5B6472",
+                color: "#C8CFD9",
                 maxWidth: 520,
                 textWrap: "pretty",
               }}
             >
-              Fiscal Fork provides modern accounting and financial services that give
-              businesses clarity, control, and confidence to grow.
+              Fiscal Fork is a firm of Chartered Accountants providing statutory
+              audit and assurance, taxation, regulatory compliance and business
+              advisory to companies, promoters and growing enterprises.
             </p>
             <div
               style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 40 }}
@@ -457,20 +436,20 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "#1B2A4A",
-                  color: "#F5F6F8",
+                  background: "#C9A35C",
+                  color: "#0D1726",
                   padding: "17px 26px",
                   borderRadius: 999,
                   fontSize: 16,
-                  fontWeight: 500,
-                  boxShadow: "0 10px 24px -8px rgba(27,42,74,0.4)",
+                  fontWeight: 600,
+                  boxShadow: "0 12px 28px -10px rgba(0,0,0,0.55)",
                   transition: "background 200ms,transform 200ms,box-shadow 200ms",
                 }}
                 hoverStyle={{
-                  background: "#0B1526",
-                  color: "#F5F6F8",
+                  background: "#DBB87A",
+                  color: "#0D1726",
                   transform: "translateY(-2px)",
-                  boxShadow: "0 16px 32px -8px rgba(11,21,38,0.45)",
+                  boxShadow: "0 18px 36px -10px rgba(0,0,0,0.6)",
                 }}
               >
                 {"Book a Consultation "}
@@ -482,19 +461,21 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "transparent",
-                  color: "#0B1526",
+                  background: "rgba(255,255,255,0.08)",
+                  color: "#FFFFFF",
                   padding: "17px 26px",
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 500,
-                  border: "1px solid rgba(11,21,38,0.18)",
+                  border: "1px solid rgba(255,255,255,0.4)",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
                   transition: "background 200ms,transform 200ms,border-color 200ms",
                 }}
                 hoverStyle={{
-                  background: "#FBFCFE",
-                  color: "#0B1526",
-                  borderColor: "rgba(11,21,38,0.3)",
+                  background: "rgba(255,255,255,0.18)",
+                  color: "#FFFFFF",
+                  borderColor: "rgba(255,255,255,0.65)",
                   transform: "translateY(-2px)",
                 }}
               >
@@ -508,13 +489,13 @@ export default function Content() {
                 gap: "12px 28px",
                 marginTop: 44,
                 fontSize: 14,
-                color: "#5B6472",
+                color: "#C8CFD9",
               }}
             >
               {[
-                "Fixed monthly pricing",
-                "Dedicated accountant",
-                "Books closed monthly",
+                "Qualified Chartered Accountants",
+                "Statutory audit & assurance",
+                "Filed within statutory deadlines",
               ].map((t) => (
                 <span
                   key={t}
@@ -530,8 +511,8 @@ export default function Content() {
                       width: 20,
                       height: 20,
                       borderRadius: "50%",
-                      background: "#E7EAF2",
-                      color: "#1B2A4A",
+                      background: "rgba(255,255,255,0.16)",
+                      color: "#FFFFFF",
                     }}
                   >
                     <Icon name="icon-check" style={{ fontSize: 12 }} />
@@ -542,56 +523,17 @@ export default function Content() {
             </div>
           </div>
 
-          <div
-            style={{
-              position: "relative",
-              zIndex: 1,
-              minHeight: "clamp(440px,48vw,600px)",
-            }}
-          >
-            {showPhoto ? (
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0,
-                  bottom: 56,
-                  left: "clamp(0px,8%,64px)",
-                  borderRadius: 28,
-                  overflow: "hidden",
-                  border: "1px solid rgba(11,21,38,0.06)",
-                  boxShadow:
-                    "0 40px 70px -28px rgba(11,21,38,0.35),0 10px 24px -10px rgba(11,21,38,0.18)",
-                  background:
-                    "repeating-linear-gradient(135deg,#ECEEF3 0 12px,#E6E9EF 12px 24px)",
-                }}
-              >
-                <Photo
-                  name="hero"
-                  sizes="(max-width: 960px) 100vw, 50vw"
-                  priority
-                />
-              </div>
-            ) : null}
-            <div
-              style={{
-                position: "absolute",
-                zIndex: 2,
-                left: card.left,
-                top: card.top,
-                transform: card.tf,
-                width: card.w,
-              }}
-            >
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ width: "min(400px,100%)" }}>
               <div
                 style={{
                   position: "relative",
                   overflow: "hidden",
-                  background: "#FBFCFE",
+                  background: "#FFFFFF",
                   borderRadius: 22,
-                  border: "1px solid rgba(11,21,38,0.08)",
+                  border: "1px solid rgba(13,23,38,0.08)",
                   boxShadow:
-                    "0 32px 70px -24px rgba(11,21,38,0.3),0 8px 20px -6px rgba(11,21,38,0.12)",
+                    "0 32px 70px -24px rgba(13,23,38,0.3),0 8px 20px -6px rgba(13,23,38,0.12)",
                   padding: 24,
                 }}
               >
@@ -603,7 +545,7 @@ export default function Content() {
                     left: 0,
                     right: 0,
                     height: 3,
-                    background: "linear-gradient(90deg,#1B2A4A,#E8B74B)",
+                    background: "linear-gradient(90deg,#17304A,#C9A35C)",
                   }}
                 />
                 <div
@@ -615,8 +557,8 @@ export default function Content() {
                   }}
                 >
                   <div>
-                    <div style={{ fontSize: 13, color: "#5B6472" }}>
-                      Cash position · September
+                    <div style={{ fontSize: 13, color: "#676E78" }}>
+                      Compliance calendar · Q3
                     </div>
                     <div
                       style={{
@@ -626,21 +568,21 @@ export default function Content() {
                         marginTop: 6,
                       }}
                     >
-                      $248,610
+                      18 / 18
                     </div>
                   </div>
                   <span
                     style={{
                       fontSize: 13,
                       fontWeight: 500,
-                      color: "#166A48",
-                      background: "#D7F3E3",
+                      color: "#1F5C41",
+                      background: "#E4EDE7",
                       padding: "6px 10px",
                       borderRadius: 999,
                       whiteSpace: "nowrap",
                     }}
                   >
-                    +12.4% QoQ
+                    All on time
                   </span>
                 </div>
                 <div
@@ -652,7 +594,7 @@ export default function Content() {
                     height: 96,
                     marginTop: 22,
                     paddingBottom: 10,
-                    borderBottom: "1px solid rgba(11,21,38,0.08)",
+                    borderBottom: "1px solid rgba(13,23,38,0.08)",
                   }}
                 >
                   {bars.map((b, i) => (
@@ -678,14 +620,24 @@ export default function Content() {
                 >
                   {(
                     [
-                      ["icon-circle-check", "#278058", "Books reconciled", "Sep 30"],
                       [
                         "icon-circle-check",
-                        "#278058",
-                        "Q3 tax estimate filed",
+                        "#276B4C",
+                        "Statutory audit signed off",
+                        "Sep 30",
+                      ],
+                      [
+                        "icon-circle-check",
+                        "#276B4C",
+                        "Quarterly return filed",
                         "Oct 1",
                       ],
-                      ["icon-clock", "#5B6472", "Next payroll run", "Oct 15"],
+                      [
+                        "icon-clock",
+                        "#676E78",
+                        "Next statutory deadline",
+                        "Oct 15",
+                      ],
                     ] as const
                   ).map(([icon, color, label, date]) => (
                     <div
@@ -702,12 +654,13 @@ export default function Content() {
                         <Icon name={icon} style={{ color, fontSize: 17 }} />
                         {label}
                       </span>
-                      <span style={{ color: "#5B6472" }}>{date}</span>
+                      <span style={{ color: "#676E78" }}>{date}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </section>
 
@@ -726,8 +679,8 @@ export default function Content() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,220px),1fr))",
-              borderTop: "1px solid rgba(11,21,38,0.12)",
-              borderBottom: "1px solid rgba(11,21,38,0.12)",
+              borderTop: "1px solid rgba(13,23,38,0.12)",
+              borderBottom: "1px solid rgba(13,23,38,0.12)",
             }}
           >
             {STATS.map((s) => (
@@ -745,7 +698,7 @@ export default function Content() {
                 >
                   {s.n}
                 </div>
-                <div style={{ fontSize: 15, color: "#5B6472", marginTop: 12 }}>
+                <div style={{ fontSize: 15, color: "#676E78", marginTop: 12 }}>
                   {s.label}
                 </div>
               </div>
@@ -789,7 +742,7 @@ export default function Content() {
                 maxWidth: 380,
                 fontSize: 17,
                 lineHeight: 1.6,
-                color: "#5B6472",
+                color: "#676E78",
               }}
             >
               Pick a single service or combine them into one managed finance function.
@@ -811,20 +764,20 @@ export default function Content() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  background: "#FBFCFE",
-                  border: "1px solid rgba(11,21,38,0.08)",
+                  background: "#FFFFFF",
+                  border: "1px solid rgba(13,23,38,0.08)",
                   borderRadius: 22,
                   padding: 28,
                   minHeight: 280,
-                  color: "#0B1526",
-                  boxShadow: "0 1px 2px rgba(11,21,38,0.03)",
+                  color: "#0D1726",
+                  boxShadow: "0 1px 2px rgba(13,23,38,0.03)",
                   transition: "box-shadow 260ms,border-color 260ms,transform 260ms",
                 }}
                 hoverStyle={{
-                  boxShadow: "0 18px 40px -18px rgba(11,21,38,0.22)",
-                  borderColor: "rgba(11,21,38,0.16)",
+                  boxShadow: "0 18px 40px -18px rgba(13,23,38,0.22)",
+                  borderColor: "rgba(13,23,38,0.16)",
                   transform: "translateY(-2px)",
-                  color: "#0B1526",
+                  color: "#0D1726",
                 }}
               >
                 <span
@@ -833,8 +786,8 @@ export default function Content() {
                     width: 48,
                     height: 48,
                     borderRadius: 14,
-                    background: "#E7EAF2",
-                    color: "#1B2A4A",
+                    background: "#EDE9E2",
+                    color: "#17304A",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -857,7 +810,7 @@ export default function Content() {
                     margin: "10px 0 0",
                     fontSize: 15,
                     lineHeight: 1.55,
-                    color: "#5B6472",
+                    color: "#676E78",
                     flex: 1,
                   }}
                 >
@@ -868,7 +821,7 @@ export default function Content() {
                     marginTop: 24,
                     fontSize: 15,
                     fontWeight: 500,
-                    color: "#1B2A4A",
+                    color: "#17304A",
                     display: "flex",
                     alignItems: "center",
                     gap: 6,
@@ -895,8 +848,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#1B2A4A",
-              color: "#F5F6F8",
+              background: "#17304A",
+              color: "#F7F5F1",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(48px,7vw,96px) clamp(24px,5vw,72px)",
             }}
@@ -912,7 +865,7 @@ export default function Content() {
               }}
             >
               <div>
-                <div style={{ ...eyebrow, color: "#E8B74B" }}>Why Fiscal Fork</div>
+                <div style={{ ...eyebrow, color: "#C9A35C" }}>Why Fiscal Fork</div>
                 <h2
                   id="why-h"
                   style={{
@@ -925,7 +878,7 @@ export default function Content() {
                   }}
                 >
                   {"More than accounting. "}
-                  <span style={{ ...serif, color: "#E8B74B" }}>
+                  <span style={{ ...serif, color: "#C9A35C" }}>
                     A financial partner.
                   </span>
                 </h2>
@@ -935,7 +888,7 @@ export default function Content() {
                   margin: 0,
                   fontSize: 18,
                   lineHeight: 1.6,
-                  color: "#C3CBDA",
+                  color: "#C8CFD9",
                   maxWidth: 460,
                 }}
               >
@@ -956,14 +909,14 @@ export default function Content() {
                   data-reveal=""
                   style={{
                     padding: "32px 28px 8px 0",
-                    borderTop: "1px solid rgba(245,246,248,0.18)",
+                    borderTop: "1px solid rgba(247,245,241,0.18)",
                   }}
                 >
                   <div
                     style={{
                       fontFamily: "'JetBrains Mono',monospace",
                       fontSize: 13,
-                      color: "#E8B74B",
+                      color: "#C9A35C",
                     }}
                   >
                     {b.n}
@@ -984,7 +937,7 @@ export default function Content() {
                       margin: "12px 0 0",
                       fontSize: 15,
                       lineHeight: 1.6,
-                      color: "#C3CBDA",
+                      color: "#C8CFD9",
                       maxWidth: 280,
                     }}
                   >
@@ -1046,9 +999,9 @@ export default function Content() {
                         textAlign: "left",
                         padding: "18px 20px",
                         borderRadius: 16,
-                        border: `1px solid ${on ? "rgba(11,21,38,0.14)" : "transparent"}`,
-                        background: on ? "#FBFCFE" : "transparent",
-                        color: "#0B1526",
+                        border: `1px solid ${on ? "rgba(13,23,38,0.14)" : "transparent"}`,
+                        background: on ? "#FFFFFF" : "transparent",
+                        color: "#0D1726",
                         fontSize: 17,
                         fontWeight: 500,
                         letterSpacing: "-0.01em",
@@ -1061,7 +1014,7 @@ export default function Content() {
                         style={{
                           fontFamily: "'JetBrains Mono',monospace",
                           fontSize: 12,
-                          color: "#5B6472",
+                          color: "#676E78",
                           width: 22,
                         }}
                       >
@@ -1071,7 +1024,7 @@ export default function Content() {
                       <Icon
                         name="icon-arrow-right"
                         style={{
-                          color: on ? "#1B2A4A" : "rgba(11,21,38,0.25)",
+                          color: on ? "#17304A" : "rgba(13,23,38,0.25)",
                           fontSize: 18,
                         }}
                       />
@@ -1085,14 +1038,14 @@ export default function Content() {
                 style={{
                   position: "sticky",
                   top: 96,
-                  background: "#FBFCFE",
-                  border: "1px solid rgba(11,21,38,0.08)",
+                  background: "#FFFFFF",
+                  border: "1px solid rgba(13,23,38,0.08)",
                   borderRadius: 28,
                   padding: "clamp(28px,4vw,48px)",
-                  boxShadow: "0 24px 60px -32px rgba(11,21,38,0.25)",
+                  boxShadow: "0 24px 60px -32px rgba(13,23,38,0.25)",
                 }}
               >
-                <div style={{ fontSize: 14, color: "#5B6472" }}>The problem</div>
+                <div style={{ fontSize: 14, color: "#676E78" }}>The problem</div>
                 <div
                   style={{
                     fontFamily: "'Newsreader',serif",
@@ -1100,7 +1053,7 @@ export default function Content() {
                     fontSize: "clamp(26px,2.6vw,34px)",
                     lineHeight: 1.2,
                     marginTop: 8,
-                    color: "#0B1526",
+                    color: "#0D1726",
                   }}
                 >
                   “{current.problem}”
@@ -1108,7 +1061,7 @@ export default function Content() {
                 <div
                   style={{
                     height: 1,
-                    background: "rgba(11,21,38,0.1)",
+                    background: "rgba(13,23,38,0.1)",
                     margin: "32px 0",
                   }}
                 />
@@ -1118,7 +1071,7 @@ export default function Content() {
                     alignItems: "center",
                     gap: 10,
                     fontSize: 14,
-                    color: "#1B2A4A",
+                    color: "#17304A",
                     fontWeight: 600,
                   }}
                 >
@@ -1130,7 +1083,7 @@ export default function Content() {
                     margin: "12px 0 0",
                     fontSize: "clamp(18px,1.6vw,21px)",
                     lineHeight: 1.5,
-                    color: "#0B1526",
+                    color: "#0D1726",
                     textWrap: "pretty",
                   }}
                 >
@@ -1153,8 +1106,8 @@ export default function Content() {
                       gap: 8,
                       fontSize: 14,
                       fontWeight: 500,
-                      background: "#E7EAF2",
-                      color: "#1B2A4A",
+                      background: "#EDE9E2",
+                      color: "#17304A",
                       padding: "8px 14px",
                       borderRadius: 999,
                     }}
@@ -1189,8 +1142,8 @@ export default function Content() {
                 <div
                   key={p.n}
                   style={{
-                    background: "#FBFCFE",
-                    border: "1px solid rgba(11,21,38,0.08)",
+                    background: "#FFFFFF",
+                    border: "1px solid rgba(13,23,38,0.08)",
                     borderRadius: 22,
                     padding: 28,
                     display: "flex",
@@ -1208,13 +1161,13 @@ export default function Content() {
                   >
                     “{p.problem}”
                   </div>
-                  <div style={{ height: 1, background: "rgba(11,21,38,0.1)" }} />
+                  <div style={{ height: 1, background: "rgba(13,23,38,0.1)" }} />
                   <p
                     style={{
                       margin: 0,
                       fontSize: 15,
                       lineHeight: 1.6,
-                      color: "#5B6472",
+                      color: "#676E78",
                       flex: 1,
                     }}
                   >
@@ -1228,8 +1181,8 @@ export default function Content() {
                       gap: 8,
                       fontSize: 13,
                       fontWeight: 500,
-                      background: "#E7EAF2",
-                      color: "#1B2A4A",
+                      background: "#EDE9E2",
+                      color: "#17304A",
                       padding: "7px 12px",
                       borderRadius: 999,
                     }}
@@ -1278,7 +1231,7 @@ export default function Content() {
                 maxWidth: 380,
                 fontSize: 17,
                 lineHeight: 1.6,
-                color: "#5B6472",
+                color: "#676E78",
               }}
             >
               Each sector has its own margins, tax rules and reporting needs. We set up
@@ -1300,17 +1253,17 @@ export default function Content() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  color: "#0B1526",
-                  background: "#FBFCFE",
-                  border: "1px solid rgba(11,21,38,0.08)",
+                  color: "#0D1726",
+                  background: "#FFFFFF",
+                  border: "1px solid rgba(13,23,38,0.08)",
                   borderRadius: 24,
                   overflow: "hidden",
                   transition: "box-shadow 260ms,transform 260ms",
                 }}
                 hoverStyle={{
-                  boxShadow: "0 18px 40px -18px rgba(11,21,38,0.22)",
+                  boxShadow: "0 18px 40px -18px rgba(13,23,38,0.22)",
                   transform: "translateY(-2px)",
-                  color: "#0B1526",
+                  color: "#0D1726",
                 }}
               >
                 <div
@@ -1318,7 +1271,7 @@ export default function Content() {
                     position: "relative",
                     aspectRatio: "4/3",
                     background:
-                      "repeating-linear-gradient(135deg,#ECEEF3 0 12px,#E6E9EF 12px 24px)",
+                      "repeating-linear-gradient(135deg,#EFEBE4 0 12px,#E8E4DC 12px 24px)",
                   }}
                 >
                   <Photo
@@ -1350,7 +1303,7 @@ export default function Content() {
                         margin: "8px 0 0",
                         fontSize: 15,
                         lineHeight: 1.55,
-                        color: "#5B6472",
+                        color: "#676E78",
                       }}
                     >
                       {ind.desc}
@@ -1363,11 +1316,11 @@ export default function Content() {
                       width: 44,
                       height: 44,
                       borderRadius: "50%",
-                      border: "1px solid rgba(11,21,38,0.14)",
+                      border: "1px solid rgba(13,23,38,0.14)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#1B2A4A",
+                      color: "#17304A",
                     }}
                   >
                     <i className="icon-arrow-up-right" style={{ fontSize: 18 }} />
@@ -1421,7 +1374,7 @@ export default function Content() {
                       borderRadius: "50%",
                       background: s.bg,
                       color: s.fg,
-                      border: "1px solid rgba(11,21,38,0.14)",
+                      border: "1px solid rgba(13,23,38,0.14)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1437,7 +1390,7 @@ export default function Content() {
                     style={{
                       flex: 1,
                       height: 1,
-                      background: "rgba(11,21,38,0.14)",
+                      background: "rgba(13,23,38,0.14)",
                     }}
                   />
                 </div>
@@ -1456,7 +1409,7 @@ export default function Content() {
                     margin: "10px 0 0",
                     fontSize: 16,
                     lineHeight: 1.55,
-                    color: "#5B6472",
+                    color: "#676E78",
                     maxWidth: 260,
                   }}
                 >
@@ -1498,8 +1451,8 @@ export default function Content() {
                 data-reveal=""
                 style={{
                   margin: 0,
-                  background: "#FBFCFE",
-                  border: "1px solid rgba(11,21,38,0.08)",
+                  background: "#FFFFFF",
+                  border: "1px solid rgba(13,23,38,0.08)",
                   borderRadius: 24,
                   padding: 32,
                   display: "flex",
@@ -1514,7 +1467,7 @@ export default function Content() {
                     fontSize: 64,
                     lineHeight: 0.5,
                     height: 24,
-                    color: "#1B2A4A",
+                    color: "#17304A",
                   }}
                 >
                   “
@@ -1537,7 +1490,7 @@ export default function Content() {
                     alignItems: "center",
                     gap: 14,
                     paddingTop: 24,
-                    borderTop: "1px solid rgba(11,21,38,0.08)",
+                    borderTop: "1px solid rgba(13,23,38,0.08)",
                   }}
                 >
                   <span
@@ -1546,8 +1499,8 @@ export default function Content() {
                       width: 44,
                       height: 44,
                       borderRadius: "50%",
-                      background: "#E7EAF2",
-                      color: "#1B2A4A",
+                      background: "#EDE9E2",
+                      color: "#17304A",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1561,7 +1514,7 @@ export default function Content() {
                     style={{ display: "flex", flexDirection: "column", gap: 2 }}
                   >
                     <span style={{ fontWeight: 600, fontSize: 15 }}>{t.name}</span>
-                    <span style={{ fontSize: 14, color: "#5B6472" }}>{t.role}</span>
+                    <span style={{ fontSize: 14, color: "#676E78" }}>{t.role}</span>
                   </span>
                 </figcaption>
               </figure>
@@ -1585,8 +1538,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#0B1526",
-              color: "#F5F6F8",
+              background: "#0D1726",
+              color: "#F7F5F1",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(64px,9vw,128px) clamp(24px,5vw,72px)",
               display: "grid",
@@ -1608,7 +1561,7 @@ export default function Content() {
                 }}
               >
                 {"Ready to get your finances "}
-                <span style={{ ...serif, color: "#E8B74B" }}>
+                <span style={{ ...serif, color: "#C9A35C" }}>
                   working for your business?
                 </span>
               </h2>
@@ -1626,7 +1579,7 @@ export default function Content() {
                   margin: 0,
                   fontSize: "clamp(17px,1.5vw,20px)",
                   lineHeight: 1.55,
-                  color: "#C3CBDA",
+                  color: "#C8CFD9",
                   maxWidth: 420,
                 }}
               >
@@ -1639,20 +1592,20 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "#E8B74B",
-                  color: "#0B1526",
+                  background: "#C9A35C",
+                  color: "#0D1726",
                   padding: "19px 30px",
                   borderRadius: 999,
                   fontSize: 17,
                   fontWeight: 600,
                   transition: "background 200ms",
                 }}
-                hoverStyle={{ background: "#F0C96E", color: "#0B1526" }}
+                hoverStyle={{ background: "#DBB87A", color: "#0D1726" }}
               >
                 {"Book a Consultation "}
                 <Icon name="icon-arrow-right" style={{ fontSize: 18 }} />
               </Hover>
-              <span style={{ fontSize: 14, color: "#8C96A8" }}>
+              <span style={{ fontSize: 14, color: "#8E97A3" }}>
                 30-minute call · No obligation
               </span>
             </div>
