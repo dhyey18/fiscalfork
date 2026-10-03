@@ -3,10 +3,13 @@
 import type { CSSProperties } from "react";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
-import { Hover, Icon, ImageSlot, useViewportWidth } from "../lib/ui";
+import { Hover, Icon, Photo, useViewportWidth } from "../lib/ui";
 
 /* ── Page options, exposed as editable props on the original page ────────── */
 const layout: "Alternating" | "Stacked" = "Alternating";
+
+// One portrait per founder, in declaration order.
+const FOUNDER_PHOTOS = ["founder-1", "founder-2", "founder-3"] as const;
 
 const FOUNDERS = [
   {
@@ -68,6 +71,7 @@ export default function Content() {
     hid: "founder-" + (i + 1),
     slot: "founder-" + (i + 1),
     ph: "Portrait — founder " + (i + 1) + ", natural light, plain background",
+    photo: FOUNDER_PHOTOS[i],
     mail: "mailto:hello@fiscalfork.com",
     photoOrder: alternate && i % 2 === 1 && isDesktop ? 2 : 0,
   }));
@@ -172,9 +176,9 @@ export default function Content() {
                   order: f.photoOrder,
                 }}
               >
-                <ImageSlot
-                  shape="rect"
-                  placeholder={f.ph}
+                <Photo
+                  name={f.photo}
+                  sizes="(max-width: 860px) 100vw, 50vw"
                 />
                 <span
                   style={{

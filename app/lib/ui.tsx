@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   createElement,
   useEffect,
@@ -10,6 +11,7 @@ import {
   type ElementType,
   type ReactNode,
 } from "react";
+import { PHOTOS, type PhotoKey } from "./images";
 
 /* ── `style-hover` / `style-focus` ────────────────────────────────────────
  *
@@ -114,15 +116,45 @@ export function Icon({
 }
 
 /**
- * `<image-slot>` — the authoring tool's drop-an-image placeholder. No image is
- * stored in the exported pages, so every slot renders its empty state: a tinted
- * frame, a dashed ring and the caption.
+ * A photograph filling its container, in place of the design's `<image-slot>`
+ * placeholder. Every call site already establishes a height (an inset wrapper,
+ * a `min-height`, or its own `aspect-ratio`), so `fill` is safe and the parent
+ * keeps deciding the shape of the frame.
+ *
+ * `sizes` tells next/image how wide the image will actually render, so it can
+ * request a sensibly sized file instead of a full-width one.
+ */
+export function Photo({
+  name,
+  sizes = "100vw",
+  priority,
+}: {
+  name: PhotoKey;
+  sizes?: string;
+  priority?: boolean;
+}) {
+  const { id, alt } = PHOTOS[name];
+  return (
+    <Image
+      src={`https://images.unsplash.com/${id}`}
+      alt={alt}
+      fill
+      sizes={sizes}
+      priority={priority}
+      style={{ objectFit: "cover" }}
+    />
+  );
+}
+
+/**
+ * `<image-slot>` — the authoring tool's drop-an-image placeholder, kept for any
+ * frame that has no photograph yet. It renders the empty state: a tinted frame,
+ * a dashed ring and the caption.
  *
  * These styles mirror the custom element's `:host` rules and must not be
  * overridden at the call site. The slot stays in normal flow, so where its
  * parent's height is indefinite (a wrapper sized only by `aspect-ratio`) the
- * slot's own 3/2 ratio can stretch that parent taller — which is exactly what
- * the original pages render.
+ * slot's own 3/2 ratio can stretch that parent taller.
  */
 export function ImageSlot({
   placeholder,

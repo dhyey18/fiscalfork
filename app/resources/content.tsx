@@ -3,7 +3,17 @@
 import { useState, type CSSProperties, type FormEvent } from "react";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
-import { Hover, Icon, ImageSlot } from "../lib/ui";
+import { Hover, Icon, Photo } from "../lib/ui";
+
+// One photo per article, in the order the articles are declared below.
+const ARTICLE_PHOTOS = [
+  "article-1",
+  "article-2",
+  "article-3",
+  "article-4",
+  "article-5",
+  "article-6",
+] as const;
 
 const ALL_ARTICLES = (
   [
@@ -50,6 +60,7 @@ const ALL_ARTICLES = (
   title,
   desc,
   slot: "article-" + (i + 1),
+  photo: ARTICLE_PHOTOS[i],
 }));
 
 const CATS = ["All", "Bookkeeping", "Tax", "Cash flow", "Startups"];
@@ -183,9 +194,10 @@ export default function Content() {
                   "repeating-linear-gradient(135deg,#1F4A3F 0 12px,#22503F 12px 24px)",
               }}
             >
-              <ImageSlot
-                shape="rect"
-                placeholder="Feature image — desk with financial reports"
+              <Photo
+                name="resource-featured"
+                sizes="(max-width: 900px) 100vw, 50vw"
+                priority
               />
             </div>
             <div
@@ -339,9 +351,9 @@ export default function Content() {
                       "repeating-linear-gradient(135deg,#E7E6DF 0 12px,#EEEDE7 12px 24px)",
                   }}
                 >
-                  <ImageSlot
-                    shape="rect"
-                    placeholder="Article image"
+                  <Photo
+                    name={a.photo}
+                    sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
                   />
                 </div>
                 <div

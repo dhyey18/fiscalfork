@@ -3,7 +3,7 @@
 import type { CSSProperties } from "react";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
-import { Hover, Icon, ImageSlot, useViewportWidth } from "../lib/ui";
+import { Hover, Icon, Photo, useViewportWidth } from "../lib/ui";
 
 const DATA = [
   [
@@ -295,9 +295,9 @@ export default function Content() {
                   order: d.order,
                 }}
               >
-                <ImageSlot
-                  shape="rect"
-                  placeholder={d.ph}
+                <Photo
+                  name={d.slug}
+                  sizes="(max-width: 860px) 100vw, 50vw"
                 />
               </div>
               <div

@@ -3,7 +3,7 @@
 import { useState, type CSSProperties } from "react";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
-import { Hover, Icon, ImageSlot, useReveal, useViewportWidth } from "./lib/ui";
+import { Hover, Icon, Photo, useReveal, useViewportWidth } from "./lib/ui";
 
 /* ── Page options, exposed as editable props on the original page ────────── */
 const heroVisual: "Photo + dashboard" | "Dashboard only" = "Photo + dashboard";
@@ -165,7 +165,7 @@ const INDUSTRY_ANCHORS = [
   "ecommerce",
   "real-estate",
   "technology",
-];
+] as const;
 
 const INDUSTRIES = (
   [
@@ -205,6 +205,7 @@ const INDUSTRIES = (
   desc,
   ph,
   slot: "industry-" + (i + 1),
+  photo: INDUSTRY_ANCHORS[i],
   href: "/industries#" + INDUSTRY_ANCHORS[i],
 }));
 
@@ -453,9 +454,10 @@ export default function Content() {
                     "repeating-linear-gradient(135deg,#E7E6DF 0 12px,#EEEDE7 12px 24px)",
                 }}
               >
-                <ImageSlot
-                  shape="rect"
-                  placeholder="Photo — advisor reviewing reports with a client, natural light"
+                <Photo
+                  name="hero"
+                  sizes="(max-width: 960px) 100vw, 50vw"
+                  priority
                 />
               </div>
             ) : null}
@@ -1194,9 +1196,9 @@ export default function Content() {
                       "repeating-linear-gradient(135deg,#E7E6DF 0 12px,#EEEDE7 12px 24px)",
                   }}
                 >
-                  <ImageSlot
-                    shape="rect"
-                    placeholder={ind.ph}
+                  <Photo
+                    name={ind.photo}
+                    sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
                   />
                 </div>
                 <div

@@ -43,8 +43,9 @@ visual drift.
 - **`Hover` and `useFocusStyle`** (in `lib/ui.tsx`) generate real
   `.scp-*:hover { … !important }` stylesheet rules rather than swapping inline
   styles from JS. `!important` is what lets them beat an element's own inline style.
-- **`ImageSlot`** stays in normal flow with `aspect-ratio: 3/2` and may stretch a
-  parent whose own aspect ratio is flatter. Do not make it `position: absolute`.
+- **`ImageSlot`** (the unfilled placeholder, kept for frames with no photo yet)
+  stays in normal flow with `aspect-ratio: 3/2` and may stretch a parent whose own
+  aspect ratio is flatter. Do not make it `position: absolute`.
 - **`useReveal`** drives the home page's scroll fade-in. It re-observes every
   still-pending element on each effect run (React StrictMode runs effects twice in
   dev), and commits the hidden state with `transition: none` plus a forced reflow
@@ -56,6 +57,23 @@ visual drift.
 - **Internal links are plain `<a>`**, so navigation is a full page load as on the
   original site. `@next/next/no-html-link-for-pages` is off in `eslint.config.mjs`
   for that reason; switch to `next/link` if you want client-side routing.
+
+## Photography
+
+Every photo is listed once in `app/lib/images.ts`, keyed by the slot it fills
+(`hero`, `healthcare`, `founder-2`, `article-4`, …) with its Unsplash CDN id and
+its alt text. The `Photo` component builds the URL and renders it through
+`next/image` with `fill`, so each frame's shape comes from its container.
+
+To change a picture, edit that one `id` — nothing else moves. Pass a `sizes` hint
+at the call site that reflects how wide the image really renders, so next/image
+requests a sensibly sized file. `images.unsplash.com` is allow-listed in
+`next.config.ts`.
+
+Photos are used under the [Unsplash License](https://unsplash.com/license): free
+for commercial use, attribution not required. Nothing is vendored into the repo —
+the images are served from Unsplash's CDN, so the site needs network access to
+them at runtime.
 
 ## Known issue
 

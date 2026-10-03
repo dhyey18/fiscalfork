@@ -3,7 +3,7 @@
 import { useState, type CSSProperties, type FormEvent } from "react";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
-import { Hover, Icon, ImageSlot, useFocusStyle } from "../lib/ui";
+import { Hover, Icon, Photo, useFocusStyle } from "../lib/ui";
 
 const SERVICES = [
   ["Bookkeeping", "icon-book-open"],
@@ -623,9 +623,9 @@ export default function Content() {
                 "repeating-linear-gradient(135deg,#E7E6DF 0 12px,#EEEDE7 12px 24px)",
             }}
           >
-            <ImageSlot
-              shape="rect"
-              placeholder="Map or office exterior photo"
+            <Photo
+              name="office-map"
+              sizes="(max-width: 1280px) 100vw, 1280px"
             />
           </div>
         </section>
