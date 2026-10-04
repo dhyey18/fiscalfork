@@ -15,7 +15,7 @@ const animations = true;
 
 
 const STATS = [
-  { n: "12+", label: "Years of experience" },
+  { n: "15+", label: "Years of experience" },
   { n: "300+", label: "Businesses supported" },
   { n: "9", label: "Service lines" },
   { n: "98%", label: "Client satisfaction" },
@@ -79,7 +79,7 @@ const SERVICES = (
       "icon-receipt",
       "#EEE4EC",
       "#6B3B61",
-      ["Year-round planning", "Federal, state & provincial", "Sales tax / GST-HST"],
+      ["Year-round planning", "Local filings in every market", "Sales and indirect tax"],
     ],
     [
       "cleanup",
@@ -101,12 +101,12 @@ const SERVICES = (
     ],
     [
       "cross-border",
-      "US & Canadian Accounting Support",
-      "One team across both countries, not two bookkeepers who never speak.",
+      "International Accounting Support",
+      "One team across every market you trade in, not a bookkeeper per country.",
       "icon-globe",
       "#E2EBE2",
       "#2F5A38",
-      ["Both reporting standards", "Multi-entity and multi-currency"],
+      ["Local reporting standards", "Multi-entity and multi-currency"],
     ],
   ] as const
 ).map(([slug, name, desc, icon, tintBg, tintFg, points]) => ({
@@ -137,8 +137,8 @@ const BENEFITS = [
   ],
   [
     "04",
-    "One team, both countries",
-    "US and Canadian entities handled together, by people who answer during your working hours.",
+    "One team, every market",
+    "Entities in different countries handled together, by people who answer during your working hours.",
   ],
 ].map(([n, title, desc]) => ({ n, title, desc }));
 
@@ -397,7 +397,7 @@ export default function Content() {
                     color: "#B98A4B",
                   }}
                 >
-                  Outsourced Accounting · US &amp; Canada
+                  Outsourced Accounting for Hospitality
                 </span>
               </div>
 
@@ -451,7 +451,7 @@ export default function Content() {
               >
                 Your business is moving fast. Your finances should keep up —
                 bookkeeping, payroll, reporting and CFO advisory, delivered on the
-                calendar your operation actually runs on.
+                calendar your operation actually runs on, wherever you trade.
               </p>
 
               <div
@@ -586,10 +586,14 @@ export default function Content() {
         {/* RUNNING HEADLINE */}
         <Marquee
           items={[
-            "Your numbers have a story. We help you read it.",
-            "Your business is moving fast. Your finances should keep up.",
-            "Books closed on a fixed monthly calendar.",
-            "Restaurants · Hotels · Construction",
+            "Tax Planning & Compliance",
+            "Profitability & Performance Optimization"
+            , "Payroll Management & Processing"
+            , "POS & Accounting System Integration"
+            , "Cost Reduction & Control Strategies"
+            , "CFO Advisory & Financial Consulting",
+            "Restaurant Bookkeeping & Accounting"
+            , "Hotel Finance & Financial Management"
           ]}
         />
 

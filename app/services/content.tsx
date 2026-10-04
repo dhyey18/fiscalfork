@@ -98,11 +98,11 @@ const SERVICES = (
       "Tax Planning & Compliance",
       "tax",
       "icon-receipt",
-      "Tax handled across the year rather than in a scramble each spring, with filings prepared ahead of deadline on both sides of the border.",
+      "Tax handled across the year rather than in a scramble at the deadline, with filings prepared ahead of time in every jurisdiction you file in.",
       [
         "Year-round planning, not just filing season",
-        "Federal, state and provincial filings",
-        "Sales tax and GST/HST registration and returns",
+        "Filings in each jurisdiction you operate in",
+        "Sales and indirect tax registration and returns",
         "Quarterly estimates and owner distributions",
         "Coordination with your CPA or tax preparer",
       ],
@@ -138,17 +138,17 @@ const SERVICES = (
     ],
     [
       "cross-border",
-      "US & Canadian Accounting Support",
-      "cross-border support",
+      "International Accounting Support",
+      "international support",
       "icon-globe",
-      "One team covering both countries, so multi-entity groups are not stitching together two bookkeepers who never speak to each other.",
+      "One team covering every market you trade in, so a multi-country group is not stitching together a separate bookkeeper per jurisdiction.",
       [
-        "US and Canadian reporting standards",
+        "Local reporting standards in each market",
         "Multi-entity and multi-currency handling",
         "Cross-border payroll coordination",
-        "Support aligned to US and Canadian business hours",
+        "Support aligned to your business hours",
       ],
-      "Groups operating on both sides of the border under one ownership.",
+      "Groups operating in more than one country under one ownership.",
     ],
   ] as const
 ).map(([slug, name, short, icon, summary, items, bestFor], i) => ({
@@ -288,8 +288,8 @@ export default function Content() {
                 }}
               >
                 Take one line or the whole function. Either way it is the same team,
-                the same close calendar, and one fixed monthly fee — across the US
-                and Canada.
+                the same close calendar, and one fixed monthly fee — in every market
+                you operate.
               </p>
             </div>
 

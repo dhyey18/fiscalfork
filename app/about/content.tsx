@@ -19,7 +19,7 @@ const FOUNDERS = [
     role: "Founder & CEO",
     creds: "[Credentials to confirm]",
     quote: "[Quote to be supplied]",
-    bio: "Leads the firm and its client relationships, and sets how engagements are scoped, staffed and delivered across the US and Canadian practice.",
+    bio: "Leads the firm and its client relationships, and sets how engagements are scoped, staffed and delivered across the firm's international practice.",
     focus: ["Client strategy", "Firm direction", "Hospitality"],
   },
   {
