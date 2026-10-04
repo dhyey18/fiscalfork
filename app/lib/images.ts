@@ -70,6 +70,44 @@ export const PHOTOS = {
     alt: "A team meeting around a boardroom table",
   },
 
+  /* Services — one per service block -------------------------------------- */
+  "svc-bookkeeping": {
+    id: "photo-1520607162513-77705c0f0d4a",
+    alt: "Desk with paperwork, phone and laptop during a bookkeeping session",
+  },
+  "svc-reporting": {
+    id: "photo-1559526324-4b87b5e36e44",
+    alt: "Reviewing performance figures on a laptop",
+  },
+  "svc-payroll": {
+    id: "photo-1504384308090-c894fdcc538d",
+    alt: "Open-plan workplace with staff across many desks",
+  },
+  "svc-ap-ar": {
+    id: "photo-1554224155-8d04cb21cd6c",
+    alt: "Calculator resting on a stack of invoices",
+  },
+  "svc-financials": {
+    id: "photo-1591696205602-2f950c417cb9",
+    alt: "A performance trend line printed on a report",
+  },
+  "svc-tax": {
+    id: "photo-1586486855514-8c633cc6fd38",
+    alt: "An annual tax statement on a desk",
+  },
+  "svc-cleanup": {
+    id: "photo-1554224155-6726b3ff858f",
+    alt: "Hands sorting through a pile of financial forms",
+  },
+  "svc-cfo": {
+    id: "photo-1517245386807-bb43f82c33c4",
+    alt: "A working session around a laptop in a meeting room",
+  },
+  "svc-cross-border": {
+    id: "photo-1580519542036-c47de6196ba5",
+    alt: "Banknotes from several countries laid out together",
+  },
+
   /* Contact --------------------------------------------------------------- */
   "office-map": {
     id: "photo-1497366811353-6870744d04b2",
