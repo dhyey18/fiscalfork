@@ -1,97 +1,195 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
-import { Hover, Icon, Photo, useViewportWidth } from "../lib/ui";
+import Modal from "../components/Modal";
+import { Hover, Icon, Photo } from "../lib/ui";
+import type { PhotoKey } from "../lib/images";
 
-const DATA = [
-  [
-    "restaurants",
-    "Restaurants & Hospitality",
-    "Photo — restaurant interior or kitchen team",
-    "Thin margins and high transaction volume mean small cost changes matter. We give you weekly visibility on food, labor and location performance.",
-    [
-      "Food and labor costs drifting unnoticed",
-      "Tip reporting and payroll complexity",
-      "Multi-location books that don’t compare",
+type Segment = {
+  slug: string;
+  tag: string;
+  name: string;
+  blurb: string;
+  handles: readonly string[];
+  /** What the client actually receives. Written against the service lines the
+   *  firm already offers, so the modal adds substance rather than filler. */
+  reports: readonly string[];
+  photo: PhotoKey;
+  detail: PhotoKey;
+};
+
+const SEGMENTS: readonly Segment[] = [
+  {
+    slug: "fine-dining",
+    tag: "Fine Dining",
+    name: "Fine Dining Restaurants",
+    blurb:
+      "Fine dining operations require sophisticated financial management — from high-end wine cellar valuations and tasting menu costing to private event P&L and complex tip structures for large service teams.",
+    handles: [
+      "Wine cellar inventory & valuation",
+      "Tasting menu & prix fixe costing",
+      "Private event accounting & billing",
+      "Complex tip pool management",
     ],
-    [
-      "Prime cost tracking by location",
-      "POS and delivery platform reconciliation",
-      "Tip-compliant payroll",
+    reports: [
+      "Daily sales and cover counts",
+      "Weekly prime cost against target",
+      "Wine inventory valuation schedule",
+      "Monthly P&L with private events separated",
     ],
-    ["Bookkeeping", "Payroll", "Financial Reporting"],
-  ],
-  [
-    "healthcare",
-    "Healthcare",
-    "Photo — modern clinic or practice office",
-    "Practices juggle payer timing, compliance and staffing. We keep the books clean so you can focus on patients.",
-    [
-      "Insurance payments hard to reconcile",
-      "Uneven cash flow from payer delays",
-      "Provider compensation calculations",
+    photo: "fine-dining",
+    detail: "fine-dining-detail",
+  },
+  {
+    slug: "hotels",
+    tag: "Hotels & Resorts",
+    name: "Hotels & Resorts",
+    blurb:
+      "From boutique inns to large resort properties, we deliver full-service hospitality accounting using the Uniform System of Accounts for the Lodging Industry (USALI) — including RevPAR analysis and department-level P&L.",
+    handles: [
+      "RevPAR & GOPPAR tracking",
+      "Departmental P&L (Rooms, F&B, Spa)",
+      "OTA commission reconciliation",
+      "Occupancy tax compliance",
     ],
-    [
-      "Payer and patient revenue reconciliation",
-      "Cash flow forecasting around reimbursement cycles",
-      "Provider compensation reporting",
+    reports: [
+      "Daily flash report on rooms and F&B",
+      "RevPAR and GOPPAR against prior year",
+      "Departmental P&L by revenue centre",
+      "Monthly USALI-format financials",
     ],
-    ["Bookkeeping", "AP & AR", "Financial Planning"],
-  ],
-  [
-    "professional-services",
-    "Professional Services",
-    "Photo — consultants in a working session",
-    "Agencies, firms and consultancies live on utilization and billing. We show which clients and projects are actually profitable.",
-    [
-      "Unclear project profitability",
-      "Slow invoicing and late payments",
-      "Partner draws and distributions",
+    photo: "hotels",
+    detail: "hotels-detail",
+  },
+  {
+    slug: "fast-casual",
+    tag: "Fast Casual",
+    name: "Fast Casual & QSR",
+    blurb:
+      "High transaction volumes, tight labor budgets, and multi-location complexity are hallmarks of fast casual. We build efficient financial systems that scale with your growth and give real-time visibility at every location.",
+    handles: [
+      "High-volume POS reconciliation",
+      "Multi-location consolidated reporting",
+      "Labor % optimization",
+      "Franchise accounting support",
     ],
-    [
-      "Project and client profitability reporting",
-      "Invoicing and collections workflows",
-      "Partner compensation planning",
+    reports: [
+      "Daily sales by location",
+      "Weekly labor percentage by shift",
+      "Consolidated multi-unit P&L",
+      "Franchise royalty and fee reconciliation",
     ],
-    ["Financial Reporting", "AP & AR", "Tax Services"],
-  ],
-  [
-    "ecommerce",
-    "E-commerce",
-    "Photo — packing station or product workspace",
-    "Multiple sales channels, payouts and inventory make e-commerce books hard to trust. We reconcile every channel to the cent.",
-    [
-      "Marketplace payouts that don’t match sales",
-      "Inventory and landed cost tracking",
-      "Sales tax across many states",
+    photo: "fast-casual",
+    detail: "fast-casual-detail",
+  },
+  {
+    slug: "bars",
+    tag: "Bars & Nightclubs",
+    name: "Bars, Pubs & Nightclubs",
+    blurb:
+      "Beverage operations demand specialized controls. We track pour cost, monitor variance between theoretical and actual beverage cost, manage cash-heavy environments, and handle entertainment and licensing expenses.",
+    handles: [
+      "Pour cost & beverage variance analysis",
+      "Cash management & theft prevention",
+      "Entertainment expense tracking",
+      "Liquor license cost amortization",
     ],
-    [
-      "Channel-by-channel reconciliation",
-      "Inventory costing and margin by SKU",
-      "Sales tax registration and filing",
+    reports: [
+      "Daily cash and card reconciliation",
+      "Weekly pour cost, theoretical against actual",
+      "Entertainment and promoter spend against budget",
+      "Monthly P&L with licence costs amortised",
     ],
-    ["Bookkeeping", "Tax Services", "Financial Planning"],
-  ],
-  [
-    "construction",
-    "Construction",
-    "Photo — crew on a construction site",
-    "Contractors live and die by job costing. We track cost against estimate per project, so you know which jobs are making money while they are still running.",
-    [
-      "Job costs drifting past the estimate unnoticed",
-      "Progress billing and retainage tracking",
-      "Subcontractor compliance and 1099s",
+    photo: "bars",
+    detail: "bars-detail",
+  },
+  {
+    slug: "cafes",
+    tag: "Cafes & Coffee",
+    name: "Cafes & Coffee Shops",
+    blurb:
+      "From single-location independent cafes to regional coffee chains, we manage daily bookkeeping, loyalty program revenue tracking, merchandise inventory, and subscription coffee sales accounting.",
+    handles: [
+      "Loyalty program revenue recognition",
+      "Merchandise & retail inventory",
+      "Third-party delivery reconciliation",
+      "Multi-location rollup reporting",
     ],
-    [
-      "Job-level cost tracking against estimate",
-      "Progress billing, WIP and retainage schedules",
-      "Subcontractor payments and 1099 filing",
+    reports: [
+      "Daily sales split by channel",
+      "Weekly cost of goods and waste",
+      "Loyalty and gift card liability schedule",
+      "Monthly rollup across every site",
     ],
-    ["Bookkeeping", "Management Reporting", "CFO Advisory"],
-  ],
-] as const;
+    photo: "cafes",
+    detail: "cafes-detail",
+  },
+  {
+    slug: "catering",
+    tag: "Catering & Events",
+    name: "Catering & Event Companies",
+    blurb:
+      "Catering businesses face unique challenges: seasonal cash flow, job costing by event, contract billing, and fluctuating staff costs. We build financial systems that give you event-level profitability before you price the next contract.",
+    handles: [
+      "Event-level job costing",
+      "Seasonal cash flow management",
+      "Contract billing & deposits",
+      "Temporary staff payroll",
+    ],
+    reports: [
+      "Profitability by event, closed within the week",
+      "Deposit and contract billing schedule",
+      "Rolling seasonal cash forecast",
+      "Monthly P&L by event type",
+    ],
+    photo: "catering",
+    detail: "catering-detail",
+  },
+  {
+    slug: "food-trucks",
+    tag: "Food Trucks",
+    name: "Food Trucks & Pop-Ups",
+    blurb:
+      "Mobile food businesses have unique compliance and cash management needs. We help food truck operators track daily sales across multiple locations, manage commissary kitchen costs, and stay compliant with mobile vending regulations.",
+    handles: [
+      "Multi-location daily sales tracking",
+      "Commissary kitchen cost allocation",
+      "Mobile vendor permit & compliance",
+      "Cash & card reconciliation",
+    ],
+    reports: [
+      "Daily sales by location and event",
+      "Commissary cost allocated per truck",
+      "Permit and compliance calendar",
+      "Monthly P&L per truck and combined",
+    ],
+    photo: "food-trucks",
+    detail: "food-trucks-detail",
+  },
+  {
+    slug: "ghost-kitchens",
+    tag: "Ghost Kitchens",
+    name: "Ghost Kitchens & Virtual Brands",
+    blurb:
+      "Virtual restaurant brands operating from ghost kitchens need precise delivery platform reconciliation, multi-brand cost allocation, and digital marketing spend tracking — all areas where we provide specialized expertise.",
+    handles: [
+      "Multi-brand P&L separation",
+      "Delivery platform fee reconciliation",
+      "Shared kitchen cost allocation",
+      "Digital marketing ROI tracking",
+    ],
+    reports: [
+      "P&L per virtual brand",
+      "Platform fees and payouts reconciled to sales",
+      "Shared kitchen costs allocated by brand",
+      "Marketing spend against revenue by brand",
+    ],
+    photo: "ghost-kitchens",
+    detail: "ghost-kitchens-detail",
+  },
+];
 
 const serif: CSSProperties = {
   fontFamily: "'Newsreader',serif",
@@ -100,320 +198,287 @@ const serif: CSSProperties = {
   letterSpacing: "-0.02em",
 };
 
-const listHead: CSSProperties = {
-  fontSize: 13,
-  fontWeight: 600,
-  letterSpacing: "0.12em",
+const mono: CSSProperties = {
+  fontFamily: "'JetBrains Mono',monospace",
+  letterSpacing: "0.18em",
   textTransform: "uppercase",
-  marginBottom: 10,
-};
-
-const listItem: CSSProperties = {
-  display: "flex",
-  gap: 10,
-  fontSize: 15,
-  lineHeight: 1.45,
-  color: "#0B0F14",
-};
-
-const bareList: CSSProperties = {
-  listStyle: "none",
-  margin: 0,
-  padding: 0,
-  display: "flex",
-  flexDirection: "column",
-  gap: 10,
 };
 
 export default function Content() {
-  const w = useViewportWidth();
-  const isDesktop = w >= 960;
-
-  const industries = DATA.map(
-    ([slug, name, ph, intro, pains, helps, svc], i) => ({
-      slug,
-      name,
-      ph,
-      intro,
-      pains,
-      helps,
-      svc,
-      anchor: "#" + slug,
-      hid: "ind-" + slug,
-      slot: "industry-" + (i + 1),
-      n: String(i + 1).padStart(2, "0"),
-      order: isDesktop && i % 2 === 1 ? 2 : 0,
-    }),
-  );
+  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const active = SEGMENTS.find((s) => s.slug === openSlug) ?? null;
 
   return (
     <div style={{ minHeight: "100vh", background: "#F6F3EE", overflowX: "clip" }}>
       <SiteHeader current="Industries" />
 
+      <style>{`
+        .ff-seg-grid { display:grid; grid-template-columns:1fr; gap:clamp(20px,2.4vw,28px); }
+        @media (min-width: 760px) { .ff-seg-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+        /* The whole card is the control, so the image reacts with it rather
+           than only a button buried inside. */
+        .ff-seg { all:unset; display:block; cursor:pointer; height:100%; }
+        .ff-seg:focus-visible { outline:2px solid #B98A4B; outline-offset:4px; border-radius:22px; }
+        .ff-seg-card {
+          height:100%; display:flex; flex-direction:column; overflow:hidden;
+          background:#FFFFFF; border:1px solid rgba(11,15,20,0.1);
+          border-radius:22px; box-shadow:0 1px 2px rgba(11,15,20,0.04);
+          transition:box-shadow 280ms, transform 280ms, border-color 280ms;
+        }
+        .ff-seg:hover .ff-seg-card, .ff-seg:focus-visible .ff-seg-card {
+          box-shadow:0 26px 54px -24px rgba(11,15,20,0.3);
+          border-color:rgba(11,15,20,0.18); transform:translateY(-3px);
+        }
+        .ff-seg-img { position:relative; aspect-ratio:16/10; overflow:hidden; }
+        .ff-seg-img img { transition:transform 600ms cubic-bezier(.2,.7,.2,1); }
+        .ff-seg:hover .ff-seg-img img { transform:scale(1.05); }
+
+        .ff-modal-split { display:grid; grid-template-columns:1fr; }
+        @media (min-width: 820px) { .ff-modal-split { grid-template-columns:1.12fr 0.88fr; } }
+
+        @media (prefers-reduced-motion: reduce) {
+          .ff-seg-card, .ff-seg-img img { transition:none; }
+          .ff-seg:hover .ff-seg-card { transform:none; }
+          .ff-seg:hover .ff-seg-img img { transform:none; }
+        }
+      `}</style>
+
       <main>
-        {/* INDUSTRIES HERO */}
+        {/* HERO */}
         <section
           data-screen-label="Industries Hero"
           aria-labelledby="i-h"
+          style={{ background: "#0B0F14", color: "#FFFFFF" }}
+        >
+          <div
+            style={{
+              maxWidth: 1280,
+              margin: "0 auto",
+              padding:
+                "clamp(72px,9vw,120px) clamp(20px,4vw,48px) clamp(64px,8vw,96px)",
+            }}
+          >
+            <nav
+              aria-label="Breadcrumb"
+              style={{ ...mono, fontSize: 11, color: "#8A919B", marginBottom: 34 }}
+            >
+              <a href="/" style={{ color: "#8A919B" }}>
+                Home
+              </a>
+              <span aria-hidden="true" style={{ margin: "0 10px", color: "#B98A4B" }}>
+                /
+              </span>
+              <span style={{ color: "#C4CBD4" }}>Industries</span>
+            </nav>
+
+            <h1
+              id="i-h"
+              style={{
+                margin: 0,
+                fontWeight: 500,
+                fontSize: "clamp(40px,5vw,72px)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.04em",
+                maxWidth: 900,
+                textWrap: "balance",
+              }}
+            >
+              {"Industries "}
+              <span style={{ ...serif, color: "#B98A4B" }}>we serve.</span>
+            </h1>
+            <p
+              style={{
+                margin: "26px 0 0",
+                fontSize: "clamp(17px,1.4vw,20px)",
+                lineHeight: 1.6,
+                color: "#C4CBD4",
+                maxWidth: 620,
+              }}
+            >
+              Specialized accounting expertise for every segment of the restaurant
+              and hospitality industry.
+            </p>
+          </div>
+        </section>
+
+        {/* SEGMENTS */}
+        <section
+          data-screen-label="Our Expertise"
+          aria-labelledby="exp-h"
           style={{
             maxWidth: 1280,
             margin: "0 auto",
-            padding:
-              "clamp(56px,9vw,112px) clamp(20px,4vw,48px) clamp(40px,5vw,56px)",
+            padding: "clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0",
           }}
         >
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,460px),1fr))",
-              gap: "32px 64px",
+              gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,440px),1fr))",
+              gap: "clamp(24px,4vw,64px)",
               alignItems: "end",
+              marginBottom: "clamp(44px,5vw,64px)",
             }}
           >
             <div>
-              <div
-                style={{
-                  fontSize: 13,
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "#16202B",
-                  marginBottom: 24,
-                }}
-              >
-                Industries
+              <div style={{ ...mono, fontSize: 11, color: "#B98A4B", marginBottom: 18 }}>
+                Our Expertise
               </div>
-              <h1
-                id="i-h"
+              <h2
+                id="exp-h"
                 style={{
                   margin: 0,
                   fontWeight: 500,
-                  fontSize: "clamp(44px,6.4vw,84px)",
-                  lineHeight: 0.98,
-                  letterSpacing: "-0.045em",
+                  fontSize: "clamp(30px,3.6vw,50px)",
+                  lineHeight: 1.05,
+                  letterSpacing: "-0.035em",
                   textWrap: "balance",
                 }}
               >
-                {"Accounting that speaks "}
-                <span style={{ ...serif, color: "#16202B" }}>your industry.</span>
-              </h1>
+                {"Deep expertise across all "}
+                <span style={serif}>hospitality segments.</span>
+              </h2>
             </div>
             <p
               style={{
                 margin: 0,
-                fontSize: "clamp(17px,1.5vw,20px)",
-                lineHeight: 1.55,
+                fontSize: 16.5,
+                lineHeight: 1.65,
                 color: "#656A73",
                 maxWidth: 480,
-                textWrap: "pretty",
               }}
             >
-              Every sector has different margins, cost structures and tax rules. We set
-              up your books, reports and KPIs around how your business actually makes
-              money.
+              No two hospitality businesses are the same. A fine-dining restaurant
+              has vastly different financial needs than a food truck or a boutique
+              hotel. That&apos;s why we&apos;ve developed specialized expertise
+              across every segment.
             </p>
           </div>
-          <nav
-            aria-label="Jump to industry"
-            style={{ marginTop: 48, display: "flex", flexWrap: "wrap", gap: 8 }}
-          >
-            {industries.map((d) => (
-              <Hover
-                key={d.slug}
-                href={d.anchor}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  minHeight: 44,
-                  padding: "0 16px",
-                  borderRadius: 999,
-                  border: "1px solid rgba(11,15,20,0.14)",
-                  background: "#FFFFFF",
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: "#0B0F14",
-                }}
-                hoverStyle={{ borderColor: "#16202B", color: "#0B0F14" }}
-              >
-                {d.name}
-              </Hover>
-            ))}
-          </nav>
-        </section>
 
-        {/* INDUSTRY DETAILS */}
-        <section
-          data-screen-label="Industry Details"
-          aria-label="Industry details"
-          style={{
-            maxWidth: 1280,
-            margin: "0 auto",
-            padding: "0 clamp(20px,4vw,48px)",
-            display: "flex",
-            flexDirection: "column",
-            gap: 20,
-          }}
-        >
-          {industries.map((d, i) => (
-            <article
-              key={d.slug}
-              id={d.slug}
-              aria-labelledby={d.hid}
-              style={{
-                scrollMarginTop: 96,
-                background: "#FFFFFF",
-                border: "1px solid rgba(11,15,20,0.08)",
-                borderRadius: "clamp(22px,3vw,28px)",
-                overflow: "hidden",
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,380px),1fr))",
-              }}
-            >
-              <div
-                style={{
-                  position: "relative",
-                  minHeight: "clamp(260px,30vw,420px)",
-                  background:
-                    "repeating-linear-gradient(135deg,#EDE8DF 0 12px,#E6E0D6 12px 24px)",
-                  order: d.order,
-                }}
+          <div className="ff-seg-grid">
+            {SEGMENTS.map((s) => (
+              <button
+                key={s.slug}
+                id={s.slug}
+                type="button"
+                className="ff-seg"
+                style={{ scrollMarginTop: 96 }}
+                onClick={() => setOpenSlug(s.slug)}
+                aria-haspopup="dialog"
+                aria-label={`${s.name} — view details`}
               >
-                <Photo
-                  name={d.slug}
-                  sizes="(max-width: 860px) 100vw, 50vw"
-                  priority={i === 0}
-                />
-              </div>
-              <div
-                style={{
-                  padding: "clamp(28px,4vw,48px)",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "'JetBrains Mono',monospace",
-                    fontSize: 13,
-                    color: "#656A73",
-                  }}
-                >
-                  {d.n}
-                </span>
-                <h2
-                  id={d.hid}
-                  style={{
-                    margin: "14px 0 0",
-                    fontWeight: 500,
-                    fontSize: "clamp(30px,3.4vw,42px)",
-                    lineHeight: 1.05,
-                    letterSpacing: "-0.035em",
-                  }}
-                >
-                  {d.name}
-                </h2>
-                <p
-                  style={{
-                    margin: "14px 0 0",
-                    fontSize: 17,
-                    lineHeight: 1.6,
-                    color: "#656A73",
-                    textWrap: "pretty",
-                  }}
-                >
-                  {d.intro}
-                </p>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns:
-                      "repeat(auto-fit,minmax(min(100%,200px),1fr))",
-                    gap: 24,
-                    marginTop: 28,
-                  }}
-                >
-                  <div>
-                    <div style={{ ...listHead, color: "#656A73" }}>
-                      Common challenges
-                    </div>
-                    <ul style={bareList}>
-                      {d.pains.map((p) => (
-                        <li key={p} style={listItem}>
-                          <Icon
-                            name="icon-minus"
-                            style={{ color: "#8A919B", marginTop: 3 }}
-                          />
-                          {p}
-                        </li>
-                      ))}
-                    </ul>
+                <div className="ff-seg-card">
+                  <div className="ff-seg-img">
+                    <Photo name={s.photo} sizes="(max-width: 760px) 100vw, 50vw" />
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        position: "absolute",
+                        top: 14,
+                        left: 14,
+                        ...mono,
+                        fontSize: 10,
+                        color: "#0B0F14",
+                        background: "rgba(246,243,238,0.94)",
+                        padding: "7px 12px",
+                        borderRadius: 999,
+                      }}
+                    >
+                      {s.tag}
+                    </span>
                   </div>
-                  <div>
-                    <div style={{ ...listHead, color: "#16202B" }}>How we help</div>
-                    <ul style={bareList}>
-                      {d.helps.map((h) => (
-                        <li key={h} style={listItem}>
+
+                  <div
+                    style={{
+                      padding: "clamp(22px,2.4vw,28px)",
+                      display: "flex",
+                      flexDirection: "column",
+                      flex: 1,
+                    }}
+                  >
+                    <h3
+                      style={{
+                        margin: 0,
+                        fontSize: 22,
+                        fontWeight: 600,
+                        letterSpacing: "-0.025em",
+                      }}
+                    >
+                      {s.name}
+                    </h3>
+                    <p
+                      style={{
+                        margin: "12px 0 0",
+                        fontSize: 15,
+                        lineHeight: 1.6,
+                        color: "#656A73",
+                      }}
+                    >
+                      {s.blurb}
+                    </p>
+
+                    <ul
+                      style={{
+                        listStyle: "none",
+                        margin: "20px 0 0",
+                        padding: 0,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 9,
+                        flex: 1,
+                      }}
+                    >
+                      {s.handles.map((h) => (
+                        <li
+                          key={h}
+                          style={{
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: 10,
+                            fontSize: 14,
+                            lineHeight: 1.45,
+                            color: "#16202B",
+                          }}
+                        >
                           <Icon
                             name="icon-check"
-                            style={{ color: "#2A6B4F", marginTop: 3 }}
+                            style={{ color: "#B98A4B", fontSize: 13, marginTop: 3 }}
                           />
                           {h}
                         </li>
                       ))}
                     </ul>
+
+                    <span
+                      style={{
+                        marginTop: 24,
+                        paddingTop: 18,
+                        borderTop: "1px solid rgba(11,15,20,0.1)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: 12,
+                        fontSize: 14.5,
+                        fontWeight: 600,
+                        color: "#16202B",
+                      }}
+                    >
+                      View details
+                      <Icon name="icon-arrow-right" style={{ color: "#B98A4B" }} />
+                    </span>
                   </div>
                 </div>
-                <div
-                  style={{
-                    marginTop: "auto",
-                    paddingTop: 28,
-                    display: "flex",
-                    flexWrap: "wrap",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: 16,
-                  }}
-                >
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {d.svc.map((c) => (
-                      <span
-                        key={c}
-                        style={{
-                          fontSize: 13,
-                          fontWeight: 500,
-                          background: "#EBE6DD",
-                          color: "#16202B",
-                          padding: "6px 12px",
-                          borderRadius: 999,
-                        }}
-                      >
-                        {c}
-                      </span>
-                    ))}
-                  </div>
-                  <a
-                    href="/contact"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 8,
-                      fontSize: 15,
-                      fontWeight: 500,
-                    }}
-                  >
-                    Talk to an advisor <Icon name="icon-arrow-right" />
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))}
+              </button>
+            ))}
+          </div>
         </section>
 
         {/* CTA */}
         <section
           data-screen-label="CTA"
           aria-labelledby="cta-h"
-          style={{ padding: "clamp(80px,10vw,128px) clamp(12px,2vw,24px) 0" }}
+          style={{ padding: "clamp(84px,10vw,132px) clamp(12px,2vw,24px) 0" }}
         >
           <div
             style={{
@@ -440,7 +505,7 @@ export default function Content() {
                 textWrap: "balance",
               }}
             >
-              {"Don't see your industry? "}
+              {"Don't see your segment? "}
               <span style={{ ...serif, color: "#B98A4B" }}>
                 Let&apos;s talk anyway.
               </span>
@@ -462,8 +527,8 @@ export default function Content() {
                   maxWidth: 420,
                 }}
               >
-                We work with owner-led businesses across many sectors. Tell us how yours
-                works and we&apos;ll tell you how we&apos;d approach it.
+                We work across hospitality and construction. Tell us how your
+                operation runs and we&apos;ll tell you how we&apos;d set the books up.
               </p>
               <Hover
                 href="/contact"
@@ -477,8 +542,13 @@ export default function Content() {
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 600,
+                  transition: "background 200ms,transform 200ms",
                 }}
-                hoverStyle={{ background: "#D2A563", color: "#0B0F14" }}
+                hoverStyle={{
+                  background: "#D2A563",
+                  color: "#0B0F14",
+                  transform: "translateY(-2px)",
+                }}
               >
                 Book a Consultation <Icon name="icon-arrow-right" />
               </Hover>
@@ -486,6 +556,217 @@ export default function Content() {
           </div>
         </section>
       </main>
+
+      {/* DETAIL MODAL */}
+      <Modal
+        open={active !== null}
+        onClose={() => setOpenSlug(null)}
+        labelledBy="seg-modal-title"
+      >
+        {active ? (
+          <>
+            <div style={{ position: "relative", aspectRatio: "21/9" }}>
+              <Photo name={active.photo} sizes="(max-width: 1020px) 100vw, 1020px" />
+              <div
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "linear-gradient(180deg,rgba(11,15,20,0.1) 0%,rgba(11,15,20,0.5) 55%,rgba(11,15,20,0.92) 100%)",
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  padding: "clamp(22px,3vw,36px)",
+                }}
+              >
+                <div
+                  style={{ ...mono, fontSize: 10, color: "#D2A563", marginBottom: 12 }}
+                >
+                  {active.tag}
+                </div>
+                <h2
+                  id="seg-modal-title"
+                  style={{
+                    margin: 0,
+                    color: "#FFFFFF",
+                    fontWeight: 500,
+                    fontSize: "clamp(26px,3.4vw,42px)",
+                    lineHeight: 1.05,
+                    letterSpacing: "-0.035em",
+                  }}
+                >
+                  {active.name}
+                </h2>
+              </div>
+            </div>
+
+            <div className="ff-modal-split">
+              <div
+                style={{
+                  padding: "clamp(24px,3vw,40px)",
+                  borderRight: "1px solid rgba(11,15,20,0.08)",
+                }}
+              >
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: 16.5,
+                    lineHeight: 1.7,
+                    color: "#656A73",
+                    textWrap: "pretty",
+                  }}
+                >
+                  {active.blurb}
+                </p>
+
+                <h3
+                  style={{
+                    ...mono,
+                    fontSize: 11,
+                    color: "#16202B",
+                    margin: "30px 0 16px",
+                    fontWeight: 500,
+                  }}
+                >
+                  What we handle
+                </h3>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    margin: 0,
+                    padding: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                  }}
+                >
+                  {active.handles.map((h) => (
+                    <li
+                      key={h}
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: 11,
+                        fontSize: 15.5,
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      <Icon
+                        name="icon-check"
+                        style={{ color: "#B98A4B", fontSize: 14, marginTop: 4 }}
+                      />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div
+                style={{
+                  padding: "clamp(24px,3vw,40px)",
+                  background: "#F6F3EE",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 24,
+                }}
+              >
+                <div
+                  style={{
+                    position: "relative",
+                    aspectRatio: "4/3",
+                    borderRadius: 16,
+                    overflow: "hidden",
+                    border: "1px solid rgba(11,15,20,0.08)",
+                  }}
+                >
+                  <Photo
+                    name={active.detail}
+                    sizes="(max-width: 820px) 100vw, 400px"
+                  />
+                </div>
+
+                <div>
+                  <h3
+                    style={{
+                      ...mono,
+                      fontSize: 11,
+                      color: "#16202B",
+                      margin: "0 0 14px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    What you receive
+                  </h3>
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      margin: 0,
+                      padding: 0,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 10,
+                    }}
+                  >
+                    {active.reports.map((r) => (
+                      <li
+                        key={r}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 10,
+                          fontSize: 14.5,
+                          lineHeight: 1.5,
+                          color: "#656A73",
+                        }}
+                      >
+                        <span
+                          aria-hidden="true"
+                          style={{
+                            flex: "none",
+                            width: 5,
+                            height: 5,
+                            marginTop: 8,
+                            borderRadius: "50%",
+                            background: "#B98A4B",
+                          }}
+                        />
+                        {r}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <Hover
+                  href="/contact"
+                  style={{
+                    marginTop: "auto",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10,
+                    background: "#16202B",
+                    color: "#F6F3EE",
+                    padding: "15px 24px",
+                    borderRadius: 999,
+                    fontSize: 15,
+                    fontWeight: 600,
+                    transition: "background 200ms",
+                  }}
+                  hoverStyle={{ background: "#0B0F14", color: "#F6F3EE" }}
+                >
+                  Book a Consultation <Icon name="icon-arrow-right" />
+                </Hover>
+              </div>
+            </div>
+          </>
+        ) : null}
+      </Modal>
 
       <SiteFooter />
     </div>

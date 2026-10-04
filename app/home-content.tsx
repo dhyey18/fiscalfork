@@ -195,49 +195,22 @@ const PROBLEMS = (
   icon,
 }));
 
-const INDUSTRY_ANCHORS = [
-  "restaurants",
-  "healthcare",
-  "professional-services",
-  "ecommerce",
-  "construction",
-] as const;
-
 const INDUSTRIES = (
   [
-    [
-      "Restaurants & Hospitality",
-      "Food and labor cost tracking, tip reporting and multi-location books.",
-      "Photo — restaurant interior or kitchen team",
-    ],
-    [
-      "Healthcare",
-      "Practice accounting, payer reconciliation and compliant payroll.",
-      "Photo — modern clinic or practice office",
-    ],
-    [
-      "Professional Services",
-      "Project profitability, utilization and clean client billing.",
-      "Photo — consultants in a working session",
-    ],
-    [
-      "E-commerce",
-      "Marketplace reconciliation, inventory costing and sales tax.",
-      "Photo — packing station or product workspace",
-    ],
-    [
-      "Construction",
-      "Job costing, progress billing and retainage tracked per project.",
-      "Photo — crew on a construction site",
-    ],
+    ["Fine Dining Restaurants", "Wine inventory, tasting menu costing and private event P&L.", "fine-dining"],
+    ["Hotels & Resorts", "USALI reporting, RevPAR tracking and departmental P&L.", "hotels"],
+    ["Fast Casual & QSR", "High-volume POS reconciliation across every location.", "fast-casual"],
+    ["Bars, Pubs & Nightclubs", "Pour cost variance and control in a cash-heavy room.", "bars"],
+    ["Cafes & Coffee Shops", "Loyalty revenue, retail inventory and delivery platforms.", "cafes"],
+    ["Catering & Events", "Event-level job costing before you price the next contract.", "catering"],
+    ["Food Trucks & Pop-Ups", "Daily sales by site, commissary costs and permits.", "food-trucks"],
+    ["Ghost Kitchens", "Brand-level P&L and delivery platform reconciliation.", "ghost-kitchens"],
   ] as const
-).map(([name, desc, ph], i) => ({
+).map(([name, desc, slug]) => ({
   name,
   desc,
-  ph,
-  slot: "industry-" + (i + 1),
-  photo: INDUSTRY_ANCHORS[i],
-  href: "/industries#" + INDUSTRY_ANCHORS[i],
+  photo: slug,
+  href: "/industries#" + slug,
 }));
 
 const STEPS = (

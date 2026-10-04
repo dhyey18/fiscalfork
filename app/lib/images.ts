@@ -18,56 +18,71 @@ export const PHOTOS = {
     alt: "Two colleagues reviewing financial reports together at a desk",
   },
 
-  /* Industries — shared by the home page cards and the industries page ---- */
-  restaurants: {
+  /* Industries — eight hospitality segments, a primary and a detail image
+     each; the detail one is what the modal adds to the card. -------------- */
+  "fine-dining": {
+    id: "photo-1414235077428-338989a2e8c0",
+    alt: "A plated course in a fine dining restaurant",
+  },
+  "fine-dining-detail": {
     id: "photo-1517248135467-4c7edcad34c4",
-    alt: "Interior of a restaurant dining room",
+    alt: "The dining room of a fine dining restaurant",
   },
-  healthcare: {
-    id: "photo-1519494026892-80bbd2d6fd0d",
-    alt: "Reception desk of a modern medical practice",
+  hotels: {
+    id: "photo-1540541338287-41700207dee6",
+    alt: "A resort pool overlooking the sea",
   },
-  "professional-services": {
-    id: "photo-1552664730-d307ca884978",
-    alt: "Consultants working through ideas at a whiteboard",
+  "hotels-detail": {
+    id: "photo-1578683010236-d716f9a3f461",
+    alt: "A made-up guest room in a hotel",
   },
-  ecommerce: {
-    id: "photo-1556742049-0cfed4f6a45d",
-    alt: "Packing orders at an e-commerce workspace",
+  "fast-casual": {
+    id: "photo-1546069901-ba9599a7e63c",
+    alt: "A prepared bowl on a fast casual counter",
   },
-  construction: {
-    id: "photo-1504307651254-35680f356dfd",
-    alt: "Crew working on a construction site",
+  "fast-casual-detail": {
+    id: "photo-1555992336-fb0d29498b13",
+    alt: "Booth seating in a quick service restaurant",
   },
-
-  /* Resources ------------------------------------------------------------- */
-  "resource-featured": {
-    id: "photo-1460925895917-afdab827c52f",
-    alt: "Laptop showing financial charts on a desk",
+  bars: {
+    id: "photo-1543007630-9710e4a00a20",
+    alt: "A bar counter lit for evening service",
   },
-  "article-1": {
-    id: "photo-1450101499163-c8848c66ca85",
-    alt: "Signing paperwork at a desk",
+  "bars-detail": {
+    id: "photo-1566417713940-fe7c737a9ef2",
+    alt: "A cocktail being poured in a nightclub",
   },
-  "article-2": {
-    id: "photo-1587560699334-cc4ff634909a",
-    alt: "Laptop and phone on a tidy desk",
+  cafes: {
+    id: "photo-1509042239860-f550ce710b93",
+    alt: "A latte with poured art on a cafe table",
   },
-  "article-3": {
-    id: "photo-1579621970563-ebec7560ff3e",
-    alt: "A plant growing out of a pile of coins",
+  "cafes-detail": {
+    id: "photo-1453614512568-c4024d13c247",
+    alt: "The counter and menu board of a coffee shop",
   },
-  "article-4": {
-    id: "photo-1551288049-bebda4e38f71",
-    alt: "Analytics dashboard showing performance charts",
+  catering: {
+    id: "photo-1600891964599-f61ba0e24092",
+    alt: "Shared plates laid out for an event",
   },
-  "article-5": {
-    id: "photo-1553877522-43269d4ea984",
-    alt: "An empty meeting room, shot in black and white",
+  "catering-detail": {
+    id: "photo-1504674900247-0877df9cc836",
+    alt: "Plated dishes prepared for service",
   },
-  "article-6": {
-    id: "photo-1542744173-8e7e53415bb0",
-    alt: "A team meeting around a boardroom table",
+  "food-trucks": {
+    id: "photo-1565123409695-7b5ef63a2efb",
+    alt: "A food truck parked and serving",
+  },
+  "food-trucks-detail": {
+    id: "photo-1551218808-94e220e084d2",
+    alt: "Prep work on a kitchen counter",
+  },
+  "ghost-kitchens": {
+    id: "photo-1556910103-1c02745aae4d",
+    alt: "Two cooks working in a shared kitchen",
+  },
+  "ghost-kitchens-detail": {
+    id: "photo-1577219491135-ce391730fb2c",
+    alt: "A chef plating under kitchen pass lamps",
   },
 
   /* Services — one per service block -------------------------------------- */
@@ -106,6 +121,36 @@ export const PHOTOS = {
   "svc-cross-border": {
     id: "photo-1580519542036-c47de6196ba5",
     alt: "Banknotes from several countries laid out together",
+  },
+
+  /* Resources ------------------------------------------------------------- */
+  "resource-featured": {
+    id: "photo-1460925895917-afdab827c52f",
+    alt: "Laptop showing financial charts on a desk",
+  },
+  "article-1": {
+    id: "photo-1450101499163-c8848c66ca85",
+    alt: "Signing paperwork at a desk",
+  },
+  "article-2": {
+    id: "photo-1587560699334-cc4ff634909a",
+    alt: "Laptop and phone on a tidy desk",
+  },
+  "article-3": {
+    id: "photo-1579621970563-ebec7560ff3e",
+    alt: "A plant growing out of a pile of coins",
+  },
+  "article-4": {
+    id: "photo-1551288049-bebda4e38f71",
+    alt: "Analytics dashboard showing performance charts",
+  },
+  "article-5": {
+    id: "photo-1553877522-43269d4ea984",
+    alt: "An empty meeting room, shot in black and white",
+  },
+  "article-6": {
+    id: "photo-1542744173-8e7e53415bb0",
+    alt: "A team meeting around a boardroom table",
   },
 
   /* Contact --------------------------------------------------------------- */
