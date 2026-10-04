@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import HeroVideo from "./components/HeroVideo";
@@ -13,7 +13,6 @@ const animations = true;
 
 /* ── Content ─────────────────────────────────────────────────────────────── */
 
-const BAR_HEIGHTS = [38, 46, 42, 55, 51, 63, 60, 74, 88];
 
 const STATS = [
   { n: "12+", label: "Years of experience" },
@@ -316,18 +315,6 @@ export default function Content() {
   useReveal(animations);
 
   const interactive = problemsLayout === "Interactive list";
-  const bars = BAR_HEIGHTS.map((h, i) => {
-    const isFinal = i === BAR_HEIGHTS.length - 1;
-    const isRecent = i >= 6;
-    return {
-      h: h + "%",
-      c: isFinal
-        ? "linear-gradient(180deg,#1E2C3B 0%,#16202B 100%)"
-        : isRecent
-          ? "linear-gradient(180deg,#338A66 0%,#2A6B4F 100%)"
-          : "#DAD4C9",
-    };
-  });
   const current = PROBLEMS[active];
 
   // `w` drives the nav breakpoint inside SiteHeader; referenced here so the
@@ -346,64 +333,56 @@ export default function Content() {
           aria-labelledby="hero-h"
         >
           <style>{`
-            /* The hero is one of two layouts.
-               Below 960px the footage sits behind the copy and a vertical scrim
-               does the work of keeping text readable.
-               From 960px it splits: the copy moves onto a solid ink panel, so
-               the footage no longer has to be dimmed to ~90% to stay legible
-               behind text — it plays at close to full strength in its own half,
-               and the panel gives every text colour a fixed, known background. */
+            /* One full-bleed frame rather than a split. The veil is solid ink
+               under the copy and dissolves to the right, so the text sits on a
+               known background while the footage stays visible — no seam, and
+               no need to dim the whole frame to ~90% to keep text readable. */
             .ff-hero {
-              position: relative; overflow: hidden; background: #0B0F14;
-              display: grid; grid-template-columns: 1fr;
-              min-height: clamp(620px,90vh,980px);
+              position:relative; overflow:hidden; background:#0B0F14;
+              min-height:clamp(640px,92vh,1000px);
+              display:flex; flex-direction:column;
             }
-            .ff-hero-media { position: absolute; inset: 0; }
-            .ff-hero-scrim {
-              position: absolute; inset: 0; pointer-events: none;
-              background: linear-gradient(180deg,
-                rgba(11,15,20,0.88) 0%, rgba(11,15,20,0.92) 55%,
-                rgba(11,15,20,0.95) 100%);
+            .ff-hero-media { position:absolute; inset:0; }
+            .ff-hero-veil {
+              position:absolute; inset:0; pointer-events:none;
+              background:linear-gradient(100deg,
+                #0B0F14 0%, #0B0F14 48%,
+                rgba(11,15,20,0.84) 63%, rgba(11,15,20,0.44) 83%,
+                rgba(11,15,20,0.24) 100%);
             }
-            .ff-hero-blend { display: none; }
-            .ff-hero-panel {
-              position: relative; z-index: 2;
-              display: flex; flex-direction: column; justify-content: center;
-              padding: clamp(84px,11vw,120px) clamp(20px,5vw,48px) clamp(40px,5vw,56px);
-            }
-            .ff-hero-card {
-              position: relative; z-index: 3;
-              padding: 0 clamp(20px,5vw,48px) clamp(72px,9vw,96px);
+            /* One column below 960px: the copy spans the width, so the veil
+               turns vertical and stays heavy throughout. */
+            @media (max-width: 960px) {
+              .ff-hero-veil {
+                background:linear-gradient(180deg,
+                  rgba(11,15,20,0.90) 0%, rgba(11,15,20,0.93) 58%,
+                  rgba(11,15,20,0.96) 100%);
+              }
             }
 
-            @media (min-width: 960px) {
-              .ff-hero { grid-template-columns: 58% 42%; }
-              .ff-hero-media { position: relative; inset: auto; grid-column: 2; grid-row: 1; }
-              .ff-hero-scrim { display: none; }
-              /* Softens the cut where footage meets panel and keeps a light tint
-                 across it, so the two halves read as one composition. */
-              .ff-hero-blend {
-                display: block; position: absolute; inset: 0; pointer-events: none;
-                background: linear-gradient(90deg,
-                  rgba(11,15,20,0.96) 0%, rgba(11,15,20,0.45) 14%,
-                  rgba(11,15,20,0.10) 38%, rgba(11,15,20,0.24) 100%);
-              }
-              .ff-hero-panel {
-                grid-column: 1; grid-row: 1;
-                border-right: 1px solid rgba(185,138,75,0.35);
-                /* Right padding has to clear the card, which hangs ~16% of its
-                   own width back over the seam; at 960-1024px a smaller gutter
-                   let the headline collide with it. */
-                padding: clamp(96px,10vw,140px) clamp(88px,10vw,120px) clamp(96px,10vw,140px) 0;
-                /* Lines the copy up with the 1280 container the rest of the page
-                   uses, instead of drifting to the edge on wide monitors. */
-                margin-left: max(clamp(20px,5vw,48px), calc((100vw - 1280px) / 2 + 48px));
-              }
-              .ff-hero-card {
-                position: absolute; z-index: 3; padding: 0;
-                left: 58%; top: 50%; transform: translate(-16%,-50%);
-                width: min(372px,36vw);
-              }
+            .ff-hero-inner {
+              position:relative; z-index:1; flex:1; width:100%;
+              max-width:1280px; margin:0 auto;
+              padding:clamp(104px,12vw,148px) clamp(20px,4vw,48px) clamp(48px,6vw,72px);
+              display:flex; flex-direction:column; justify-content:center;
+            }
+            /* Held inside the solid part of the veil. */
+            .ff-hero-copy { max-width:min(560px,100%); }
+
+            .ff-hero-strip {
+              position:relative; z-index:1;
+              border-top:1px solid rgba(246,243,238,0.16);
+              background:rgba(11,15,20,0.4);
+              backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+            }
+            .ff-hero-strip-inner {
+              width:100%; max-width:1280px; margin:0 auto;
+              padding:clamp(20px,2.4vw,30px) clamp(20px,4vw,48px);
+              display:grid; gap:clamp(18px,3vw,44px);
+              grid-template-columns:1fr;
+            }
+            @media (min-width: 700px) {
+              .ff-hero-strip-inner { grid-template-columns:repeat(3,minmax(0,1fr)); }
             }
           `}</style>
 
@@ -411,336 +390,222 @@ export default function Content() {
             <HeroVideo
               src="/7735854-hd_1920_1080_25fps.mp4"
               posterName="hero"
-              sizes="(max-width: 960px) 100vw, 46vw"
+              sizes="100vw"
+              controlBottom={128}
             />
-            <div className="ff-hero-blend" aria-hidden="true" />
           </div>
-          <div className="ff-hero-scrim" aria-hidden="true" />
+          <div className="ff-hero-veil" aria-hidden="true" />
 
-          <div className="ff-hero-panel">
-            <div style={{ maxWidth: "min(620px,100%)" }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 14,
-                marginBottom: "clamp(26px,3vw,36px)",
-              }}
-            >
-              <span
-                aria-hidden="true"
-                style={{
-                  width: 46,
-                  height: 1,
-                  flex: "none",
-                  background: "rgba(185,138,75,0.85)",
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: "'JetBrains Mono',monospace",
-                  fontSize: 11,
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  color: "#B98A4B",
-                }}
-              >
-                Outsourced Accounting · US &amp; Canada
-              </span>
-            </div>
-
-            <h1
-              id="hero-h"
-              style={{
-                margin: 0,
-                fontWeight: 500,
-                fontSize: "clamp(38px,4.2vw,60px)",
-                lineHeight: 1.04,
-                letterSpacing: "-0.035em",
-                color: "#FFFFFF",
-              }}
-            >
-              Your numbers
-              <br />
-              have a story.
-              <br />
-              <span
-                style={{
-                  fontFamily: "'Newsreader',serif",
-                  fontStyle: "italic",
-                  fontWeight: 400,
-                  letterSpacing: "-0.02em",
-                  color: "#B98A4B",
-                }}
-              >
-                We help you read it.
-              </span>
-            </h1>
-
-            <div
-              aria-hidden="true"
-              style={{
-                width: 76,
-                height: 1,
-                background: "rgba(185,138,75,0.5)",
-                margin: "clamp(30px,3.4vw,40px) 0",
-              }}
-            />
-
-            <p
-              style={{
-                margin: 0,
-                fontSize: "clamp(16px,1.2vw,18px)",
-                lineHeight: 1.65,
-                color: "#C4CBD4",
-                maxWidth: 470,
-                textWrap: "pretty",
-              }}
-            >
-              Your business is moving fast. Your finances should keep up.
-              Bookkeeping, payroll, reporting and CFO advisory for restaurants,
-              hotels and construction businesses across the US and Canada.
-            </p>
-
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: 12,
-                marginTop: "clamp(34px,4vw,44px)",
-              }}
-            >
-              <Hover
-                href="#consult"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 10,
-                  background: "#B98A4B",
-                  color: "#0B0F14",
-                  padding: "17px 28px",
-                  borderRadius: 999,
-                  fontSize: 16,
-                  fontWeight: 600,
-                  boxShadow: "0 12px 28px -10px rgba(0,0,0,0.55)",
-                  transition: "background 200ms,transform 200ms,box-shadow 200ms",
-                }}
-                hoverStyle={{
-                  background: "#D2A563",
-                  color: "#0B0F14",
-                  transform: "translateY(-2px)",
-                  boxShadow: "0 18px 36px -10px rgba(0,0,0,0.6)",
-                }}
-              >
-                {"Book a Consultation "}
-                <Icon name="icon-arrow-right" style={{ fontSize: 18 }} />
-              </Hover>
-              <Hover
-                href="#services"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 10,
-                  background: "transparent",
-                  color: "#FFFFFF",
-                  padding: "17px 28px",
-                  borderRadius: 999,
-                  fontSize: 16,
-                  fontWeight: 500,
-                  border: "1px solid rgba(255,255,255,0.4)",
-                  transition: "background 200ms,transform 200ms,border-color 200ms",
-                }}
-                hoverStyle={{
-                  background: "rgba(255,255,255,0.12)",
-                  color: "#FFFFFF",
-                  borderColor: "rgba(255,255,255,0.7)",
-                  transform: "translateY(-2px)",
-                }}
-              >
-                Explore Services
-              </Hover>
-            </div>
-
-            {/* Practice areas, set like a letterhead rule rather than as feature
-                bullets — the credibility numbers live in the stats band below. */}
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                alignItems: "center",
-                gap: "10px 16px",
-                marginTop: "clamp(44px,5vw,64px)",
-                paddingTop: "clamp(24px,3vw,32px)",
-                borderTop: "1px solid rgba(255,255,255,0.14)",
-                fontFamily: "'JetBrains Mono',monospace",
-                fontSize: 11,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "#A5ACB5",
-              }}
-            >
-              {["Bookkeeping", "Payroll", "Reporting", "CFO Advisory"].map(
-                (t, i) => (
-                  <Fragment key={t}>
-                    {i > 0 ? (
-                      <span
-                        aria-hidden="true"
-                        style={{
-                          width: 3,
-                          height: 3,
-                          borderRadius: "50%",
-                          background: "#B98A4B",
-                        }}
-                      />
-                    ) : null}
-                    <span>{t}</span>
-                  </Fragment>
-                ),
-              )}
-            </div>
-            </div>
-          </div>
-
-          <div className="ff-hero-card">
-            <div
-              style={{
-                position: "relative",
-                overflow: "hidden",
-                background: "#FFFFFF",
-                borderRadius: 20,
-                border: "1px solid rgba(11,15,20,0.08)",
-                boxShadow:
-                  "0 40px 80px -28px rgba(0,0,0,0.55),0 10px 24px -8px rgba(0,0,0,0.3)",
-                padding: 24,
-              }}
-            >
-              <div
-                aria-hidden="true"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: 3,
-                  background: "linear-gradient(90deg,#16202B,#B98A4B)",
-                }}
-              />
+          <div className="ff-hero-inner">
+            <div className="ff-hero-copy">
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: 16,
+                  alignItems: "center",
+                  gap: 14,
+                  marginBottom: "clamp(26px,3vw,36px)",
                 }}
               >
-                <div>
-                  <div
-                    style={{
-                      fontFamily: "'JetBrains Mono',monospace",
-                      fontSize: 11,
-                      letterSpacing: "0.14em",
-                      textTransform: "uppercase",
-                      color: "#656A73",
-                    }}
-                  >
-                    Month-end close · September
-                  </div>
-                  <div
-                    style={{
-                      fontSize: 34,
-                      fontWeight: 500,
-                      letterSpacing: "-0.03em",
-                      marginTop: 8,
-                    }}
-                  >
-                    Day 6
-                  </div>
-                </div>
+                <span
+                  aria-hidden="true"
+                  style={{
+                    width: 46,
+                    height: 1,
+                    flex: "none",
+                    background: "rgba(185,138,75,0.85)",
+                  }}
+                />
                 <span
                   style={{
-                    fontSize: 13,
-                    fontWeight: 500,
-                    color: "#1E5C42",
-                    background: "#E3EDE6",
-                    padding: "6px 10px",
-                    borderRadius: 999,
-                    whiteSpace: "nowrap",
+                    fontFamily: "'JetBrains Mono',monospace",
+                    fontSize: 11,
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: "#B98A4B",
                   }}
                 >
-                  Closed
+                  Outsourced Accounting · US &amp; Canada
                 </span>
               </div>
+
+              <h1
+                id="hero-h"
+                style={{
+                  margin: 0,
+                  fontWeight: 500,
+                  fontSize: "clamp(40px,4.4vw,64px)",
+                  lineHeight: 1.04,
+                  letterSpacing: "-0.035em",
+                  color: "#FFFFFF",
+                }}
+              >
+                Your numbers
+                <br />
+                have a story.
+                <br />
+                <span
+                  style={{
+                    fontFamily: "'Newsreader',serif",
+                    fontStyle: "italic",
+                    fontWeight: 400,
+                    letterSpacing: "-0.02em",
+                    color: "#B98A4B",
+                  }}
+                >
+                  We help you read it.
+                </span>
+              </h1>
+
               <div
                 aria-hidden="true"
                 style={{
-                  display: "flex",
-                  alignItems: "flex-end",
-                  gap: 8,
-                  height: 92,
-                  marginTop: 22,
-                  paddingBottom: 10,
-                  borderBottom: "1px solid rgba(11,15,20,0.08)",
+                  width: 76,
+                  height: 1,
+                  background: "rgba(185,138,75,0.5)",
+                  margin: "clamp(30px,3.4vw,40px) 0",
+                }}
+              />
+
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: "clamp(16px,1.2vw,18px)",
+                  lineHeight: 1.65,
+                  color: "#C4CBD4",
+                  maxWidth: 480,
+                  textWrap: "pretty",
                 }}
               >
-                {bars.map((b, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      flex: 1,
-                      borderRadius: "6px 6px 2px 2px",
-                      height: b.h,
-                      background: b.c,
-                    }}
-                  />
-                ))}
-              </div>
+                Your business is moving fast. Your finances should keep up —
+                bookkeeping, payroll, reporting and CFO advisory, delivered on the
+                calendar your operation actually runs on.
+              </p>
+
               <div
                 style={{
                   display: "flex",
-                  flexDirection: "column",
+                  flexWrap: "wrap",
                   gap: 12,
-                  marginTop: 18,
-                  fontSize: 14,
+                  marginTop: "clamp(34px,4vw,44px)",
                 }}
               >
-                {(
+                <Hover
+                  href="#consult"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 10,
+                    background: "#B98A4B",
+                    color: "#0B0F14",
+                    padding: "17px 28px",
+                    borderRadius: 999,
+                    fontSize: 16,
+                    fontWeight: 600,
+                    boxShadow: "0 12px 28px -10px rgba(0,0,0,0.6)",
+                    transition: "background 200ms,transform 200ms,box-shadow 200ms",
+                  }}
+                  hoverStyle={{
+                    background: "#D2A563",
+                    color: "#0B0F14",
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 18px 36px -10px rgba(0,0,0,0.65)",
+                  }}
+                >
+                  {"Book a Consultation "}
+                  <Icon name="icon-arrow-right" style={{ fontSize: 18 }} />
+                </Hover>
+                <Hover
+                  href="#services"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 10,
+                    background: "transparent",
+                    color: "#FFFFFF",
+                    padding: "17px 28px",
+                    borderRadius: 999,
+                    fontSize: 16,
+                    fontWeight: 500,
+                    border: "1px solid rgba(255,255,255,0.4)",
+                    transition: "background 200ms,transform 200ms,border-color 200ms",
+                  }}
+                  hoverStyle={{
+                    background: "rgba(255,255,255,0.12)",
+                    color: "#FFFFFF",
+                    borderColor: "rgba(255,255,255,0.7)",
+                    transform: "translateY(-2px)",
+                  }}
+                >
+                  Explore Services
+                </Hover>
+              </div>
+            </div>
+          </div>
+
+          {/* The sectors actually served, with the work each one implies. This
+              replaces a mocked-up dashboard: the firm sells a service, not
+              software, so inventing a product UI said nothing true about it. */}
+          <div className="ff-hero-strip">
+            <div className="ff-hero-strip-inner">
+              {(
+                [
                   [
-                    [
-                      "icon-circle-check",
-                      "#2A6B4F",
-                      "Daily sales reconciled",
-                      "Sep 30",
-                    ],
-                    [
-                      "icon-circle-check",
-                      "#2A6B4F",
-                      "Payroll processed",
-                      "Oct 1",
-                    ],
-                    [
-                      "icon-clock",
-                      "#656A73",
-                      "Financials delivered",
-                      "Oct 10",
-                    ],
-                  ] as const
-                ).map(([icon, color, label, date]) => (
-                  <div
-                    key={label}
+                    "icon-utensils",
+                    "Restaurants",
+                    "Daily covers, prime cost and tip pooling",
+                  ],
+                  [
+                    "icon-hotel",
+                    "Hotels",
+                    "Rooms, F&B and multi-property reporting",
+                  ],
+                  [
+                    "icon-hard-hat",
+                    "Construction",
+                    "Job costing, progress billing and retainage",
+                  ],
+                ] as const
+              ).map(([icon, name, detail]) => (
+                <div
+                  key={name}
+                  style={{ display: "flex", alignItems: "flex-start", gap: 14 }}
+                >
+                  <span
+                    aria-hidden="true"
                     style={{
+                      flex: "none",
+                      width: 38,
+                      height: 38,
+                      borderRadius: 11,
+                      background: "rgba(185,138,75,0.16)",
+                      border: "1px solid rgba(185,138,75,0.4)",
+                      color: "#D2A563",
                       display: "flex",
-                      justifyContent: "space-between",
-                      gap: 12,
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <Icon name={icon} style={{ color, fontSize: 17 }} />
-                      {label}
-                    </span>
-                    <span style={{ color: "#656A73" }}>{date}</span>
+                    <Icon name={icon} style={{ fontSize: 17 }} />
+                  </span>
+                  <div>
+                    <div
+                      style={{ fontSize: 16, fontWeight: 600, color: "#FFFFFF" }}
+                    >
+                      {name}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 13.5,
+                        lineHeight: 1.5,
+                        color: "#A5ACB5",
+                        marginTop: 3,
+                      }}
+                    >
+                      {detail}
+                    </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>

@@ -25,10 +25,14 @@ export default function HeroVideo({
   src,
   posterName,
   sizes,
+  controlBottom = 14,
 }: {
   src: string;
   posterName: PhotoKey;
   sizes?: string;
+  /** Lift the pause control clear of anything overlaying the foot of the
+   *  frame. It has to stay clickable: it is the stop mechanism. */
+  controlBottom?: number;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [showVideo, setShowVideo] = useState(false);
@@ -93,8 +97,9 @@ export default function HeroVideo({
             aria-label={playing ? "Pause background video" : "Play background video"}
             style={{
               position: "absolute",
+              zIndex: 4,
               right: 14,
-              bottom: 14,
+              bottom: controlBottom,
               width: 34,
               height: 34,
               display: "flex",
