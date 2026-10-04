@@ -102,7 +102,7 @@ export default function HeroVideo({
               justifyContent: "center",
               borderRadius: "50%",
               border: "1px solid rgba(255,255,255,0.35)",
-              background: "rgba(13,23,38,0.45)",
+              background: "rgba(11,15,20,0.45)",
               backdropFilter: "blur(6px)",
               WebkitBackdropFilter: "blur(6px)",
               color: "#FFFFFF",

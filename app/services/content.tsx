@@ -9,115 +9,133 @@ const SERVICES = (
   [
     [
       "bookkeeping",
-      "Bookkeeping",
+      "Restaurant, Hotels & Construction Bookkeeping",
       "bookkeeping",
       "icon-book-open",
-      "Accurate, reconciled books closed on a fixed schedule every month, so your numbers are always current and ready for decisions.",
+      "Books kept to the rhythm of an operating business — sales reconciled daily, vendors current, and every account tied out before the month closes.",
       [
-        "Transaction categorization and bank reconciliation",
-        "Monthly close by the 10th",
-        "Receipt and document management",
-        "Clean-up of past periods if books are behind",
+        "Daily sales reconciliation",
+        "POS integration",
+        "Bank reconciliation",
+        "Vendor management",
+        "Accounts payable & receivable",
       ],
-      "Businesses whose books are behind, or owners still doing it themselves.",
+      "Operators running covers, rooms or jobs who need the books kept daily, not monthly.",
     ],
     [
-      "tax",
-      "Tax Services",
-      "tax",
-      "icon-receipt",
-      "Year-round tax planning and preparation for the business and its owners, with filings completed well ahead of every deadline.",
+      "reporting-cadence",
+      "Daily, Weekly & Monthly Reporting",
+      "your reporting cadence",
+      "icon-calendar",
+      "Numbers that arrive while you can still act on them: daily operations, weekly cost control, and a full financial pack once the month is closed.",
       [
-        "Business and owner tax returns",
-        "Quarterly estimated tax payments",
-        "Sales tax registration and filing",
-        "Tax planning reviews before year-end",
+        "Daily operational reports",
+        "Weekly food & beverage cost reports",
+        "Weekly update reports",
+        "Payroll reports",
+        "Monthly financial reports",
       ],
-      "Owners who want fewer surprises and a lower, predictable tax bill.",
+      "Owners who find out about a bad month after it is already over.",
     ],
     [
       "payroll",
-      "Payroll",
+      "Payroll Management & HR Compliance",
       "payroll",
       "icon-wallet",
-      "Reliable payroll for your whole team, including payroll tax filings, benefits deductions and year-end forms.",
+      "Payroll run across every location, with tips, overtime and year-end filings handled to the rules that apply where your people work.",
       [
-        "Scheduled payroll runs",
-        "Payroll tax filings and payments",
-        "New hire onboarding and contractor payments",
-        "Year-end employee and contractor forms",
+        "Multi-location payroll",
+        "W-2 / 1099 filing",
+        "Tip reporting & pooling",
+        "Overtime management",
       ],
-      "Teams from 2 to 200 that want payroll off the owner’s desk.",
-    ],
-    [
-      "reporting",
-      "Financial Reporting",
-      "reporting",
-      "icon-file-text",
-      "Monthly reports in plain language: profit and loss, balance sheet and cash flow, with the key numbers highlighted and explained.",
-      [
-        "Monthly P&L, balance sheet and cash flow",
-        "KPI summary tailored to your business",
-        "Monthly walkthrough call",
-        "Lender and investor-ready packages",
-      ],
-      "Owners who get reports but don’t find them useful.",
-    ],
-    [
-      "cfo",
-      "CFO Advisory",
-      "CFO advisory",
-      "icon-briefcase",
-      "Senior financial leadership without a full-time hire, for pricing, fundraising, budgeting and major decisions.",
-      [
-        "Quarterly strategy and performance reviews",
-        "Budgeting and board reporting",
-        "Fundraising and lender preparation",
-        "Pricing and margin analysis",
-      ],
-      "Growing companies that need CFO thinking but not a CFO salary.",
+      "Teams across several sites, where tips and overtime make payroll its own job.",
     ],
     [
       "ap-ar",
       "Accounts Payable & Receivable",
       "AP & AR",
       "icon-arrow-left-right",
-      "Bills paid on time and invoices collected, so cash keeps moving and supplier and client relationships stay healthy.",
+      "Both sides of the cash cycle run on a schedule: bills captured, coded and approved before they are due, and money owed to you actually chased.",
       [
-        "Bill approval workflows and payment runs",
+        "Bill capture, coding and approval workflows",
+        "Scheduled vendor payment runs",
         "Invoicing and collections follow-up",
         "Aged payables and receivables reporting",
         "Vendor and customer record management",
       ],
-      "Businesses with cash tied up in late invoices or messy bill payments.",
+      "Businesses paying late fees on one side and carrying unpaid invoices on the other.",
     ],
     [
-      "planning",
-      "Financial Planning",
-      "financial planning",
-      "icon-target",
-      "Budgets, forecasts and scenarios connected to your goals, so you can plan hires, investments and growth with confidence.",
+      "financials",
+      "Monthly Financials & Management Reporting",
+      "management reporting",
+      "icon-file-text",
+      "A monthly pack built to be read, not filed: what you earned, where it went, what it means against last month and last year.",
       [
-        "Annual budget and monthly variance tracking",
-        "Rolling 13-week cash forecast",
-        "Scenario and hiring models",
-        "Owner compensation planning",
+        "Accurate financials",
+        "Cash flow management",
+        "Cost tracking",
+        "Comparison reports with analysis",
       ],
-      "Owners planning a hire, expansion, or major purchase.",
+      "Owners who receive reports but cannot tell what changed or why.",
     ],
     [
-      "advisory",
-      "Business Advisory",
-      "business advisory",
-      "icon-compass",
-      "Practical guidance on structure, operations and growth decisions, grounded in your actual numbers.",
+      "tax",
+      "Tax Planning & Compliance",
+      "tax",
+      "icon-receipt",
+      "Tax handled across the year rather than in a scramble each spring, with filings prepared ahead of deadline on both sides of the border.",
       [
-        "Entity structure and setup",
-        "Profitability by product, service or location",
-        "Systems and software selection",
-        "Exit and succession readiness",
+        "Year-round planning, not just filing season",
+        "Federal, state and provincial filings",
+        "Sales tax and GST/HST registration and returns",
+        "Quarterly estimates and owner distributions",
+        "Coordination with your CPA or tax preparer",
       ],
-      "Owners facing a big decision who want a clear second opinion.",
+      "Owners who want the bill predictable and the deadlines uneventful.",
+    ],
+    [
+      "cleanup",
+      "Accounting Clean-Up & Reconciliation",
+      "a clean-up",
+      "icon-wrench",
+      "Getting current when the books have slipped — months or years rebuilt, reconciled and brought to a state you can file and borrow against.",
+      [
+        "Catch-up on unreconciled periods",
+        "Historical bank and card reconciliation",
+        "Chart of accounts rebuild",
+        "Prior-period corrections before filing",
+      ],
+      "Anyone behind on their books, or inheriting a set they do not trust.",
+    ],
+    [
+      "cfo",
+      "CFO Advisory",
+      "CFO advisory",
+      "icon-briefcase",
+      "Senior financial thinking without a full-time hire: what each location or job is really earning, and what the next decision should be.",
+      [
+        "Budgeting and forecasting",
+        "Prime cost and margin analysis",
+        "Location-level and project-level P&L",
+        "Lender and investor reporting",
+      ],
+      "Operators opening a second site, bidding larger jobs, or raising finance.",
+    ],
+    [
+      "cross-border",
+      "US & Canadian Accounting Support",
+      "cross-border support",
+      "icon-globe",
+      "One team covering both countries, so multi-entity groups are not stitching together two bookkeepers who never speak to each other.",
+      [
+        "US and Canadian reporting standards",
+        "Multi-entity and multi-currency handling",
+        "Cross-border payroll coordination",
+        "Support aligned to US and Canadian business hours",
+      ],
+      "Groups operating on both sides of the border under one ownership.",
     ],
   ] as const
 ).map(([slug, name, short, icon, summary, items, bestFor], i) => ({
@@ -170,12 +188,12 @@ const eyebrow: CSSProperties = {
   fontWeight: 600,
   letterSpacing: "0.12em",
   textTransform: "uppercase",
-  color: "#17304A",
+  color: "#16202B",
 };
 
 export default function Content() {
   return (
-    <div style={{ minHeight: "100vh", background: "#F7F5F1", overflowX: "clip" }}>
+    <div style={{ minHeight: "100vh", background: "#F6F3EE", overflowX: "clip" }}>
       <SiteHeader current="Services" />
 
       <main>
@@ -212,7 +230,7 @@ export default function Content() {
                 }}
               >
                 {"One team for your "}
-                <span style={{ ...serif, color: "#17304A" }}>
+                <span style={{ ...serif, color: "#16202B" }}>
                   entire finance function.
                 </span>
               </h1>
@@ -222,7 +240,7 @@ export default function Content() {
                 margin: 0,
                 fontSize: "clamp(17px,1.5vw,20px)",
                 lineHeight: 1.55,
-                color: "#676E78",
+                color: "#656A73",
                 maxWidth: 480,
                 textWrap: "pretty",
               }}
@@ -251,15 +269,15 @@ export default function Content() {
                   minHeight: 44,
                   padding: "0 16px",
                   borderRadius: 999,
-                  border: "1px solid rgba(13,23,38,0.14)",
+                  border: "1px solid rgba(11,15,20,0.14)",
                   background: "#FFFFFF",
                   fontSize: 14,
                   fontWeight: 500,
-                  color: "#0D1726",
+                  color: "#0B0F14",
                 }}
-                hoverStyle={{ borderColor: "#17304A", color: "#0D1726" }}
+                hoverStyle={{ borderColor: "#16202B", color: "#0B0F14" }}
               >
-                <Icon name={s.icon} style={{ color: "#17304A" }} />
+                <Icon name={s.icon} style={{ color: "#16202B" }} />
                 {s.name}
               </Hover>
             ))}
@@ -287,7 +305,7 @@ export default function Content() {
               style={{
                 scrollMarginTop: 96,
                 background: "#FFFFFF",
-                border: "1px solid rgba(13,23,38,0.08)",
+                border: "1px solid rgba(11,15,20,0.08)",
                 borderRadius: "clamp(22px,3vw,28px)",
                 padding: "clamp(28px,4vw,48px)",
                 display: "grid",
@@ -309,8 +327,8 @@ export default function Content() {
                       width: 52,
                       height: 52,
                       borderRadius: 15,
-                      background: "#EDE9E2",
-                      color: "#17304A",
+                      background: "#EBE6DD",
+                      color: "#16202B",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -322,7 +340,7 @@ export default function Content() {
                     style={{
                       fontFamily: "'JetBrains Mono',monospace",
                       fontSize: 13,
-                      color: "#676E78",
+                      color: "#656A73",
                     }}
                   >
                     {s.n}
@@ -345,7 +363,7 @@ export default function Content() {
                     margin: "16px 0 0",
                     fontSize: 17,
                     lineHeight: 1.6,
-                    color: "#676E78",
+                    color: "#656A73",
                     maxWidth: 460,
                     textWrap: "pretty",
                   }}
@@ -389,14 +407,14 @@ export default function Content() {
                           gap: 12,
                           alignItems: "flex-start",
                           padding: "13px 0",
-                          borderTop: "1px solid rgba(13,23,38,0.08)",
+                          borderTop: "1px solid rgba(11,15,20,0.08)",
                           fontSize: 16,
                           lineHeight: 1.45,
                         }}
                       >
                         <Icon
                           name="icon-check"
-                          style={{ color: "#276B4C", marginTop: 3 }}
+                          style={{ color: "#2A6B4F", marginTop: 3 }}
                         />
                         {it}
                       </li>
@@ -405,15 +423,15 @@ export default function Content() {
                 </div>
                 <div
                   style={{
-                    background: "#F7F5F1",
+                    background: "#F6F3EE",
                     borderRadius: 16,
                     padding: "16px 18px",
                     fontSize: 15,
                     lineHeight: 1.5,
-                    color: "#676E78",
+                    color: "#656A73",
                   }}
                 >
-                  <strong style={{ color: "#0D1726", fontWeight: 600 }}>
+                  <strong style={{ color: "#0B0F14", fontWeight: 600 }}>
                     Best for:
                   </strong>{" "}
                   {s.bestFor}
@@ -461,10 +479,10 @@ export default function Content() {
                 key={t.title}
                 style={{
                   padding: "28px 28px 8px 0",
-                  borderTop: "1px solid rgba(13,23,38,0.14)",
+                  borderTop: "1px solid rgba(11,15,20,0.14)",
                 }}
               >
-                <Icon name={t.icon} style={{ fontSize: 22, color: "#17304A" }} />
+                <Icon name={t.icon} style={{ fontSize: 22, color: "#16202B" }} />
                 <h3
                   style={{
                     margin: "18px 0 0",
@@ -480,7 +498,7 @@ export default function Content() {
                     margin: "8px 0 0",
                     fontSize: 15,
                     lineHeight: 1.55,
-                    color: "#676E78",
+                    color: "#656A73",
                   }}
                 >
                   {t.desc}
@@ -500,8 +518,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#0D1726",
-              color: "#F7F5F1",
+              background: "#0B0F14",
+              color: "#F6F3EE",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(56px,8vw,104px) clamp(24px,5vw,72px)",
               display: "grid",
@@ -522,7 +540,7 @@ export default function Content() {
               }}
             >
               {"Not sure where to start? "}
-              <span style={{ ...serif, color: "#C9A35C" }}>
+              <span style={{ ...serif, color: "#B98A4B" }}>
                 We&apos;ll help you decide.
               </span>
             </h2>
@@ -539,7 +557,7 @@ export default function Content() {
                   margin: 0,
                   fontSize: 18,
                   lineHeight: 1.55,
-                  color: "#C8CFD9",
+                  color: "#C4CBD4",
                   maxWidth: 420,
                 }}
               >
@@ -552,14 +570,14 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "#C9A35C",
-                  color: "#0D1726",
+                  background: "#B98A4B",
+                  color: "#0B0F14",
                   padding: "18px 28px",
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 600,
                 }}
-                hoverStyle={{ background: "#DBB87A", color: "#0D1726" }}
+                hoverStyle={{ background: "#D2A563", color: "#0B0F14" }}
               >
                 Book a Consultation <Icon name="icon-arrow-right" />
               </Hover>

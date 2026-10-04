@@ -75,38 +75,21 @@ const DATA = [
     ["Bookkeeping", "Tax Services", "Financial Planning"],
   ],
   [
-    "real-estate",
-    "Real Estate",
-    "Photo — residential or commercial property",
-    "Investors, developers and property managers need property-level clarity. We keep every entity and property separate and reportable.",
+    "construction",
+    "Construction",
+    "Photo — crew on a construction site",
+    "Contractors live and die by job costing. We track cost against estimate per project, so you know which jobs are making money while they are still running.",
     [
-      "Many entities with shared expenses",
-      "Investor reporting takes too long",
-      "Depreciation and exchange tracking",
+      "Job costs drifting past the estimate unnoticed",
+      "Progress billing and retainage tracking",
+      "Subcontractor compliance and 1099s",
     ],
     [
-      "Property and entity-level books",
-      "Quarterly investor reporting packages",
-      "Tax planning for depreciation and exchanges",
+      "Job-level cost tracking against estimate",
+      "Progress billing, WIP and retainage schedules",
+      "Subcontractor payments and 1099 filing",
     ],
-    ["Bookkeeping", "Tax Services", "Business Advisory"],
-  ],
-  [
-    "technology",
-    "Technology & Startups",
-    "Photo — startup team at work",
-    "Founders need to know burn, runway and what investors will ask next. We build the finance function that grows with each round.",
-    [
-      "Unclear burn and runway",
-      "Investor and board reporting",
-      "Missed R&D credits and equity complexity",
-    ],
-    [
-      "Monthly burn, runway and SaaS metrics",
-      "Board and investor update packages",
-      "R&D credit and equity-related tax support",
-    ],
-    ["CFO Advisory", "Financial Reporting", "Tax Services"],
+    ["Bookkeeping", "Management Reporting", "CFO Advisory"],
   ],
 ] as const;
 
@@ -130,7 +113,7 @@ const listItem: CSSProperties = {
   gap: 10,
   fontSize: 15,
   lineHeight: 1.45,
-  color: "#0D1726",
+  color: "#0B0F14",
 };
 
 const bareList: CSSProperties = {
@@ -164,7 +147,7 @@ export default function Content() {
   );
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F7F5F1", overflowX: "clip" }}>
+    <div style={{ minHeight: "100vh", background: "#F6F3EE", overflowX: "clip" }}>
       <SiteHeader current="Industries" />
 
       <main>
@@ -194,7 +177,7 @@ export default function Content() {
                   fontWeight: 600,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "#17304A",
+                  color: "#16202B",
                   marginBottom: 24,
                 }}
               >
@@ -212,7 +195,7 @@ export default function Content() {
                 }}
               >
                 {"Accounting that speaks "}
-                <span style={{ ...serif, color: "#17304A" }}>your industry.</span>
+                <span style={{ ...serif, color: "#16202B" }}>your industry.</span>
               </h1>
             </div>
             <p
@@ -220,7 +203,7 @@ export default function Content() {
                 margin: 0,
                 fontSize: "clamp(17px,1.5vw,20px)",
                 lineHeight: 1.55,
-                color: "#676E78",
+                color: "#656A73",
                 maxWidth: 480,
                 textWrap: "pretty",
               }}
@@ -244,13 +227,13 @@ export default function Content() {
                   minHeight: 44,
                   padding: "0 16px",
                   borderRadius: 999,
-                  border: "1px solid rgba(13,23,38,0.14)",
+                  border: "1px solid rgba(11,15,20,0.14)",
                   background: "#FFFFFF",
                   fontSize: 14,
                   fontWeight: 500,
-                  color: "#0D1726",
+                  color: "#0B0F14",
                 }}
-                hoverStyle={{ borderColor: "#17304A", color: "#0D1726" }}
+                hoverStyle={{ borderColor: "#16202B", color: "#0B0F14" }}
               >
                 {d.name}
               </Hover>
@@ -279,7 +262,7 @@ export default function Content() {
               style={{
                 scrollMarginTop: 96,
                 background: "#FFFFFF",
-                border: "1px solid rgba(13,23,38,0.08)",
+                border: "1px solid rgba(11,15,20,0.08)",
                 borderRadius: "clamp(22px,3vw,28px)",
                 overflow: "hidden",
                 display: "grid",
@@ -291,7 +274,7 @@ export default function Content() {
                   position: "relative",
                   minHeight: "clamp(260px,30vw,420px)",
                   background:
-                    "repeating-linear-gradient(135deg,#EFEBE4 0 12px,#E8E4DC 12px 24px)",
+                    "repeating-linear-gradient(135deg,#EDE8DF 0 12px,#E6E0D6 12px 24px)",
                   order: d.order,
                 }}
               >
@@ -312,7 +295,7 @@ export default function Content() {
                   style={{
                     fontFamily: "'JetBrains Mono',monospace",
                     fontSize: 13,
-                    color: "#676E78",
+                    color: "#656A73",
                   }}
                 >
                   {d.n}
@@ -334,7 +317,7 @@ export default function Content() {
                     margin: "14px 0 0",
                     fontSize: 17,
                     lineHeight: 1.6,
-                    color: "#676E78",
+                    color: "#656A73",
                     textWrap: "pretty",
                   }}
                 >
@@ -350,7 +333,7 @@ export default function Content() {
                   }}
                 >
                   <div>
-                    <div style={{ ...listHead, color: "#676E78" }}>
+                    <div style={{ ...listHead, color: "#656A73" }}>
                       Common challenges
                     </div>
                     <ul style={bareList}>
@@ -358,7 +341,7 @@ export default function Content() {
                         <li key={p} style={listItem}>
                           <Icon
                             name="icon-minus"
-                            style={{ color: "#8E97A3", marginTop: 3 }}
+                            style={{ color: "#8A919B", marginTop: 3 }}
                           />
                           {p}
                         </li>
@@ -366,13 +349,13 @@ export default function Content() {
                     </ul>
                   </div>
                   <div>
-                    <div style={{ ...listHead, color: "#17304A" }}>How we help</div>
+                    <div style={{ ...listHead, color: "#16202B" }}>How we help</div>
                     <ul style={bareList}>
                       {d.helps.map((h) => (
                         <li key={h} style={listItem}>
                           <Icon
                             name="icon-check"
-                            style={{ color: "#276B4C", marginTop: 3 }}
+                            style={{ color: "#2A6B4F", marginTop: 3 }}
                           />
                           {h}
                         </li>
@@ -398,8 +381,8 @@ export default function Content() {
                         style={{
                           fontSize: 13,
                           fontWeight: 500,
-                          background: "#EDE9E2",
-                          color: "#17304A",
+                          background: "#EBE6DD",
+                          color: "#16202B",
                           padding: "6px 12px",
                           borderRadius: 999,
                         }}
@@ -436,8 +419,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#17304A",
-              color: "#F7F5F1",
+              background: "#16202B",
+              color: "#F6F3EE",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(56px,8vw,104px) clamp(24px,5vw,72px)",
               display: "grid",
@@ -458,7 +441,7 @@ export default function Content() {
               }}
             >
               {"Don't see your industry? "}
-              <span style={{ ...serif, color: "#C9A35C" }}>
+              <span style={{ ...serif, color: "#B98A4B" }}>
                 Let&apos;s talk anyway.
               </span>
             </h2>
@@ -475,7 +458,7 @@ export default function Content() {
                   margin: 0,
                   fontSize: 18,
                   lineHeight: 1.55,
-                  color: "#C8CFD9",
+                  color: "#C4CBD4",
                   maxWidth: 420,
                 }}
               >
@@ -488,14 +471,14 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "#C9A35C",
-                  color: "#0D1726",
+                  background: "#B98A4B",
+                  color: "#0B0F14",
                   padding: "18px 28px",
                   borderRadius: 999,
                   fontSize: 16,
                   fontWeight: 600,
                 }}
-                hoverStyle={{ background: "#DBB87A", color: "#0D1726" }}
+                hoverStyle={{ background: "#D2A563", color: "#0B0F14" }}
               >
                 Book a Consultation <Icon name="icon-arrow-right" />
               </Hover>

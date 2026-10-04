@@ -35,27 +35,9 @@ export const PHOTOS = {
     id: "photo-1556742049-0cfed4f6a45d",
     alt: "Packing orders at an e-commerce workspace",
   },
-  "real-estate": {
-    id: "photo-1570129477492-45c003edd2be",
-    alt: "Detached residential property with a front lawn",
-  },
-  technology: {
-    id: "photo-1522071820081-009f0129c71c",
-    alt: "Startup team working together on laptops",
-  },
-
-  /* About — founders ------------------------------------------------------ */
-  "founder-1": {
-    id: "photo-1560250097-0b93528c311a",
-    alt: "Portrait of the co-founder and managing partner",
-  },
-  "founder-2": {
-    id: "photo-1573497019940-1c28c88b4f3e",
-    alt: "Portrait of the co-founder and head of tax",
-  },
-  "founder-3": {
-    id: "photo-1507003211169-0a1dd7228f2d",
-    alt: "Portrait of the co-founder and head of advisory",
+  construction: {
+    id: "photo-1504307651254-35680f356dfd",
+    alt: "Crew working on a construction site",
   },
 
   /* Resources ------------------------------------------------------------- */

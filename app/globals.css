@@ -1772,9 +1772,9 @@
 .icon-zoom-out:before { content: "\e1b7"; }
 
 html{scroll-behavior:smooth}
-body{margin:0;background:#F7F5F1;color:#0D1726;font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#F6F3EE;color:#0B0F14;font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box}
-a{color:#17304A;text-decoration:none}
-a:hover{color:#0D1726}
+a{color:#16202B;text-decoration:none}
+a:hover{color:#0B0F14}
 button,input,select,textarea{font-family:inherit}
-:focus-visible{outline:2px solid #17304A;outline-offset:3px}
+:focus-visible{outline:2px solid #16202B;outline-offset:3px}

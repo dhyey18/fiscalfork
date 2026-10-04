@@ -4,7 +4,7 @@ import Content from "./content";
 export const metadata: Metadata = {
   title: "Industries — Fiscal Fork",
   description:
-    "Specialized accounting for restaurants, healthcare, professional services, e-commerce, real estate and technology startups.",
+    "Specialized accounting for restaurants and hotels, construction, healthcare, professional services and e-commerce businesses.",
 };
 
 export default function Page() {

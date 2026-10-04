@@ -4,6 +4,7 @@ import { Fragment, useState, type CSSProperties } from "react";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import HeroVideo from "./components/HeroVideo";
+import Marquee from "./components/Marquee";
 import { Hover, Icon, Photo, useReveal, useViewportWidth } from "./lib/ui";
 
 /* ── Page options, exposed as editable props on the original page ────────── */
@@ -17,91 +18,128 @@ const BAR_HEIGHTS = [38, 46, 42, 55, 51, 63, 60, 74, 88];
 const STATS = [
   { n: "12+", label: "Years of experience" },
   { n: "300+", label: "Businesses supported" },
-  { n: "8", label: "Financial services" },
+  { n: "9", label: "Service lines" },
   { n: "98%", label: "Client satisfaction" },
 ];
 
-const SERVICE_ANCHORS = [
-  "bookkeeping",
-  "tax",
-  "payroll",
-  "reporting",
-  "cfo",
-  "ap-ar",
-  "planning",
-  "advisory",
-];
-
+/* Nine services, each with a tint so the grid reads as something designed
+   rather than nine identical grey tiles. Tints are muted and print-like so the
+   colour does not fight the bronze/graphite palette; each icon clears contrast
+   on its own chip. */
 const SERVICES = (
   [
     [
-      "Bookkeeping",
-      "Accurate, reconciled books closed on a fixed monthly schedule.",
+      "bookkeeping",
+      "Restaurant, Hotels & Construction Bookkeeping",
+      "Sales reconciled daily, vendors current, accounts tied out before close.",
       "icon-book-open",
+      "#F0E7D9",
+      "#825C2E",
+      ["Daily sales reconciliation", "POS integration", "Bank reconciliation"],
     ],
     [
-      "Tax Services",
-      "Year-round planning, preparation and filing for business and owners.",
-      "icon-receipt",
+      "reporting-cadence",
+      "Daily, Weekly & Monthly Reporting",
+      "Numbers that arrive while you can still do something about them.",
+      "icon-calendar",
+      "#E4E9F0",
+      "#39506E",
+      ["Daily operational reports", "Weekly F&B cost reports", "Monthly financials"],
     ],
     [
-      "Payroll",
-      "On-time payroll runs, filings and compliance for your whole team.",
+      "payroll",
+      "Payroll Management & HR Compliance",
+      "Every location, with tips, overtime and year-end filings handled.",
       "icon-wallet",
+      "#E3EDE4",
+      "#3B6245",
+      ["Multi-location payroll", "W-2 / 1099 filing", "Tip reporting & pooling"],
     ],
     [
-      "Financial Reporting",
-      "Monthly P&L, balance sheet and cash flow you can actually read.",
-      "icon-file-text",
-    ],
-    [
-      "CFO Advisory",
-      "Senior financial leadership for pricing, fundraising and growth plans.",
-      "icon-briefcase",
-    ],
-    [
+      "ap-ar",
       "Accounts Payable & Receivable",
-      "Bills paid on schedule, invoices chased, cash kept moving.",
+      "Bills paid before they are due, and money owed to you actually chased.",
       "icon-arrow-left-right",
+      "#F4E6E0",
+      "#8C4A33",
+      ["Approval workflows", "Scheduled payment runs", "Collections follow-up"],
     ],
     [
-      "Financial Planning",
-      "Budgets, forecasts and scenarios tied to your business goals.",
-      "icon-target",
+      "financials",
+      "Monthly Financials & Management Reporting",
+      "A monthly pack built to be read, not filed.",
+      "icon-file-text",
+      "#DFEBEB",
+      "#2C5D5E",
+      ["Accurate financials", "Cash flow management", "Comparison and analysis"],
     ],
     [
-      "Business Advisory",
-      "Practical guidance on structure, margins and operational decisions.",
-      "icon-compass",
+      "tax",
+      "Tax Planning & Compliance",
+      "Handled across the year, not in a scramble each spring.",
+      "icon-receipt",
+      "#EEE4EC",
+      "#6B3B61",
+      ["Year-round planning", "Federal, state & provincial", "Sales tax / GST-HST"],
+    ],
+    [
+      "cleanup",
+      "Accounting Clean-Up & Reconciliation",
+      "Months or years rebuilt into books you can file and borrow against.",
+      "icon-wrench",
+      "#F5EADB",
+      "#8A5A1E",
+      ["Catch-up on unreconciled periods", "Chart of accounts rebuild"],
+    ],
+    [
+      "cfo",
+      "CFO Advisory",
+      "What each location or job is really earning, and what to do next.",
+      "icon-briefcase",
+      "#E5E5F1",
+      "#413F77",
+      ["Budgeting and forecasting", "Prime cost and margin analysis"],
+    ],
+    [
+      "cross-border",
+      "US & Canadian Accounting Support",
+      "One team across both countries, not two bookkeepers who never speak.",
+      "icon-globe",
+      "#E2EBE2",
+      "#2F5A38",
+      ["Both reporting standards", "Multi-entity and multi-currency"],
     ],
   ] as const
-).map(([name, desc, icon], i) => ({
+).map(([slug, name, desc, icon, tintBg, tintFg, points]) => ({
   name,
   desc,
   icon,
-  href: "/services#" + SERVICE_ANCHORS[i],
+  tintBg,
+  tintFg,
+  points,
+  href: "/services#" + slug,
 }));
 
 const BENEFITS = [
   [
     "01",
-    "Clear Financial Visibility",
-    "Know your cash, margins and obligations at any point in the month.",
+    "We know your industry",
+    "Prime cost, tip pooling, progress billing, retainage. We are not learning your business on your time.",
   ],
   [
     "02",
-    "Proactive Financial Strategy",
-    "We flag risks and opportunities early, before they show up in the numbers.",
+    "You hear from us first",
+    "Food cost drifting, a job running over, cash tightening in six weeks — you find out from us, not from the year-end.",
   ],
   [
     "03",
-    "Reliable & Accurate Reporting",
-    "Reconciled, reviewed reports delivered on the same date every month.",
+    "Closed on a fixed calendar",
+    "Reconciled, reviewed and delivered on the same date every month. No chasing, no surprises.",
   ],
   [
     "04",
-    "Dedicated Business Support",
-    "One named accountant who knows your business and answers your questions.",
+    "One team, both countries",
+    "US and Canadian entities handled together, by people who answer during your working hours.",
   ],
 ].map(([n, title, desc]) => ({ n, title, desc }));
 
@@ -163,8 +201,7 @@ const INDUSTRY_ANCHORS = [
   "healthcare",
   "professional-services",
   "ecommerce",
-  "real-estate",
-  "technology",
+  "construction",
 ] as const;
 
 const INDUSTRIES = (
@@ -190,14 +227,9 @@ const INDUSTRIES = (
       "Photo — packing station or product workspace",
     ],
     [
-      "Real Estate",
-      "Property-level books, investor reporting and 1031-ready records.",
-      "Photo — residential or commercial property",
-    ],
-    [
-      "Technology & Startups",
-      "Burn and runway tracking, investor updates and R&D credits.",
-      "Photo — startup team at work",
+      "Construction",
+      "Job costing, progress billing and retainage tracked per project.",
+      "Photo — crew on a construction site",
     ],
   ] as const
 ).map(([name, desc, ph], i) => ({
@@ -224,8 +256,8 @@ const STEPS = (
   n,
   title,
   desc,
-  bg: i === 0 ? "#17304A" : "#FFFFFF",
-  fg: i === 0 ? "#C9A35C" : "#17304A",
+  bg: i === 0 ? "#16202B" : "#FFFFFF",
+  fg: i === 0 ? "#B98A4B" : "#16202B",
 }));
 
 const TESTIMONIALS = [
@@ -266,7 +298,7 @@ const eyebrow: CSSProperties = {
   fontWeight: 600,
   letterSpacing: "0.12em",
   textTransform: "uppercase",
-  color: "#17304A",
+  color: "#16202B",
   marginBottom: 20,
 };
 
@@ -290,10 +322,10 @@ export default function Content() {
     return {
       h: h + "%",
       c: isFinal
-        ? "linear-gradient(180deg,#1F3C5C 0%,#17304A 100%)"
+        ? "linear-gradient(180deg,#1E2C3B 0%,#16202B 100%)"
         : isRecent
-          ? "linear-gradient(180deg,#318A63 0%,#276B4C 100%)"
-          : "#DCD7CE",
+          ? "linear-gradient(180deg,#338A66 0%,#2A6B4F 100%)"
+          : "#DAD4C9",
     };
   });
   const current = PROBLEMS[active];
@@ -303,7 +335,7 @@ export default function Content() {
   void w;
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F7F5F1", overflowX: "clip" }}>
+    <div style={{ minHeight: "100vh", background: "#F6F3EE", overflowX: "clip" }}>
       <SiteHeader current="Home" homeHref="#top" />
 
       <main id="top">
@@ -322,7 +354,7 @@ export default function Content() {
                behind text — it plays at close to full strength in its own half,
                and the panel gives every text colour a fixed, known background. */
             .ff-hero {
-              position: relative; overflow: hidden; background: #0D1726;
+              position: relative; overflow: hidden; background: #0B0F14;
               display: grid; grid-template-columns: 1fr;
               min-height: clamp(620px,90vh,980px);
             }
@@ -330,8 +362,8 @@ export default function Content() {
             .ff-hero-scrim {
               position: absolute; inset: 0; pointer-events: none;
               background: linear-gradient(180deg,
-                rgba(13,23,38,0.88) 0%, rgba(13,23,38,0.92) 55%,
-                rgba(13,23,38,0.95) 100%);
+                rgba(11,15,20,0.88) 0%, rgba(11,15,20,0.92) 55%,
+                rgba(11,15,20,0.95) 100%);
             }
             .ff-hero-blend { display: none; }
             .ff-hero-panel {
@@ -353,12 +385,12 @@ export default function Content() {
               .ff-hero-blend {
                 display: block; position: absolute; inset: 0; pointer-events: none;
                 background: linear-gradient(90deg,
-                  rgba(13,23,38,0.96) 0%, rgba(13,23,38,0.45) 14%,
-                  rgba(13,23,38,0.10) 38%, rgba(13,23,38,0.24) 100%);
+                  rgba(11,15,20,0.96) 0%, rgba(11,15,20,0.45) 14%,
+                  rgba(11,15,20,0.10) 38%, rgba(11,15,20,0.24) 100%);
               }
               .ff-hero-panel {
                 grid-column: 1; grid-row: 1;
-                border-right: 1px solid rgba(201,163,92,0.35);
+                border-right: 1px solid rgba(185,138,75,0.35);
                 /* Right padding has to clear the card, which hangs ~16% of its
                    own width back over the seam; at 960-1024px a smaller gutter
                    let the headline collide with it. */
@@ -401,7 +433,7 @@ export default function Content() {
                   width: 46,
                   height: 1,
                   flex: "none",
-                  background: "rgba(201,163,92,0.85)",
+                  background: "rgba(185,138,75,0.85)",
                 }}
               />
               <span
@@ -410,10 +442,10 @@ export default function Content() {
                   fontSize: 11,
                   letterSpacing: "0.22em",
                   textTransform: "uppercase",
-                  color: "#C9A35C",
+                  color: "#B98A4B",
                 }}
               >
-                Chartered Accountants
+                Outsourced Accounting · US &amp; Canada
               </span>
             </div>
 
@@ -428,9 +460,9 @@ export default function Content() {
                 color: "#FFFFFF",
               }}
             >
-              Rigorous audit.
+              Your numbers
               <br />
-              Assured compliance.
+              have a story.
               <br />
               <span
                 style={{
@@ -438,10 +470,10 @@ export default function Content() {
                   fontStyle: "italic",
                   fontWeight: 400,
                   letterSpacing: "-0.02em",
-                  color: "#C9A35C",
+                  color: "#B98A4B",
                 }}
               >
-                Trusted counsel.
+                We help you read it.
               </span>
             </h1>
 
@@ -450,7 +482,7 @@ export default function Content() {
               style={{
                 width: 76,
                 height: 1,
-                background: "rgba(201,163,92,0.5)",
+                background: "rgba(185,138,75,0.5)",
                 margin: "clamp(30px,3.4vw,40px) 0",
               }}
             />
@@ -460,14 +492,14 @@ export default function Content() {
                 margin: 0,
                 fontSize: "clamp(16px,1.2vw,18px)",
                 lineHeight: 1.65,
-                color: "#C8CFD9",
+                color: "#C4CBD4",
                 maxWidth: 470,
                 textWrap: "pretty",
               }}
             >
-              A firm of Chartered Accountants providing statutory audit and
-              assurance, taxation, regulatory compliance and business advisory to
-              companies, promoters and growing enterprises.
+              Your business is moving fast. Your finances should keep up.
+              Bookkeeping, payroll, reporting and CFO advisory for restaurants,
+              hotels and construction businesses across the US and Canada.
             </p>
 
             <div
@@ -484,8 +516,8 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "#C9A35C",
-                  color: "#0D1726",
+                  background: "#B98A4B",
+                  color: "#0B0F14",
                   padding: "17px 28px",
                   borderRadius: 999,
                   fontSize: 16,
@@ -494,8 +526,8 @@ export default function Content() {
                   transition: "background 200ms,transform 200ms,box-shadow 200ms",
                 }}
                 hoverStyle={{
-                  background: "#DBB87A",
-                  color: "#0D1726",
+                  background: "#D2A563",
+                  color: "#0B0F14",
                   transform: "translateY(-2px)",
                   boxShadow: "0 18px 36px -10px rgba(0,0,0,0.6)",
                 }}
@@ -544,10 +576,10 @@ export default function Content() {
                 fontSize: 11,
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
-                color: "#A8B2BF",
+                color: "#A5ACB5",
               }}
             >
-              {["Audit & Assurance", "Taxation", "Compliance", "Advisory"].map(
+              {["Bookkeeping", "Payroll", "Reporting", "CFO Advisory"].map(
                 (t, i) => (
                   <Fragment key={t}>
                     {i > 0 ? (
@@ -557,7 +589,7 @@ export default function Content() {
                           width: 3,
                           height: 3,
                           borderRadius: "50%",
-                          background: "#C9A35C",
+                          background: "#B98A4B",
                         }}
                       />
                     ) : null}
@@ -576,7 +608,7 @@ export default function Content() {
                 overflow: "hidden",
                 background: "#FFFFFF",
                 borderRadius: 20,
-                border: "1px solid rgba(13,23,38,0.08)",
+                border: "1px solid rgba(11,15,20,0.08)",
                 boxShadow:
                   "0 40px 80px -28px rgba(0,0,0,0.55),0 10px 24px -8px rgba(0,0,0,0.3)",
                 padding: 24,
@@ -590,7 +622,7 @@ export default function Content() {
                   left: 0,
                   right: 0,
                   height: 3,
-                  background: "linear-gradient(90deg,#17304A,#C9A35C)",
+                  background: "linear-gradient(90deg,#16202B,#B98A4B)",
                 }}
               />
               <div
@@ -608,10 +640,10 @@ export default function Content() {
                       fontSize: 11,
                       letterSpacing: "0.14em",
                       textTransform: "uppercase",
-                      color: "#676E78",
+                      color: "#656A73",
                     }}
                   >
-                    Compliance calendar · Q3
+                    Month-end close · September
                   </div>
                   <div
                     style={{
@@ -621,21 +653,21 @@ export default function Content() {
                       marginTop: 8,
                     }}
                   >
-                    18 / 18
+                    Day 6
                   </div>
                 </div>
                 <span
                   style={{
                     fontSize: 13,
                     fontWeight: 500,
-                    color: "#1F5C41",
-                    background: "#E4EDE7",
+                    color: "#1E5C42",
+                    background: "#E3EDE6",
                     padding: "6px 10px",
                     borderRadius: 999,
                     whiteSpace: "nowrap",
                   }}
                 >
-                  All on time
+                  Closed
                 </span>
               </div>
               <div
@@ -647,7 +679,7 @@ export default function Content() {
                   height: 92,
                   marginTop: 22,
                   paddingBottom: 10,
-                  borderBottom: "1px solid rgba(13,23,38,0.08)",
+                  borderBottom: "1px solid rgba(11,15,20,0.08)",
                 }}
               >
                 {bars.map((b, i) => (
@@ -675,21 +707,21 @@ export default function Content() {
                   [
                     [
                       "icon-circle-check",
-                      "#276B4C",
-                      "Statutory audit signed off",
+                      "#2A6B4F",
+                      "Daily sales reconciled",
                       "Sep 30",
                     ],
                     [
                       "icon-circle-check",
-                      "#276B4C",
-                      "Quarterly return filed",
+                      "#2A6B4F",
+                      "Payroll processed",
                       "Oct 1",
                     ],
                     [
                       "icon-clock",
-                      "#676E78",
-                      "Next statutory deadline",
-                      "Oct 15",
+                      "#656A73",
+                      "Financials delivered",
+                      "Oct 10",
                     ],
                   ] as const
                 ).map(([icon, color, label, date]) => (
@@ -705,13 +737,23 @@ export default function Content() {
                       <Icon name={icon} style={{ color, fontSize: 17 }} />
                       {label}
                     </span>
-                    <span style={{ color: "#676E78" }}>{date}</span>
+                    <span style={{ color: "#656A73" }}>{date}</span>
                   </div>
                 ))}
               </div>
             </div>
           </div>
         </section>
+
+        {/* RUNNING HEADLINE */}
+        <Marquee
+          items={[
+            "Your numbers have a story. We help you read it.",
+            "Your business is moving fast. Your finances should keep up.",
+            "Books closed on a fixed monthly calendar.",
+            "Restaurants · Hotels · Construction",
+          ]}
+        />
 
         {/* STATS */}
         <section
@@ -728,8 +770,8 @@ export default function Content() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,220px),1fr))",
-              borderTop: "1px solid rgba(13,23,38,0.12)",
-              borderBottom: "1px solid rgba(13,23,38,0.12)",
+              borderTop: "1px solid rgba(11,15,20,0.12)",
+              borderBottom: "1px solid rgba(11,15,20,0.12)",
             }}
           >
             {STATS.map((s) => (
@@ -747,7 +789,7 @@ export default function Content() {
                 >
                   {s.n}
                 </div>
-                <div style={{ fontSize: 15, color: "#676E78", marginTop: 12 }}>
+                <div style={{ fontSize: 15, color: "#656A73", marginTop: 12 }}>
                   {s.label}
                 </div>
               </div>
@@ -791,7 +833,7 @@ export default function Content() {
                 maxWidth: 380,
                 fontSize: 17,
                 lineHeight: 1.6,
-                color: "#676E78",
+                color: "#656A73",
               }}
             >
               Pick a single service or combine them into one managed finance function.
@@ -801,7 +843,7 @@ export default function Content() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill,minmax(min(100%,270px),1fr))",
+              gridTemplateColumns: "repeat(auto-fill,minmax(min(100%,300px),1fr))",
               gap: 16,
             }}
           >
@@ -814,19 +856,19 @@ export default function Content() {
                   display: "flex",
                   flexDirection: "column",
                   background: "#FFFFFF",
-                  border: "1px solid rgba(13,23,38,0.08)",
+                  border: "1px solid rgba(11,15,20,0.08)",
                   borderRadius: 22,
                   padding: 28,
                   minHeight: 280,
-                  color: "#0D1726",
-                  boxShadow: "0 1px 2px rgba(13,23,38,0.03)",
+                  color: "#0B0F14",
+                  boxShadow: "0 1px 2px rgba(11,15,20,0.03)",
                   transition: "box-shadow 260ms,border-color 260ms,transform 260ms",
                 }}
                 hoverStyle={{
-                  boxShadow: "0 18px 40px -18px rgba(13,23,38,0.22)",
-                  borderColor: "rgba(13,23,38,0.16)",
+                  boxShadow: "0 18px 40px -18px rgba(11,15,20,0.22)",
+                  borderColor: "rgba(11,15,20,0.16)",
                   transform: "translateY(-2px)",
-                  color: "#0D1726",
+                  color: "#0B0F14",
                 }}
               >
                 <span
@@ -835,8 +877,8 @@ export default function Content() {
                     width: 48,
                     height: 48,
                     borderRadius: 14,
-                    background: "#EDE9E2",
-                    color: "#17304A",
+                    background: s.tintBg,
+                    color: s.tintFg,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -859,18 +901,55 @@ export default function Content() {
                     margin: "10px 0 0",
                     fontSize: 15,
                     lineHeight: 1.55,
-                    color: "#676E78",
-                    flex: 1,
+                    color: "#656A73",
                   }}
                 >
                   {s.desc}
                 </p>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    margin: "16px 0 0",
+                    padding: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 7,
+                    flex: 1,
+                  }}
+                >
+                  {s.points.map((pt) => (
+                    <li
+                      key={pt}
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: 8,
+                        fontSize: 13.5,
+                        lineHeight: 1.45,
+                        color: "#656A73",
+                      }}
+                    >
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          flex: "none",
+                          width: 5,
+                          height: 5,
+                          marginTop: 7,
+                          borderRadius: "50%",
+                          background: s.tintFg,
+                        }}
+                      />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
                 <span
                   style={{
                     marginTop: 24,
                     fontSize: 15,
                     fontWeight: 500,
-                    color: "#17304A",
+                    color: "#16202B",
                     display: "flex",
                     alignItems: "center",
                     gap: 6,
@@ -897,8 +976,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#17304A",
-              color: "#F7F5F1",
+              background: "#16202B",
+              color: "#F6F3EE",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(48px,7vw,96px) clamp(24px,5vw,72px)",
             }}
@@ -914,22 +993,20 @@ export default function Content() {
               }}
             >
               <div>
-                <div style={{ ...eyebrow, color: "#C9A35C" }}>Why Fiscal Fork</div>
                 <h2
                   id="why-h"
                   style={{
                     margin: 0,
                     fontWeight: 500,
-                    fontSize: "clamp(36px,4.8vw,64px)",
-                    lineHeight: 1.02,
+                    fontSize: "clamp(42px,5.4vw,76px)",
+                    lineHeight: 1.0,
                     letterSpacing: "-0.04em",
                     textWrap: "balance",
                   }}
                 >
-                  {"More than accounting. "}
-                  <span style={{ ...serif, color: "#C9A35C" }}>
-                    A financial partner.
-                  </span>
+                  {"Why "}
+                  <span style={{ ...serif, color: "#B98A4B" }}>Fiscal Fork</span>
+                  {"?"}
                 </h2>
               </div>
               <p
@@ -937,12 +1014,14 @@ export default function Content() {
                   margin: 0,
                   fontSize: 18,
                   lineHeight: 1.6,
-                  color: "#C8CFD9",
+                  color: "#C4CBD4",
                   maxWidth: 460,
                 }}
               >
-                We keep your books accurate, and we also tell you what the numbers mean
-                and what to do next.
+                Most firms hand you a set of books once the month is long gone. We
+                work to the pace your business actually runs at — daily sales,
+                weekly costs, monthly financials — and we tell you what the numbers
+                mean while you can still act on them.
               </p>
             </div>
             <div
@@ -958,14 +1037,14 @@ export default function Content() {
                   data-reveal=""
                   style={{
                     padding: "32px 28px 8px 0",
-                    borderTop: "1px solid rgba(247,245,241,0.18)",
+                    borderTop: "1px solid rgba(246,243,238,0.18)",
                   }}
                 >
                   <div
                     style={{
                       fontFamily: "'JetBrains Mono',monospace",
                       fontSize: 13,
-                      color: "#C9A35C",
+                      color: "#B98A4B",
                     }}
                   >
                     {b.n}
@@ -986,7 +1065,7 @@ export default function Content() {
                       margin: "12px 0 0",
                       fontSize: 15,
                       lineHeight: 1.6,
-                      color: "#C8CFD9",
+                      color: "#C4CBD4",
                       maxWidth: 280,
                     }}
                   >
@@ -1048,9 +1127,9 @@ export default function Content() {
                         textAlign: "left",
                         padding: "18px 20px",
                         borderRadius: 16,
-                        border: `1px solid ${on ? "rgba(13,23,38,0.14)" : "transparent"}`,
+                        border: `1px solid ${on ? "rgba(11,15,20,0.14)" : "transparent"}`,
                         background: on ? "#FFFFFF" : "transparent",
-                        color: "#0D1726",
+                        color: "#0B0F14",
                         fontSize: 17,
                         fontWeight: 500,
                         letterSpacing: "-0.01em",
@@ -1063,7 +1142,7 @@ export default function Content() {
                         style={{
                           fontFamily: "'JetBrains Mono',monospace",
                           fontSize: 12,
-                          color: "#676E78",
+                          color: "#656A73",
                           width: 22,
                         }}
                       >
@@ -1073,7 +1152,7 @@ export default function Content() {
                       <Icon
                         name="icon-arrow-right"
                         style={{
-                          color: on ? "#17304A" : "rgba(13,23,38,0.25)",
+                          color: on ? "#16202B" : "rgba(11,15,20,0.25)",
                           fontSize: 18,
                         }}
                       />
@@ -1088,13 +1167,13 @@ export default function Content() {
                   position: "sticky",
                   top: 96,
                   background: "#FFFFFF",
-                  border: "1px solid rgba(13,23,38,0.08)",
+                  border: "1px solid rgba(11,15,20,0.08)",
                   borderRadius: 28,
                   padding: "clamp(28px,4vw,48px)",
-                  boxShadow: "0 24px 60px -32px rgba(13,23,38,0.25)",
+                  boxShadow: "0 24px 60px -32px rgba(11,15,20,0.25)",
                 }}
               >
-                <div style={{ fontSize: 14, color: "#676E78" }}>The problem</div>
+                <div style={{ fontSize: 14, color: "#656A73" }}>The problem</div>
                 <div
                   style={{
                     fontFamily: "'Newsreader',serif",
@@ -1102,7 +1181,7 @@ export default function Content() {
                     fontSize: "clamp(26px,2.6vw,34px)",
                     lineHeight: 1.2,
                     marginTop: 8,
-                    color: "#0D1726",
+                    color: "#0B0F14",
                   }}
                 >
                   “{current.problem}”
@@ -1110,7 +1189,7 @@ export default function Content() {
                 <div
                   style={{
                     height: 1,
-                    background: "rgba(13,23,38,0.1)",
+                    background: "rgba(11,15,20,0.1)",
                     margin: "32px 0",
                   }}
                 />
@@ -1120,7 +1199,7 @@ export default function Content() {
                     alignItems: "center",
                     gap: 10,
                     fontSize: 14,
-                    color: "#17304A",
+                    color: "#16202B",
                     fontWeight: 600,
                   }}
                 >
@@ -1132,7 +1211,7 @@ export default function Content() {
                     margin: "12px 0 0",
                     fontSize: "clamp(18px,1.6vw,21px)",
                     lineHeight: 1.5,
-                    color: "#0D1726",
+                    color: "#0B0F14",
                     textWrap: "pretty",
                   }}
                 >
@@ -1155,8 +1234,8 @@ export default function Content() {
                       gap: 8,
                       fontSize: 14,
                       fontWeight: 500,
-                      background: "#EDE9E2",
-                      color: "#17304A",
+                      background: "#EBE6DD",
+                      color: "#16202B",
                       padding: "8px 14px",
                       borderRadius: 999,
                     }}
@@ -1192,7 +1271,7 @@ export default function Content() {
                   key={p.n}
                   style={{
                     background: "#FFFFFF",
-                    border: "1px solid rgba(13,23,38,0.08)",
+                    border: "1px solid rgba(11,15,20,0.08)",
                     borderRadius: 22,
                     padding: 28,
                     display: "flex",
@@ -1210,13 +1289,13 @@ export default function Content() {
                   >
                     “{p.problem}”
                   </div>
-                  <div style={{ height: 1, background: "rgba(13,23,38,0.1)" }} />
+                  <div style={{ height: 1, background: "rgba(11,15,20,0.1)" }} />
                   <p
                     style={{
                       margin: 0,
                       fontSize: 15,
                       lineHeight: 1.6,
-                      color: "#676E78",
+                      color: "#656A73",
                       flex: 1,
                     }}
                   >
@@ -1230,8 +1309,8 @@ export default function Content() {
                       gap: 8,
                       fontSize: 13,
                       fontWeight: 500,
-                      background: "#EDE9E2",
-                      color: "#17304A",
+                      background: "#EBE6DD",
+                      color: "#16202B",
                       padding: "7px 12px",
                       borderRadius: 999,
                     }}
@@ -1280,7 +1359,7 @@ export default function Content() {
                 maxWidth: 380,
                 fontSize: 17,
                 lineHeight: 1.6,
-                color: "#676E78",
+                color: "#656A73",
               }}
             >
               Each sector has its own margins, tax rules and reporting needs. We set up
@@ -1302,17 +1381,17 @@ export default function Content() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  color: "#0D1726",
+                  color: "#0B0F14",
                   background: "#FFFFFF",
-                  border: "1px solid rgba(13,23,38,0.08)",
+                  border: "1px solid rgba(11,15,20,0.08)",
                   borderRadius: 24,
                   overflow: "hidden",
                   transition: "box-shadow 260ms,transform 260ms",
                 }}
                 hoverStyle={{
-                  boxShadow: "0 18px 40px -18px rgba(13,23,38,0.22)",
+                  boxShadow: "0 18px 40px -18px rgba(11,15,20,0.22)",
                   transform: "translateY(-2px)",
-                  color: "#0D1726",
+                  color: "#0B0F14",
                 }}
               >
                 <div
@@ -1320,7 +1399,7 @@ export default function Content() {
                     position: "relative",
                     aspectRatio: "4/3",
                     background:
-                      "repeating-linear-gradient(135deg,#EFEBE4 0 12px,#E8E4DC 12px 24px)",
+                      "repeating-linear-gradient(135deg,#EDE8DF 0 12px,#E6E0D6 12px 24px)",
                   }}
                 >
                   <Photo
@@ -1352,7 +1431,7 @@ export default function Content() {
                         margin: "8px 0 0",
                         fontSize: 15,
                         lineHeight: 1.55,
-                        color: "#676E78",
+                        color: "#656A73",
                       }}
                     >
                       {ind.desc}
@@ -1365,11 +1444,11 @@ export default function Content() {
                       width: 44,
                       height: 44,
                       borderRadius: "50%",
-                      border: "1px solid rgba(13,23,38,0.14)",
+                      border: "1px solid rgba(11,15,20,0.14)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#17304A",
+                      color: "#16202B",
                     }}
                   >
                     <i className="icon-arrow-up-right" style={{ fontSize: 18 }} />
@@ -1423,7 +1502,7 @@ export default function Content() {
                       borderRadius: "50%",
                       background: s.bg,
                       color: s.fg,
-                      border: "1px solid rgba(13,23,38,0.14)",
+                      border: "1px solid rgba(11,15,20,0.14)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1439,7 +1518,7 @@ export default function Content() {
                     style={{
                       flex: 1,
                       height: 1,
-                      background: "rgba(13,23,38,0.14)",
+                      background: "rgba(11,15,20,0.14)",
                     }}
                   />
                 </div>
@@ -1458,7 +1537,7 @@ export default function Content() {
                     margin: "10px 0 0",
                     fontSize: 16,
                     lineHeight: 1.55,
-                    color: "#676E78",
+                    color: "#656A73",
                     maxWidth: 260,
                   }}
                 >
@@ -1501,7 +1580,7 @@ export default function Content() {
                 style={{
                   margin: 0,
                   background: "#FFFFFF",
-                  border: "1px solid rgba(13,23,38,0.08)",
+                  border: "1px solid rgba(11,15,20,0.08)",
                   borderRadius: 24,
                   padding: 32,
                   display: "flex",
@@ -1516,7 +1595,7 @@ export default function Content() {
                     fontSize: 64,
                     lineHeight: 0.5,
                     height: 24,
-                    color: "#17304A",
+                    color: "#16202B",
                   }}
                 >
                   “
@@ -1539,7 +1618,7 @@ export default function Content() {
                     alignItems: "center",
                     gap: 14,
                     paddingTop: 24,
-                    borderTop: "1px solid rgba(13,23,38,0.08)",
+                    borderTop: "1px solid rgba(11,15,20,0.08)",
                   }}
                 >
                   <span
@@ -1548,8 +1627,8 @@ export default function Content() {
                       width: 44,
                       height: 44,
                       borderRadius: "50%",
-                      background: "#EDE9E2",
-                      color: "#17304A",
+                      background: "#EBE6DD",
+                      color: "#16202B",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1563,7 +1642,7 @@ export default function Content() {
                     style={{ display: "flex", flexDirection: "column", gap: 2 }}
                   >
                     <span style={{ fontWeight: 600, fontSize: 15 }}>{t.name}</span>
-                    <span style={{ fontSize: 14, color: "#676E78" }}>{t.role}</span>
+                    <span style={{ fontSize: 14, color: "#656A73" }}>{t.role}</span>
                   </span>
                 </figcaption>
               </figure>
@@ -1587,8 +1666,8 @@ export default function Content() {
             style={{
               maxWidth: 1376,
               margin: "0 auto",
-              background: "#0D1726",
-              color: "#F7F5F1",
+              background: "#0B0F14",
+              color: "#F6F3EE",
               borderRadius: "clamp(24px,3vw,36px)",
               padding: "clamp(64px,9vw,128px) clamp(24px,5vw,72px)",
               display: "grid",
@@ -1610,7 +1689,7 @@ export default function Content() {
                 }}
               >
                 {"Ready to get your finances "}
-                <span style={{ ...serif, color: "#C9A35C" }}>
+                <span style={{ ...serif, color: "#B98A4B" }}>
                   working for your business?
                 </span>
               </h2>
@@ -1628,7 +1707,7 @@ export default function Content() {
                   margin: 0,
                   fontSize: "clamp(17px,1.5vw,20px)",
                   lineHeight: 1.55,
-                  color: "#C8CFD9",
+                  color: "#C4CBD4",
                   maxWidth: 420,
                 }}
               >
@@ -1641,20 +1720,20 @@ export default function Content() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
-                  background: "#C9A35C",
-                  color: "#0D1726",
+                  background: "#B98A4B",
+                  color: "#0B0F14",
                   padding: "19px 30px",
                   borderRadius: 999,
                   fontSize: 17,
                   fontWeight: 600,
                   transition: "background 200ms",
                 }}
-                hoverStyle={{ background: "#DBB87A", color: "#0D1726" }}
+                hoverStyle={{ background: "#D2A563", color: "#0B0F14" }}
               >
                 {"Book a Consultation "}
                 <Icon name="icon-arrow-right" style={{ fontSize: 18 }} />
               </Hover>
-              <span style={{ fontSize: 14, color: "#8E97A3" }}>
+              <span style={{ fontSize: 14, color: "#8A919B" }}>
                 30-minute call · No obligation
               </span>
             </div>
