@@ -4,64 +4,7 @@ import { useState, type CSSProperties, type FormEvent } from "react";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import { Hover, Icon, Photo } from "../lib/ui";
-
-// One photo per article, in the order the articles are declared below.
-const ARTICLE_PHOTOS = [
-  "article-1",
-  "article-2",
-  "article-3",
-  "article-4",
-  "article-5",
-  "article-6",
-] as const;
-
-const ALL_ARTICLES = (
-  [
-    [
-      "Tax",
-      "6 min read",
-      "Quarterly estimated taxes: a simple calendar for owners",
-      "When to pay, how much to set aside, and how to avoid underpayment penalties.",
-    ],
-    [
-      "Bookkeeping",
-      "5 min read",
-      "The monthly close checklist we use for every client",
-      "Twelve steps that turn a pile of transactions into numbers you can trust.",
-    ],
-    [
-      "Cash flow",
-      "7 min read",
-      "Why profitable businesses still run out of cash",
-      "The four most common causes, and what to change in each case.",
-    ],
-    [
-      "Startups",
-      "8 min read",
-      "Burn, runway and the metrics investors ask about first",
-      "How to calculate them correctly and present them in a board update.",
-    ],
-    [
-      "Bookkeeping",
-      "4 min read",
-      "Catching up on months of late books: where to start",
-      "A realistic order of operations for getting current without losing a quarter.",
-    ],
-    [
-      "Tax",
-      "6 min read",
-      "Choosing a business entity: what changes for your taxes",
-      "A plain comparison of the common structures and when switching makes sense.",
-    ],
-  ] as const
-).map(([cat, time, title, desc], i) => ({
-  cat,
-  time,
-  title,
-  desc,
-  slot: "article-" + (i + 1),
-  photo: ARTICLE_PHOTOS[i],
-}));
+import { ARTICLES, FEATURED } from "./articles";
 
 const CATS = ["All", "Bookkeeping", "Tax", "Cash flow", "Startups"];
 
@@ -107,7 +50,7 @@ export default function Content() {
   const [open, setOpen] = useState(0);
   const [subscribed, setSubscribed] = useState(false);
 
-  const articles = ALL_ARTICLES.filter((a) => cat === "All" || a.cat === cat);
+  const articles = ARTICLES.filter((a) => cat === "All" || a.cat === cat);
 
   const subscribe = (e: FormEvent) => {
     e.preventDefault();
@@ -175,7 +118,7 @@ export default function Content() {
           }}
         >
           <Hover
-            href="#"
+            href={`/resources/${FEATURED.slug}`}
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,420px),1fr))",
@@ -195,7 +138,7 @@ export default function Content() {
               }}
             >
               <Photo
-                name="resource-featured"
+                name={FEATURED.photo}
                 sizes="(max-width: 900px) 100vw, 50vw"
                 priority
               />
@@ -211,7 +154,7 @@ export default function Content() {
               }}
             >
               <span style={{ ...eyebrow, color: "#B98A4B" }}>
-                Featured guide · Cash flow
+                Featured guide · {FEATURED.cat}
               </span>
               <h2
                 style={{
@@ -223,7 +166,7 @@ export default function Content() {
                   textWrap: "balance",
                 }}
               >
-                How to build a 13-week cash forecast in an afternoon
+                {FEATURED.title}
               </h2>
               <p
                 style={{
@@ -234,8 +177,7 @@ export default function Content() {
                   maxWidth: 460,
                 }}
               >
-                A step-by-step method to see cash shortfalls weeks before they happen,
-                with a free template.
+                {FEATURED.desc}
               </p>
               <span
                 style={{
@@ -325,8 +267,8 @@ export default function Content() {
           >
             {articles.map((a) => (
               <Hover
-                key={a.slot}
-                href="#"
+                key={a.slug}
+                href={`/resources/${a.slug}`}
                 style={{
                   display: "flex",
                   flexDirection: "column",

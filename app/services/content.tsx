@@ -25,7 +25,7 @@ const SERVICES = (
       "Restaurant, Hotels & Construction Bookkeeping",
       "bookkeeping",
       "icon-book-open",
-      "Books kept to the rhythm of an operating business — sales reconciled daily, vendors current, and every account tied out before the month closes.",
+      "Daily hospitality bookkeeping covering POS reconciliation, AP/AR, vendor payments, and bank reconciliations, with accurate USAR/USALI-based transaction categorization.",
       [
         "Daily sales reconciliation",
         "POS integration",
