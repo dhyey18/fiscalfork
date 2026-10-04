@@ -169,7 +169,7 @@ const TERMS = (
   [
     [
       "icon-badge-check",
-      "Fixed monthly fee",
+      "Clear pricing",
       "Agreed up front based on scope. No hourly billing.",
     ],
     [
@@ -288,7 +288,7 @@ export default function Content() {
                 }}
               >
                 Take one line or the whole function. Either way it is the same team,
-                the same close calendar, and one fixed monthly fee — in every market
+                the same close calendar, and clear pricing — in every market
                 you operate.
               </p>
             </div>

@@ -68,7 +68,7 @@ const CATS = ["All", "Bookkeeping", "Tax", "Cash flow", "Startups"];
 const FAQS = [
   [
     "How much do your services cost?",
-    "We charge a fixed monthly fee based on the scope of work and the volume of transactions. You’ll get a clear proposal after your consultation, with no hourly billing.",
+    "Pricing is based on the scope of work and the volume of transactions. You’ll get a clear proposal after your consultation, with no hourly billing.",
   ],
   [
     "Do I need to switch accounting software?",

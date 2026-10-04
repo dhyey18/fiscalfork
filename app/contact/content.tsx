@@ -41,7 +41,7 @@ const NEXT_STEPS = [
     "30-minute consultation",
     " with a founder to understand your business.",
   ],
-  ["03", "A clear proposal", " with scope and fixed monthly pricing."],
+  ["03", "A clear proposal", " with scope and clear pricing."],
 ] as const;
 
 const labelStyle: CSSProperties = {

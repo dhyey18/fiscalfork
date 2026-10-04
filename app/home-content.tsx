@@ -679,7 +679,7 @@ export default function Content() {
               }}
             >
               Pick a single service or combine them into one managed finance function.
-              Same team, one monthly fee.
+              Same team, one engagement.
             </p>
           </div>
           <div
