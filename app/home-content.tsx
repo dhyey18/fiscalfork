@@ -122,23 +122,23 @@ const SERVICES = (
 const BENEFITS = [
   [
     "01",
-    "We know your industry",
-    "Prime cost, tip pooling, progress billing, retainage. We are not learning your business on your time.",
+    "Accurate, to the penny",
+    "Every account reconciled and reviewed before it reaches you. No guesswork, and no corrections six months later.",
   ],
   [
     "02",
-    "You hear from us first",
-    "Food cost drifting, a job running over, cash tightening in six weeks — you find out from us, not from the year-end.",
-  ],
-  [
-    "03",
-    "Closed on a fixed calendar",
+    "Delivered on time, every time",
     "Reconciled, reviewed and delivered on the same date every month. No chasing, no surprises.",
   ],
   [
+    "03",
+    "Perfect execution, first time",
+    "Prime cost, tip pooling, progress billing, retainage — handled right because we already know your industry, not on your time.",
+  ],
+  [
     "04",
-    "One team, every market",
-    "Entities in different countries handled together, by people who answer during your working hours.",
+    "You hear from us first",
+    "Food cost drifting, a job running over, cash tightening in six weeks — you find out from us, not from the year-end.",
   ],
 ].map(([n, title, desc]) => ({ n, title, desc }));
 
@@ -195,16 +195,16 @@ const PROBLEMS = (
   icon,
 }));
 
+/* Kept in sync with the six segments on /industries — same slugs, same
+   order, so this teaser and the full page never drift apart. */
 const INDUSTRIES = (
   [
-    ["Fine Dining Restaurants", "Wine inventory, tasting menu costing and private event P&L.", "fine-dining"],
+    ["Restaurants", "Daily covers, prime cost and tip pooling across every service style.", "fine-dining"],
     ["Hotels & Resorts", "USALI reporting, RevPAR tracking and departmental P&L.", "hotels"],
-    ["Fast Casual & QSR", "High-volume POS reconciliation across every location.", "fast-casual"],
-    ["Bars, Pubs & Nightclubs", "Pour cost variance and control in a cash-heavy room.", "bars"],
-    ["Cafes & Coffee Shops", "Loyalty revenue, retail inventory and delivery platforms.", "cafes"],
-    ["Catering & Events", "Event-level job costing before you price the next contract.", "catering"],
-    ["Food Trucks & Pop-Ups", "Daily sales by site, commissary costs and permits.", "food-trucks"],
-    ["Ghost Kitchens", "Brand-level P&L and delivery platform reconciliation.", "ghost-kitchens"],
+    ["Construction", "Job costing, progress billing and retainage on every contract.", "construction"],
+    ["Healthcare", "Patient billing reconciliation, insurance receivables and provider reporting.", "healthcare"],
+    ["Retail", "Daily sales, POS reconciliation and multi-location inventory tracking.", "retail"],
+    ["Professional Services", "Time and billing reconciliation, trust accounts and partner draws.", "professional-services"],
   ] as const
 ).map(([name, desc, slug]) => ({
   name,
@@ -228,8 +228,10 @@ const STEPS = (
   n,
   title,
   desc,
-  bg: i === 0 ? "#16202B" : "#FFFFFF",
-  fg: i === 0 ? "#B98A4B" : "#16202B",
+  // Alternating dark/light badges — 1 and 3 dark, 2 and 4 plain — instead of
+  // singling out step 1.
+  bg: i % 2 === 0 ? "#16202B" : "#FFFFFF",
+  fg: i % 2 === 0 ? "#B98A4B" : "#16202B",
 }));
 
 const TESTIMONIALS = [
@@ -689,7 +691,10 @@ export default function Content() {
               gap: 16,
             }}
           >
-            {SERVICES.map((s) => (
+            {SERVICES.map((s, i) => (
+              // Alternating colour/white cards — the tinted ones use the
+              // service's own tint as the card background (instead of just
+              // the icon chip), and invert the chip to stay legible on it.
               <Hover
                 key={s.name}
                 href={s.href}
@@ -697,7 +702,7 @@ export default function Content() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  background: "#FFFFFF",
+                  background: i % 2 === 0 ? s.tintBg : "#FFFFFF",
                   border: "1px solid rgba(11,15,20,0.08)",
                   borderRadius: 22,
                   padding: 28,
@@ -719,7 +724,7 @@ export default function Content() {
                     width: 48,
                     height: 48,
                     borderRadius: 14,
-                    background: s.tintBg,
+                    background: i % 2 === 0 ? "#FFFFFF" : s.tintBg,
                     color: s.tintFg,
                     display: "flex",
                     alignItems: "center",
