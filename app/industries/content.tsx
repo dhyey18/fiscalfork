@@ -20,24 +20,27 @@ type Segment = {
   detail: PhotoKey;
 };
 
+/* Six real sectors — not sub-niches of one vertical. Restaurants and
+   Hotels & Resorts keep their original slugs ("fine-dining" / "hotels") so
+   the homepage's existing anchor links keep pointing at the right card. */
 const SEGMENTS: readonly Segment[] = [
   {
     slug: "fine-dining",
-    tag: "Fine Dining",
-    name: "Fine Dining Restaurants",
+    tag: "Restaurants",
+    name: "Restaurants",
     blurb:
-      "Fine dining operations require sophisticated financial management — from high-end wine cellar valuations and tasting menu costing to private event P&L and complex tip structures for large service teams.",
+      "From fine dining to fast casual, every restaurant runs on the same pressure points: food and labor cost, tip handling, and sales that need to be reconciled every single day. We build the bookkeeping rhythm around your service style, not a generic template.",
     handles: [
-      "Wine cellar inventory & valuation",
-      "Tasting menu & prix fixe costing",
-      "Private event accounting & billing",
-      "Complex tip pool management",
+      "Daily sales & POS reconciliation",
+      "Prime cost tracking (food + labor)",
+      "Tip pooling & reporting",
+      "Multi-location consolidated P&L",
     ],
     reports: [
       "Daily sales and cover counts",
       "Weekly prime cost against target",
-      "Wine inventory valuation schedule",
-      "Monthly P&L with private events separated",
+      "Tip pool and payroll reconciliation",
+      "Monthly P&L by location",
     ],
     photo: "fine-dining",
     detail: "fine-dining-detail",
@@ -64,130 +67,88 @@ const SEGMENTS: readonly Segment[] = [
     detail: "hotels-detail",
   },
   {
-    slug: "fast-casual",
-    tag: "Fast Casual",
-    name: "Fast Casual & QSR",
+    slug: "construction",
+    tag: "Construction",
+    name: "Construction",
     blurb:
-      "High transaction volumes, tight labor budgets, and multi-location complexity are hallmarks of fast casual. We build efficient financial systems that scale with your growth and give real-time visibility at every location.",
+      "Job costing, progress billing and retainage make construction accounting a different discipline from most small-business bookkeeping. We track profitability by job, keep work-in-progress schedules current, and get draws billed and collected on schedule.",
     handles: [
-      "High-volume POS reconciliation",
+      "Job costing by phase & cost code",
+      "Progress billing & draw requests",
+      "Retainage tracking & release",
+      "Certified payroll & prevailing wage",
+    ],
+    reports: [
+      "Job cost report against budget, by project",
+      "Work-in-progress (WIP) schedule",
+      "Progress billing and retainage ledger",
+      "Monthly P&L by job and combined",
+    ],
+    photo: "construction",
+    detail: "construction-detail",
+  },
+  {
+    slug: "healthcare",
+    tag: "Healthcare",
+    name: "Healthcare Practices",
+    blurb:
+      "Medical and dental practices deal with a billing cycle most businesses don't: care delivered today, insurance paid months later. We reconcile patient and payer receivables, track collections by provider, and keep the books audit-ready.",
+    handles: [
+      "Patient & insurance receivables reconciliation",
+      "Provider-level revenue reporting",
+      "Payer mix & collections tracking",
+      "Multi-provider practice consolidation",
+    ],
+    reports: [
+      "Weekly collections against billed charges",
+      "Accounts receivable aging by payer",
+      "Provider-level production and revenue report",
+      "Monthly P&L by location or provider group",
+    ],
+    photo: "healthcare",
+    detail: "healthcare-detail",
+  },
+  {
+    slug: "retail",
+    tag: "Retail",
+    name: "Retail",
+    blurb:
+      "Retail profitability lives in the details: what sells, what sits on a shelf, and what each channel actually costs to serve. We reconcile POS systems daily, track inventory and cost of goods, and roll up reporting across every location you operate.",
+    handles: [
+      "Daily POS & multi-channel reconciliation",
+      "Inventory & cost of goods tracking",
       "Multi-location consolidated reporting",
-      "Labor % optimization",
-      "Franchise accounting support",
+      "Sales tax compliance by jurisdiction",
     ],
     reports: [
-      "Daily sales by location",
-      "Weekly labor percentage by shift",
-      "Consolidated multi-unit P&L",
-      "Franchise royalty and fee reconciliation",
+      "Daily sales by channel and location",
+      "Weekly cost of goods and shrink report",
+      "Inventory valuation schedule",
+      "Monthly P&L with location rollup",
     ],
-    photo: "fast-casual",
-    detail: "fast-casual-detail",
+    photo: "retail",
+    detail: "retail-detail",
   },
   {
-    slug: "bars",
-    tag: "Bars & Nightclubs",
-    name: "Bars, Pubs & Nightclubs",
+    slug: "professional-services",
+    tag: "Professional Services",
+    name: "Professional Services Firms",
     blurb:
-      "Beverage operations demand specialized controls. We track pour cost, monitor variance between theoretical and actual beverage cost, manage cash-heavy environments, and handle entertainment and licensing expenses.",
+      "Law firms, agencies and consultancies bill for time, not inventory. We reconcile trust and retainer accounts, track work-in-progress against what's actually billed, and give partners a clear monthly read on utilization and profitability.",
     handles: [
-      "Pour cost & beverage variance analysis",
-      "Cash management & theft prevention",
-      "Entertainment expense tracking",
-      "Liquor license cost amortization",
+      "Time & billing reconciliation",
+      "Trust / retainer accounting",
+      "Work-in-progress (WIP) tracking",
+      "Partner draws & profit distributions",
     ],
     reports: [
-      "Daily cash and card reconciliation",
-      "Weekly pour cost, theoretical against actual",
-      "Entertainment and promoter spend against budget",
-      "Monthly P&L with licence costs amortised",
+      "Weekly utilization and realization report",
+      "WIP and unbilled time schedule",
+      "Trust account reconciliation",
+      "Monthly P&L with partner distributions",
     ],
-    photo: "bars",
-    detail: "bars-detail",
-  },
-  {
-    slug: "cafes",
-    tag: "Cafes & Coffee",
-    name: "Cafes & Coffee Shops",
-    blurb:
-      "From single-location independent cafes to regional coffee chains, we manage daily bookkeeping, loyalty program revenue tracking, merchandise inventory, and subscription coffee sales accounting.",
-    handles: [
-      "Loyalty program revenue recognition",
-      "Merchandise & retail inventory",
-      "Third-party delivery reconciliation",
-      "Multi-location rollup reporting",
-    ],
-    reports: [
-      "Daily sales split by channel",
-      "Weekly cost of goods and waste",
-      "Loyalty and gift card liability schedule",
-      "Monthly rollup across every site",
-    ],
-    photo: "cafes",
-    detail: "cafes-detail",
-  },
-  {
-    slug: "catering",
-    tag: "Catering & Events",
-    name: "Catering & Event Companies",
-    blurb:
-      "Catering businesses face unique challenges: seasonal cash flow, job costing by event, contract billing, and fluctuating staff costs. We build financial systems that give you event-level profitability before you price the next contract.",
-    handles: [
-      "Event-level job costing",
-      "Seasonal cash flow management",
-      "Contract billing & deposits",
-      "Temporary staff payroll",
-    ],
-    reports: [
-      "Profitability by event, closed within the week",
-      "Deposit and contract billing schedule",
-      "Rolling seasonal cash forecast",
-      "Monthly P&L by event type",
-    ],
-    photo: "catering",
-    detail: "catering-detail",
-  },
-  {
-    slug: "food-trucks",
-    tag: "Food Trucks",
-    name: "Food Trucks & Pop-Ups",
-    blurb:
-      "Mobile food businesses have unique compliance and cash management needs. We help food truck operators track daily sales across multiple locations, manage commissary kitchen costs, and stay compliant with mobile vending regulations.",
-    handles: [
-      "Multi-location daily sales tracking",
-      "Commissary kitchen cost allocation",
-      "Mobile vendor permit & compliance",
-      "Cash & card reconciliation",
-    ],
-    reports: [
-      "Daily sales by location and event",
-      "Commissary cost allocated per truck",
-      "Permit and compliance calendar",
-      "Monthly P&L per truck and combined",
-    ],
-    photo: "food-trucks",
-    detail: "food-trucks-detail",
-  },
-  {
-    slug: "ghost-kitchens",
-    tag: "Ghost Kitchens",
-    name: "Ghost Kitchens & Virtual Brands",
-    blurb:
-      "Virtual restaurant brands operating from ghost kitchens need precise delivery platform reconciliation, multi-brand cost allocation, and digital marketing spend tracking — all areas where we provide specialized expertise.",
-    handles: [
-      "Multi-brand P&L separation",
-      "Delivery platform fee reconciliation",
-      "Shared kitchen cost allocation",
-      "Digital marketing ROI tracking",
-    ],
-    reports: [
-      "P&L per virtual brand",
-      "Platform fees and payouts reconciled to sales",
-      "Shared kitchen costs allocated by brand",
-      "Marketing spend against revenue by brand",
-    ],
-    photo: "ghost-kitchens",
-    detail: "ghost-kitchens-detail",
+    photo: "professional-services",
+    detail: "professional-services-detail",
   },
 ];
 
@@ -296,8 +257,8 @@ export default function Content() {
                 maxWidth: 620,
               }}
             >
-              Specialized accounting expertise for every segment of the restaurant
-              and hospitality industry.
+              Specialized accounting expertise across every industry we serve —
+              from hospitality to construction, healthcare and beyond.
             </p>
           </div>
         </section>
@@ -336,8 +297,8 @@ export default function Content() {
                   textWrap: "balance",
                 }}
               >
-                {"Deep expertise across all "}
-                <span style={serif}>hospitality segments.</span>
+                {"Deep expertise across every "}
+                <span style={serif}>sector we serve.</span>
               </h2>
             </div>
             <p
@@ -349,10 +310,10 @@ export default function Content() {
                 maxWidth: 480,
               }}
             >
-              No two hospitality businesses are the same. A fine-dining restaurant
-              has vastly different financial needs than a food truck or a boutique
-              hotel. That&apos;s why we&apos;ve developed specialized expertise
-              across every segment.
+              No two businesses run the same way. A restaurant has vastly
+              different financial needs than a construction firm or a medical
+              practice. That&apos;s why we&apos;ve built specialized expertise
+              across every industry we serve.
             </p>
           </div>
 
@@ -527,8 +488,9 @@ export default function Content() {
                   maxWidth: 420,
                 }}
               >
-                We work across hospitality and construction. Tell us how your
-                operation runs and we&apos;ll tell you how we&apos;d set the books up.
+                We work across hospitality, construction, healthcare, retail and
+                professional services. Tell us how your operation runs and
+                we&apos;ll tell you how we&apos;d set the books up.
               </p>
               <Hover
                 href="/contact"

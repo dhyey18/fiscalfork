@@ -85,6 +85,41 @@ export const PHOTOS = {
     alt: "A chef plating under kitchen pass lamps",
   },
 
+  /* Construction, Healthcare, Retail — non-hospitality sectors shown on the
+     homepage Industries section alongside Restaurants. -------------------- */
+  construction: {
+    id: "photo-1541888946425-d81bb19240f5",
+    alt: "A crew in hard hats reviewing a large-scale construction site from above",
+  },
+  "construction-detail": {
+    id: "photo-1503387762-592deb58ef4e",
+    alt: "An architect marking up blueprints at a job site",
+  },
+  healthcare: {
+    id: "photo-1576091160550-2173dba999ef",
+    alt: "A stethoscope resting on a laptop keyboard at a practice",
+  },
+  "healthcare-detail": {
+    id: "photo-1519494026892-80bbd2d6fd0d",
+    alt: "The reception desk of a medical clinic",
+  },
+  retail: {
+    id: "photo-1556740758-90de374c12ad",
+    alt: "A retailer completing a sale at the checkout counter",
+  },
+  "retail-detail": {
+    id: "photo-1441986300917-64674bd600d8",
+    alt: "Shelves and racks of merchandise in a boutique store",
+  },
+  "professional-services": {
+    id: "photo-1521737604893-d14cc237f11d",
+    alt: "A small team meeting around a table with laptops open",
+  },
+  "professional-services-detail": {
+    id: "photo-1556761175-5973dc0f32e7",
+    alt: "A consultant presenting to a seated team in an office",
+  },
+
   /* Services — one per service block -------------------------------------- */
   "svc-bookkeeping": {
     id: "photo-1520607162513-77705c0f0d4a",
