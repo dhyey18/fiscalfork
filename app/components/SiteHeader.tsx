@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Hover, Icon, useNavState } from "../lib/ui";
 
 const NAV_LINKS = [
@@ -11,27 +12,21 @@ const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ];
 
-export function Logo({ fontSize = 19 }: { fontSize?: number }) {
+export function Logo({ fontSize = 22, markSize = 40 }: { fontSize?: number; markSize?: number }) {
   return (
     <>
-      <span
+      {/* The navy/gold "FF" badge — full brand mark (icon + wordmark +
+         tagline) lives at /logo.svg, but its tagline is too fine-print to
+         stay legible at nav height, so here it's just the mark, paired with
+         live text that scales cleanly at any size. */}
+      <Image
+        src="/logo-mark.svg"
+        alt=""
         aria-hidden="true"
-        style={{
-          width: 32,
-          height: 32,
-          borderRadius: 9,
-          background: "#16202B",
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "center",
-          gap: 3,
-          padding: "0 0 7px",
-        }}
-      >
-        <span style={{ width: 4, height: 9, background: "#B98A4B", borderRadius: 2 }} />
-        <span style={{ width: 4, height: 13, background: "#B98A4B", borderRadius: 2 }} />
-        <span style={{ width: 4, height: 17, background: "#B98A4B", borderRadius: 2 }} />
-      </span>
+        width={markSize}
+        height={markSize}
+        style={{ width: markSize, height: markSize, flex: "none", display: "block" }}
+      />
       <span style={{ fontSize, fontWeight: 600, letterSpacing: "-0.02em" }}>
         Fiscal Fork
       </span>

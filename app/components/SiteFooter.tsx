@@ -1,7 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { Hover, Icon } from "../lib/ui";
-import { Logo } from "./SiteHeader";
+
+/** The full lockup (badge + wordmark + tagline) from /logo.svg, 1000×375. The
+ *  footer has room for the complete brand mark, unlike the compact nav. */
+const LOGO_ASPECT = 1000 / 375;
+const FOOTER_LOGO_HEIGHT = 86;
+const FOOTER_LOGO_WIDTH = Math.round(FOOTER_LOGO_HEIGHT * LOGO_ASPECT);
 
 const COMPANY = [
   ["About", "/about"],
@@ -55,9 +61,17 @@ export default function SiteFooter() {
         <div style={{ maxWidth: 300 }}>
           <a
             href="/"
+            aria-label="Fiscal Fork home"
             style={{ display: "flex", alignItems: "center", gap: 10, color: "#0B0F14" }}
           >
-            <Logo />
+            <Image
+              src="/logo.svg"
+              alt=""
+              aria-hidden="true"
+              width={FOOTER_LOGO_WIDTH}
+              height={FOOTER_LOGO_HEIGHT}
+              style={{ width: FOOTER_LOGO_WIDTH, height: FOOTER_LOGO_HEIGHT, flex: "none", display: "block" }}
+            />
           </a>
           <p
             style={{
