@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
+import Image from "next/image";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import { Hover, Icon, ImageSlot, useViewportWidth } from "../lib/ui";
@@ -12,8 +13,19 @@ const layout: "Alternating" | "Stacked" = "Alternating";
    describe the scope of each role rather than anyone's history, and `quote` is
    left bracketed — putting invented words or invented credentials against a
    named person is not ours to do. Replace the bracketed fields with their own
-   words before this goes live. */
-const FOUNDERS = [
+   words before this goes live. `photo` is optional — founders without a
+   supplied photo fall back to the empty-state image slot. */
+type Founder = {
+  name: string;
+  role: string;
+  creds: string;
+  quote: string;
+  bio: string;
+  focus: string[];
+  photo?: string;
+};
+
+const FOUNDERS: Founder[] = [
   {
     name: "Shubham Brahmbhatt",
     role: "Founder & CEO",
@@ -21,6 +33,7 @@ const FOUNDERS = [
     quote: "[Quote to be supplied]",
     bio: "Leads the firm and its client relationships, and sets how engagements are scoped, staffed and delivered across the firm's international practice.",
     focus: ["Client strategy", "Firm direction", "Hospitality"],
+    photo: "/shubham-brahmbhatt.jpg",
   },
   {
     name: "CA Shreyansh Shah",
@@ -175,10 +188,17 @@ export default function Content() {
                   order: f.photoOrder,
                 }}
               >
-                <ImageSlot
-                  shape="rect"
-                  placeholder={`Headshot — ${f.name}`}
-                />
+                {f.photo ? (
+                  <Image
+                    src={f.photo}
+                    alt={`Portrait of ${f.name}`}
+                    fill
+                    sizes="(max-width: 760px) 100vw, 50vw"
+                    style={{ objectFit: "contain" }}
+                  />
+                ) : (
+                  <ImageSlot shape="rect" placeholder={`Headshot — ${f.name}`} />
+                )}
                 <span
                   style={{
                     position: "absolute",
