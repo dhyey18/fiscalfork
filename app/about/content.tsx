@@ -23,7 +23,7 @@ const FOUNDERS = [
     focus: ["Client strategy", "Firm direction", "Hospitality"],
   },
   {
-    name: "CA Shreaynsh Shah",
+    name: "CA Shreyansh Shah",
     role: "Co-Founder & COM",
     creds: "[Credentials to confirm]",
     quote: "[Quote to be supplied]",
