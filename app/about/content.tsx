@@ -23,6 +23,9 @@ type Founder = {
   bio: string;
   focus: string[];
   photo?: string;
+  /** The photo's own width/height ratio, e.g. "2 / 3" — sizes the frame to
+   *  match so `object-fit: contain` shows the full photo with no letterboxing. */
+  photoAspect?: string;
 };
 
 const FOUNDERS: Founder[] = [
@@ -34,6 +37,7 @@ const FOUNDERS: Founder[] = [
     bio: "Leads the firm and its client relationships, and sets how engagements are scoped, staffed and delivered across the firm's international practice.",
     focus: ["Client strategy", "Firm direction", "Hospitality"],
     photo: "/shubham-brahmbhatt.jpg",
+    photoAspect: "4 / 5",
   },
   {
     name: "CA Shreyansh Shah",
@@ -42,6 +46,8 @@ const FOUNDERS: Founder[] = [
     quote: "[Quote to be supplied]",
     bio: "Runs delivery across the team — the close calendar, reporting cadence and the review process that each client's books pass through every month.",
     focus: ["Operations", "Monthly close", "Reporting cadence"],
+    photo: "/shreyansh-shah.jpg",
+    photoAspect: "2 / 3",
   },
   {
     name: "CA Rushabh Shah",
@@ -182,7 +188,12 @@ export default function Content() {
               <div
                 style={{
                   position: "relative",
-                  minHeight: "clamp(380px,40vw,520px)",
+                  // A real photo sizes the frame to its own aspect ratio, so
+                  // it fills the frame exactly with no letterboxing; the
+                  // empty-state placeholder keeps the old fixed-height box.
+                  ...(f.photo
+                    ? { aspectRatio: f.photoAspect ?? "4 / 5" }
+                    : { minHeight: "clamp(380px,40vw,520px)" }),
                   background:
                     "repeating-linear-gradient(135deg,#EDE8DF 0 12px,#E6E0D6 12px 24px)",
                   order: f.photoOrder,
@@ -194,7 +205,7 @@ export default function Content() {
                     alt={`Portrait of ${f.name}`}
                     fill
                     sizes="(max-width: 760px) 100vw, 50vw"
-                    style={{ objectFit: "contain" }}
+                    style={{ objectFit: "cover" }}
                   />
                 ) : (
                   <ImageSlot shape="rect" placeholder={`Headshot — ${f.name}`} />
