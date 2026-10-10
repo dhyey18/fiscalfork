@@ -33,7 +33,7 @@ const FOUNDERS: Founder[] = [
   {
     name: "Shubham Brahmbhatt",
     role: "Founder & CEO",
-    creds: "[Credentials to confirm]",
+    creds: " ",
     quote: "[Quote to be supplied]",
     bio: "Leads the firm and its client relationships, and sets how engagements are scoped, staffed and delivered across the firm's international practice.",
     focus: ["Client strategy", "Firm direction", "Hospitality"],
@@ -45,7 +45,7 @@ const FOUNDERS: Founder[] = [
   {
     name: "CA Shreyansh Shah",
     role: "Co-Founder & COM",
-    creds: "[Credentials to confirm]",
+    creds: " ",
     quote: "[Quote to be supplied]",
     bio: "Runs delivery across the team — the close calendar, reporting cadence and the review process that each client's books pass through every month.",
     focus: ["Operations", "Monthly close", "Reporting cadence"],
@@ -56,7 +56,7 @@ const FOUNDERS: Founder[] = [
   {
     name: "CA Rushabh Shah",
     role: "Co-Founder & CFM",
-    creds: "[Credentials to confirm]",
+    creds: " ",
     quote: "[Quote to be supplied]",
     bio: "Oversees the financial side of client work: management reporting, cash flow, job and location level costing, and the CFO advisory engagements.",
     focus: ["Management reporting", "Cash flow", "CFO advisory"],
@@ -265,7 +265,7 @@ export default function Content() {
                 <div style={{ marginTop: 12, fontSize: 15, color: "#656A73" }}>
                   {f.creds}
                 </div>
-                <p
+                {/* <p
                   style={{
                     margin: "28px 0 0",
                     fontFamily: "'Newsreader',serif",
@@ -277,7 +277,7 @@ export default function Content() {
                   }}
                 >
                   “{f.quote}”
-                </p>
+                </p> */}
                 <p
                   style={{
                     margin: "24px 0 0",
