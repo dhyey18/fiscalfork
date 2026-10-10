@@ -26,6 +26,7 @@ type Founder = {
   /** The photo's own width/height ratio, e.g. "2 / 3" — sizes the frame to
    *  match so `object-fit: contain` shows the full photo with no letterboxing. */
   photoAspect?: string;
+  linkedin?: string;
 };
 
 const FOUNDERS: Founder[] = [
@@ -37,7 +38,9 @@ const FOUNDERS: Founder[] = [
     bio: "Leads the firm and its client relationships, and sets how engagements are scoped, staffed and delivered across the firm's international practice.",
     focus: ["Client strategy", "Firm direction", "Hospitality"],
     photo: "/shubham-brahmbhatt.jpg",
-    photoAspect: "4 / 5",
+    photoAspect: "1000 / 1205",
+    linkedin:
+      "https://in.linkedin.com/in/shubham-brahmbhatt-728a63303?utm_source=share&utm_medium=member_mweb&utm_campaign=share_via&utm_content=profile",
   },
   {
     name: "CA Shreyansh Shah",
@@ -48,6 +51,7 @@ const FOUNDERS: Founder[] = [
     focus: ["Operations", "Monthly close", "Reporting cadence"],
     photo: "/shreyansh-shah.jpg",
     photoAspect: "2 / 3",
+    linkedin: "https://in.linkedin.com/in/ca-shreyansh-shah-39695210a",
   },
   {
     name: "CA Rushabh Shah",
@@ -329,7 +333,9 @@ export default function Content() {
                     Email
                   </Hover>
                   <Hover
-                    href="#"
+                    href={f.linkedin ?? "#"}
+                    target={f.linkedin ? "_blank" : undefined}
+                    rel={f.linkedin ? "noopener noreferrer" : undefined}
                     style={pillLink}
                     hoverStyle={{ background: "#F6F3EE", color: "#0B0F14" }}
                   >
